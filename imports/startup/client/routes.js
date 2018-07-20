@@ -14,17 +14,47 @@ Router.route('dashboard', {
     title : 'Dashboard'
 });
 
-Router.route('job', {
-    template : 'job',
-    title : 'Jobs'
+// Job Routes
+Router.map(function() {
+  this.route('job', {
+      template: 'job',
+      title: 'Jobs'
+  });
+  this.route('job/:_id/view', {
+      template: 'jobView',
+      title: 'View Job'
+  });
+  this.route('job/:_id/edit', {
+      template: 'jobUpdate',
+      title: 'Edit Job'
+  });
+  this.route('job/:_id/delete', {
+      template: 'jobDelete',
+      title: 'Delete Job'
+  });
+  this.route('job/create/:_id', {
+      template: 'jobCreate',
+      title : 'New Job'
+  });
+  this.route('job/:_id/form/create', {
+      template: 'jobFormCreate',
+      title : 'New Job Form'
+  });
+  this.route('job/:_id/form/:_formId/edit', {
+      template: 'jobFormUpdate',
+      title : 'Edit Job Form'
+  });
+  this.route('job/:_id/form/:_formId/delete', {
+      template: 'jobFormDelete',
+      title : 'Delete Job Form'
+  });
+  this.route('job/:_id/form/:_formId/view', {
+      template: 'jobFormView',
+      title : 'View Job Form'
+  });
 });
 
-Router.route('job/create/:_id', {
-    template : 'jobCreate',
-    title : 'New Job',
-    name: 'jobCreate'
-});
-
+// roles routes
 Router.route('role', {
     template : 'role',
     title : 'Roles',
@@ -57,6 +87,7 @@ Router.route('weight-type', {
     title : 'Weight Types'
 });
 
+// User routes
 Router.route('user', {
     template : 'user',
     title : 'Users'
@@ -68,7 +99,7 @@ Router.route('user/create', {
     name: 'userCreate'
 });
 
-Router.route('user/view/:_id', {
+Router.route('user/:_id/view', {
     template: 'userView',
     title: 'View User',
     name: 'userView'

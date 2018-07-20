@@ -8,19 +8,20 @@ import './view.html';
   // on created
   Template.userView.onCreated(function() {
     this.autorun(() => {
-      var _id = Router.current().params._id;
+      var userId = Router.current().params._id;
 
       // subscribe
-      this.subscribe('singleUser', _id);
+      this.subscribe('singleUser', userId);
       this.subscribe('allRole');
+      this.subscribe('userJobs', userId)
     });
   });
 
   // helpers
   Template.userView.helpers({
     user: function() {
-      var _id = Router.current().params._id;
-      var result = Meteor.users.findOne({_id: _id}, {fields: {profile: 1, emails: 1, createdAt: 1, roles: 1}});
+      var userId = Router.current().params._id;
+      var result = Meteor.users.findOne({_id: userId}, {fields: {profile: 1, emails: 1, createdAt: 1, roles: 1}});
       return result;
     },
     getUserEmail: function(emails) {
@@ -33,9 +34,14 @@ import './view.html';
       return result;
     },
     listUserRoles: function() {
-      var _id = Router.current().params._id;
-      var user = Meteor.users.findOne({_id: _id}, {fields: {profile: 1, emails: 1, createdAt: 1, roles: 1}});
+      var userId = Router.current().params._id;
+      var user = Meteor.users.findOne({_id: userId}, {fields: {profile: 1, emails: 1, createdAt: 1, roles: 1}});
       var result = Roles.getRolesForUser(user);
+      return result;
+    },
+    userJobs: function() {
+      var userId =  Router.current().params._id;
+      var result = Job.find({userId: userId});
       return result;
     }
   });

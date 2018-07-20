@@ -8,7 +8,6 @@ import './jobCreate.html';
     // on created
     Template.jobCreate.onCreated(function() {
       this.autorun(() => {
-
         this.subscribe('allActiveUser');
       });
     });
@@ -95,8 +94,4 @@ import './jobCreate.html';
         });
       }
     });
-
-
-
-
 })();

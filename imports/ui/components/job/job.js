@@ -5,31 +5,22 @@ import './job.html';
 (function() {
     'use strict';
 
-    Template.job.onRendered(tableBootgrid);
+    // on created
+    Template.job.onCreated(function() {
+      this.autorun(() => {
+        // subscribe
+        this.subscribe('allJobs');
+      });
+    });
 
-    function tableBootgrid() {
+    // on rendered
+    Template.job.onRendered(function() {});
 
-        if ( !$.fn.bootgrid ) return;
-
-        var ioniconCss = {
-            icon: "icon",
-            iconColumns: "ion-ios-list-outline",
-            iconDown: "ion-chevron-down",
-            iconRefresh: "ion-refresh",
-            iconSearch: "ion-search",
-            iconUp: "ion-chevron-up"
-        }
-
-        $('#bootgrid-command').bootgrid({
-            css: ioniconCss,
-            formatters: {
-                commands: function(column, row) {
-                    return '<button type="button" class="btn btn-flat btn-sm btn-info" data-row-id="' + row.id + '"><em class="ion-edit"></em></button>' +
-                        '<button type="button" class="btn btn-flat btn-sm btn-danger" data-row-id="' + row.id + '"><em class="ion-trash-a"></em></button>';
-                }
-            }
-        });
-
-    }
-
+    // helpers
+    Template.job.helpers({
+      jobs: function() {
+        var results = Job.find().fetch();
+        return results;
+      }
+    });
 })();

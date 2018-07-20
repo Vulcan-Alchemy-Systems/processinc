@@ -6,13 +6,25 @@
         <table id="bootgrid-command" class="table table-striped table-vmiddle">
           <thead>
             <tr>
-              <th data-column-id="id" data-type="numeric">ID</th>
-              <th data-column-id="description">Description</th>
-              <th data-column-id="created" data-order="desc">Created</th>
+              <th data-column-id="id">ID</th>
+              <th data-column-id="user">User</th>
+              <th data-column-id="description">Name</th>
+              <th data-column-id="created">Created</th>
+              <th data-column-id="expectedFinish">Expected Finish</th>
               <th data-column-id="status">Status</th>
             </tr>
           </thead>
           <tbody>
+            {{#each jobs}}
+              <tr>
+                <td><a href="/job/{{_id}}/view" title="View Job {{_id}}">{{_id}}</a></td>
+                <td><a href="/user/{{userId}}/view" title="View User {{userEmail userId}}">{{userEmail userId}}</a></td>
+                <td>{{name}}</td>
+                <td>{{shortDate created}}</td>
+                <td>{{shortDate expectedFinish}}</td>
+                <td>{{status}}</td>
+              </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>

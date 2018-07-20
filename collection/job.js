@@ -42,7 +42,7 @@ JobSchema = new SimpleSchema({
     optional: false,
   },
   // expectedFinish
-  start: {
+  expectedFinish: {
     type: Date,
     label: "Expected Finish",
     optional: false,
@@ -50,13 +50,13 @@ JobSchema = new SimpleSchema({
   // finish
   finish: {
     type: Date,
-    label: " Finish",
+    label: "Finish",
     optional: true,
   },
   // status
   status: {
     type: String,
-    label: " Finish",
+    label: "Status",
     optional: false,
   },
   // created
@@ -95,7 +95,7 @@ Meteor.methods({
 
     var result = Job.insert(object);
 
-    return result; 
+    return result;
 
     if ( isSafeToProcess) {
       var result = Job.insert(object);
@@ -105,10 +105,19 @@ Meteor.methods({
       throw new Meteor.Error('Failed to save Job');
     }
   },
-  updateJob: function() {
+  updateJob: function(id, userId, name, description, start, expectedFinish, finish, status) {
+    var object = {
+      userId: userId,
+      name: name,
+      description: description,
+      start: start,
+      finish: finish,
+      status: status,
+      expectedFinish: expectedFinish,
+    }
 
   },
-  deleteJob: function() {
+  deleteJob: function(id) {
 
   }
 });

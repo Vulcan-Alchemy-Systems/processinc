@@ -14,9 +14,15 @@
 import './user/view.js';
 import './user/create.js';
 import './user/list.js';
+// Roles
 import './role/role.js';
+// Jobs
 import './job/job.js';
 import './job/jobCreate.js';
+import './job/jobView.js';
+import './job/jobUpdate.js';
+import './job/jobDelete.js';
+// Admin
 import './admin/admin.js';
 import './growType/growType.js';
 import './intakeType/intakeType.js';
@@ -94,4 +100,21 @@ import './utils/svgreplace.js';
         $(this)[this.value.length ? 'addClass' : 'removeClass']('has-value');
     });
 
+    // shortDate
+    Template.registerHelper('shortDate', function (date) {
+      if(date) {
+        return moment(date).format('MM/DD/YYYY');
+      } else {
+        return null;
+      }
+    });
+
+    // longDate
+    Template.registerHelper('longDate', function (date) {
+      if(date) {
+        return moment(date).format('MM/DD/YYYY HH:mm:ss');
+      } else {
+        return null;
+      }
+    });
 })();
