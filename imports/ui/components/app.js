@@ -21,7 +21,6 @@ import './job/job.js';
 import './job/jobCreate.js';
 import './job/jobView.js';
 import './job/jobUpdate.js';
-import './job/jobDelete.js';
 // Admin
 import './admin/admin.js';
 import './growType/growType.js';

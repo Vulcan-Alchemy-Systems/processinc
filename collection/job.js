@@ -59,6 +59,11 @@ JobSchema = new SimpleSchema({
     label: "Status",
     optional: false,
   },
+  deleted: {
+    type: Boolean,
+    label: "Deleted",
+    optional: false,
+  },
   // created
   created: {
     type: Date,
@@ -72,6 +77,7 @@ JobSchema = new SimpleSchema({
 Job.attachSchema(JobSchema);
 
 Meteor.methods({
+  // createJob
   createJob: function(userId, name, description, start, expectedFinish) {
     var object = {
       userId: userId,
@@ -80,7 +86,8 @@ Meteor.methods({
       start: start,
       finish: null,
       status: 'New',
-      expectedFinish: expectedFinish
+      expectedFinish: expectedFinish,
+      deleted: false,
     }
 
     var isSafeToProcess = Match.test( object, {
@@ -90,8 +97,6 @@ Meteor.methods({
       start: Date,
       expectedFinish: Date
     });
-
-    console.log(object);
 
     var result = Job.insert(object);
 
@@ -105,6 +110,7 @@ Meteor.methods({
       throw new Meteor.Error('Failed to save Job');
     }
   },
+  // updateJob
   updateJob: function(id, userId, name, description, start, expectedFinish, finish, status) {
     var object = {
       userId: userId,
@@ -116,8 +122,50 @@ Meteor.methods({
       expectedFinish: expectedFinish,
     }
 
-  },
-  deleteJob: function(id) {
+    var isSafeToProcess = Match.test( object, {
+      userId: String,
+      name: String,
+      description: String,
+      start: Date,
+      expectedFinish: Date,
+      finish: Date,
+      status: String
+    });
 
+
+    var result = Job.update(id, {$set: {
+      userId: userId,
+      name: name,
+      description: description,
+      start: start,
+      finish: finish,
+      status: status,
+      expectedFinish: expectedFinish,
+      deleted: false,
+    }});
+
+    return result;
+
+    if ( isSafeToProcess) {
+      var result = Job.update(id, {$set: {
+        userId: userId,
+        name: name,
+        description: description,
+        start: start,
+        finish: finish,
+        status: status,
+        expectedFinish: expectedFinish,
+      }});
+    } else {
+      throw new Meteor.Error('Failed to save Job');
+    }
+  },
+  // deleteJob
+  deleteJob: function(id) {
+    var result = Job.update(id, {$set: {
+      deleted: true
+    }});
+
+    return result;
   }
 });

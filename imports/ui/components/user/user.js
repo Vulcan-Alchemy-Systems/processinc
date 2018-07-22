@@ -10,3 +10,13 @@ Template.registerHelper('userEmail', function (userId) {
     return 'Unknown';
   }
 });
+
+// userSelectList
+Template.registerHelper('userSelectList', function (userId) {
+  return Meteor.users.find({'profile.status': 'Active'}, {fields: {_id: 1, emails: 1}}).map(function(values) {
+    return {
+      label: values.emails[0].address,
+      value: values._id
+    };
+  });
+});

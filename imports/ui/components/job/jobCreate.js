@@ -83,13 +83,21 @@ import './jobCreate.html';
         var start = $('#start').val();
         var expectedFinish = $('#expectedFinish').val();
 
-        console.log(userId);
 
         Meteor.call('createJob', userId, name, description, start, expectedFinish, function(error, result) {
           if(error) {
             swal('Error', error, 'error');
           } else {
-            swal('Success', 'Job was saved', 'success');
+            swal({
+              title: 'Success',
+              text: 'The Job was saved.',
+              type: 'success',
+              closeModal: true,
+              closeOnClickOutside: false,
+              closeOnEsc: false,
+            }, function() {
+              Router.go('/job/'+result+'/view');
+            });
           }
         });
       }

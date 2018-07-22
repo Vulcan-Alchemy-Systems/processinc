@@ -29,6 +29,44 @@ import './jobView.html';
 
     // events
     Template.jobView.events({
+      'click #deleteJob': function(event) {
+        event.preventDefault();
 
+        var id = Router.current().params._id;
+
+        swal({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this Job!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'Cancel',
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            dangerMode: true,
+        }, function(isConfirm) {
+            if (isConfirm) {
+                Meteor.call('deleteJob', id, function(error, result) {
+                  if(error) {
+                    swal('Error', error, 'error');
+                  } else {
+                    swal({
+                      title: 'Success',
+                      text: 'The Job was deleted.',
+                      type: 'success',
+                      closeModal: true,
+                      closeOnClickOutside: false,
+                      closeOnEsc: false,
+                    }, function() {
+                      Router.go('/job');
+                    });
+                  }
+                });
+            } else {
+                swal('Cancelled', 'The Job was not deleted', 'error');
+            }
+        });
+      }
     });
 })();
