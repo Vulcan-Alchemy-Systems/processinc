@@ -21,6 +21,7 @@ import './job/job.js';
 import './job/jobCreate.js';
 import './job/jobView.js';
 import './job/jobUpdate.js';
+import './job/jobFormCreate.js';
 // Admin
 import './admin/admin.js';
 import './growType/growType.js';
@@ -114,6 +115,15 @@ import './utils/svgreplace.js';
         return moment(date).format('MM/DD/YYYY HH:mm:ss');
       } else {
         return null;
+      }
+    });
+
+    // selected
+    Template.registerHelper('selected', function (value, match) {
+      if(value == match) {
+        return 'selected';
+      } else {
+        return "";
       }
     });
 })();

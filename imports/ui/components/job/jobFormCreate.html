@@ -1,0 +1,100 @@
+<template name="jobFormCreate">
+  <div class="container-fluid">
+    <h5 class="mt0">New Job Form</h5>
+    <form id="new-job-form" name="newJobForm" novalidate="" class="form-validate">
+      <div class="card">
+        <div class="card-heading"><small class="pull-right">* Required fields</small>
+          <div class="panel-title">Job Form Details</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <fieldset>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Form Type *</label>
+                  <div class="col-sm-10">
+                    <select name="intakeType" id="intakeType" required="true" class="form-control">
+                      <option value="">-- Select One --</option>
+                      {{#each intakeTypeSelect}}
+                        <option value="{{value}}">{{label}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div id="u4A2hsx2k9apWWmCv" class="hidden">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Grow Type *</label>
+                    <div class="col-sm-10">
+                      <select name="growType" id="growType" required="true" class="form-control">
+                        {{#each growTypeSelect}}
+                          <option value="{{value}}">{{label}}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Strain</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="strain" id="strain" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Condition</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="condition" id="condition" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Return Type *</label>
+                    <div class="col-sm-10">
+                      <select name="returnType" id="returnType" required="true" class="form-control">
+                        {{#each returnTypeSelect}}
+                          <option value="{{value}}">{{label}}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+
+          <hr/>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

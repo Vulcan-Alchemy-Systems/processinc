@@ -15,7 +15,7 @@
                   <div class="col-sm-10">
                     <select name="userId" id="userId" required="true" class="form-control">
                       {{#each userList}}
-                        <option value="{{value}}" {{selected value}}>{{label}}</option>
+                        <option value="{{value}}" {{selected value userId}}>{{label}}</option>
                       {{/each}}
                     </select>
                   </div>

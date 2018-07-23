@@ -24,6 +24,16 @@ import './growType.html';
       }
     });
 
+    // growTypeSelect
+    Template.registerHelper('growTypeSelect', function () {
+      return GrowType.find().map(function(values) {
+        return {
+          label: values.name,
+          value: values._id
+        };
+      });
+    });
+
     // Events
     Template.growType.events({
       'click #create': function(event) {

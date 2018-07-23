@@ -53,8 +53,8 @@ import './jobCreate.html';
     // helpers
     Template.jobCreate.helpers({
       userId: function() {
-        var _id = Router.current().params._id;
-        return _id;
+        var userId = Router.current().params._id;
+        return userId;
       },
       userList: function() {
         return Meteor.users.find({'profile.status': 'Active'}, {fields: {_id: 1, emails: 1}}).map(function(values) {
@@ -63,13 +63,6 @@ import './jobCreate.html';
             value: values._id
           };
         });
-      }
-    });
-
-    Template.registerHelper('selected', function (value) {
-      var _id = Router.current().params._id;
-      if(value == _id) {
-        return 'selected';
       }
     });
 

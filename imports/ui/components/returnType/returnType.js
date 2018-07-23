@@ -24,6 +24,16 @@ import './returnType.html';
       }
     });
 
+    // returnTypeSelect
+    Template.registerHelper('returnTypeSelect', function () {
+      return ReturnType.find().map(function(values) {
+        return {
+          label: values.name,
+          value: values._id
+        };
+      });
+    });
+
     // events
     Template.returnType.events({
       'click #create': function(event) {

@@ -21,6 +21,16 @@ import './intakeType.html';
       }
     });
 
+    // intakeTypeSelect
+    Template.registerHelper('intakeTypeSelect', function () {
+      return IntakeType.find().map(function(values) {
+        return {
+          label: values.name,
+          value: values._id
+        };
+      });
+    });
+
     // onRendered
     Template.intakeType.onRendered(function() {});
 
