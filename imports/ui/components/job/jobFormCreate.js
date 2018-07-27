@@ -32,15 +32,22 @@ import './jobFormCreate.html';
         console.log(intakeType);
 
         switch(intakeType) {
+          // distilate
           case 'u4A2hsx2k9apWWmCv':
-            $('#u4A2hsx2k9apWWmCv').removeClass('hidden');
-          break;
           case 'wuwLti2ZhQBvJGWDb':
-            $('#wuwLti2ZhQBvJGWDb').removeClass('hidden');
-            $('#u4A2hsx2k9apWWmCv').addClass('hidden');
+            $('#distilate').removeClass('hidden');
           break;
-          defult:
-            $('#u4A2hsx2k9apWWmCv').addClass('hidden');
+          // shatter
+          case 'ArgLwXYcrRWFFC7cX':
+          case 'eEu47ZGp3Ae4ttnek':
+            $('#shatter').removeClass('hidden');
+            $('#distilate').addClass('hidden');
+          break;
+          //cart formr
+          case 'ymuvhtv6AXQYwWCvP':
+            $('#distilate').addClass('hidden');
+            $('#shatter').addClass('hidden');
+          break;
         }
       }
     });

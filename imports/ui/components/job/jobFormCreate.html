@@ -12,7 +12,7 @@
               <fieldset>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Form Type *</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-10 col-md-6">
                     <select name="intakeType" id="intakeType" required="true" class="form-control">
                       <option value="">-- Select One --</option>
                       {{#each intakeTypeSelect}}
@@ -25,13 +25,14 @@
             </div>
           </div>
 
-          <div id="u4A2hsx2k9apWWmCv" class="hidden">
+          <div id="distilate" class="hidden">
             <div class="row">
               <div class="col-md-12">
                 <fieldset>
+                  <legend>Biomass Details</legend>
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Grow Type *</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 col-md-6">
                       <select name="growType" id="growType" required="true" class="form-control">
                         {{#each growTypeSelect}}
                           <option value="{{value}}">{{label}}</option>
@@ -61,21 +62,131 @@
                 <fieldset>
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Condition</label>
-                    <div class="col-sm-10">
-                      <input type="text" name="condition" id="condition" required="false" class="form-control"/>
+                    <div class="col-sm-10 col-md-6">
+                      <textarea name="condition" id="condition" required="false" class="form-control"></textarea>
                     </div>
                   </div>
                 </fieldset>
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <legend>Lab Information</legend>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Lab Tested</label>
+                    <div class="col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="" id="labTested" name="labTested"/>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
 
             <div class="row">
               <div class="col-md-12">
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Return Type *</label>
+                    <label class="col-sm-2 control-label">Lab Sheet Provided</label>
                     <div class="col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="" id="labSheetProvided" name="labSheetProvided"/>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Enable Tracking System</label>
+                    <div class="col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="" id="trackingEnabled" name="trackingEnabled"/>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <legend>Intake Weights</legend>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Total Biomass Weight *</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="biomassWeight" id="biomassWeight" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Container Weight *</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="containerWeight" id="containerWeight" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <legend>Pre Processing</legend>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Pre Processing Needed</label>
+                    <div class="col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="" id="prerocessing" name="prerocessing"/>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Pre Processing Notes</label>
+                    <div class="col-sm-10 col-sm-6">
+                      <textarea name="preprocessingNote" id="preprocessingNote" required="false" class="form-control"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                   <legend>Deliverables</legend>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Return Type *</label>
+                    <div class="col-sm-10 col-md-6">
                       <select name="returnType" id="returnType" required="true" class="form-control">
                         {{#each returnTypeSelect}}
                           <option value="{{value}}">{{label}}</option>
@@ -86,9 +197,8 @@
                 </fieldset>
               </div>
             </div>
+
           </div>
-
-
           <hr/>
           <div class="text-center">
             <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
