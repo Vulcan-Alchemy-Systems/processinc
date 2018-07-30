@@ -1,5 +1,9 @@
 {
-  "intakeType": [{
-
-    }]
+  "intakeType": [
+    { "_id" : "u4A2hsx2k9apWWmCv", "name" : "THC Distillate Order Form", "created" : "2018-04-19T22:27:20.144Z" },
+    { "_id" : "wuwLti2ZhQBvJGWDb", "name" : "CBD Distillate Toll Processing Form", "created" : "2018-04-19T22:27:42.230Z" },
+    { "_id" : "ArgLwXYcrRWFFC7cX", "name" : "Shatter/Crude Form", "created" : "2018-04-19T22:28:08.481Z" },
+    { "_id" : "eEu47ZGp3Ae4ttnek", "name" : "Shatter/Crude Toll Processing Form", "created" : "2018-04-19T22:28:27.864Z" },
+    { "_id" : "ymuvhtv6AXQYwWCvP", "name" : "Cartridges Order Form", "created" : "2018-04-19T22:28:56.682Z" },
+  ]
 }

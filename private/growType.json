@@ -1,5 +1,6 @@
 {
-  "growType": [{
-
-    }]
+  "growType": [
+    { "_id" : "ASQCjKc3ZFLgvNbdD", "name" : "Indoor", "created" : "2018-04-19T14:18:19.167Z" },
+    { "_id" : "dS8BJ8LrRDPgz7Pjb", "name" : "Outdoor", "created" : "2018-04-19T14:38:30.192Z" }
+  ]
 }

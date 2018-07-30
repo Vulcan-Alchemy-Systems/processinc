@@ -1,5 +1,14 @@
 {
-  "returnType": [{
-
-    }]
+  "returnType": [
+    { "_id" : "T8PxKNaNEbekzHneu", "name" : "50% returned  as > 90% Distillate", "created" : "2018-07-22T22:10:27.961Z" },
+    { "_id" : "sPA4jwAvqRL75tXrY", "name" : "50% returned as infused Distillate", "created" : "2018-07-22T22:10:37.321Z" },
+    { "_id" : "tuFs7zuueM2gZHwJ4", "name" : "50% returned as filled cartridges", "created" : "2018-04-19T22:20:15.790Z" },
+    { "_id" : "8SDDLby3wufp7o8hh", "name" : "100% returned as 90%+  Distillate", "created" : "2018-07-22T22:02:02.388Z" },
+    { "_id" : "cts2k8Wv9G4MePcHx", "name" : "100% returned as 90%+ Isolate", "created" : "2018-07-22T22:02:12.390Z" },
+    { "_id" : "GTN7uxBeSPH4zBzrf", "name" : "100% returned as cartridges", "created" : "2018-07-22T22:02:32.312Z" },
+    { "_id" : "6bZ4zevccHxHoA253", "name" : "Returned as cut distillate", "created" : "2018-04-19T22:24:19.569Z" },
+    { "_id" : "ncBwF7oeCZKy4XGCD", "name" : "50% Returned as filled cartridges", "created" : "2018-07-22T22:09:57.053Z" },
+    { "_id" : "sm6fstnBHjjMy6wLq", "name" : "Returned as 1g plastic syringes", "created" : "2018-04-19T22:24:43.669Z" },
+    { "_id" : "X4rnMi7ncsj62i48D", "name" : "100% returned as degassed shatter on parchment sheets in pizza-style box", "created" : "2018-04-19T22:26:06.122Z" },
+  ]
 }

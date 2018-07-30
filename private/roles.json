@@ -1,5 +1,9 @@
 {
-  "role": [{
-
-    }]
+  "role": [
+    { "_id" : "Nb2LGNTM8nRiSqZcG", "name" : "Admin" },
+    { "_id" : "3TwaZNp7nvQBapkSB", "name" : "Developer" },
+    { "_id" : "L7S58KJaCj6JvxjRz", "name" : "Grower" },
+    { "_id" : "EbjRBA4cMjvRyiXqJ", "name" : "Processor" },
+    { "_id" : "M4AwE3P4SSZG3WPD4", "name" : "Manager" },
+  ]
 }

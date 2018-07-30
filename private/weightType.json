@@ -1,5 +1,9 @@
 {
-  "weightType": [{
-
-    }]
+  "weightType": [
+    { "_id" : "SgWLCbudopay87aTg", "name" : "Grams", "created" : "2018-07-08T20:49:33.484Z" },
+    { "_id" : "q3Gi8tHJPDLQ7wRLK", "name" : "Kilos", "created" : "2018-04-19T23:18:20.923Z" },
+    { "_id" : "seFY9dXXS4xTGKLCH", "name" : "Ounces", "created" : "2018-04-19T23:18:33.158Z" },
+    { "_id" : "rurxA4RK2MQaQTNwn", "name" : "Pounds", "created" : "2018-04-19T23:18:39.192Z" },
+    { "_id" : "F48j5PSC26QpWy8z3", "name" : "Tons", "created" : "2018-04-19T23:18:45.072Z" },
+  ]
 }
