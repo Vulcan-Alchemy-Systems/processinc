@@ -1,0 +1,5 @@
+{
+  "admin": [
+    { "email" : "admin@processinc.ltd", "password": "password", "status": "active"}
+  ]
+}

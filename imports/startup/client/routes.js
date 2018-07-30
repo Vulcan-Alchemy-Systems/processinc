@@ -19,6 +19,8 @@ Router.route('/dashboard', {
   onBeforeAction: function() {
     if(!Meteor.userId()) {
       Router.go('login');
+    } else {
+      this.next();
     }
   },
   template: 'dashboard',
@@ -32,6 +34,8 @@ Router.map(function() {
       onBeforeAction: function() {
         if(!Meteor.userId()) {
           Router.go('login');
+        } else {
+          this.next();
         }
       },
       template: 'job',
@@ -42,6 +46,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobView',
@@ -52,6 +58,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobUpdate',
@@ -62,6 +70,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobDelete',
@@ -72,6 +82,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobCreate',
@@ -82,6 +94,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobFormCreate',
@@ -92,6 +106,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobFormUpdate',
@@ -102,6 +118,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobFormDelete',
@@ -112,6 +130,8 @@ Router.map(function() {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
         Router.go('login');
+      } else {
+        this.next();
       }
     },
     template: 'jobFormView',
@@ -127,6 +147,8 @@ Router.route('/role', {
       Router.go('login');
     } else {
       // check if user is allowed
+
+      this.next();
     }
   },
   template: 'role',
@@ -141,6 +163,8 @@ Router.route('/admin', {
       Router.go('login');
     } else {
       // check if user is allowed
+
+      this.next();
     }
   },
   template : 'admin',
@@ -149,16 +173,17 @@ Router.route('/admin', {
 });
 
 Router.route('/grow-type', {
+  template : 'growType',
+  title : 'Grow Types',
+  name: 'growType',
   onBeforeAction: function() {
     if(!Meteor.userId()) {
       Router.go('login');
     } else {
       // check if user is allowed
+      this.next();
     }
-  },
-  template : 'growType',
-  title : 'Grow Types',
-  name: 'growType'
+  }
 });
 
 Router.route('/intake-type', {
@@ -167,6 +192,7 @@ Router.route('/intake-type', {
       Router.go('login');
     } else {
       // check if user is allowed
+      this.next();
     }
   },
   template: 'intakeType',
@@ -180,6 +206,7 @@ Router.route('/return-type', {
       Router.go('login');
     } else {
       // check if user is allowed
+      this.next();
     }
   },
   template: 'returnType',
@@ -193,6 +220,8 @@ Router.route('/weight-type', {
       Router.go('login');
     } else {
       // check if user is allowed
+      Router.go('/weight-type');
+      this.next();
     }
   },
   template: 'weightType',
@@ -208,6 +237,7 @@ Router.map(function() {
         Router.go('login');
       } else {
         // check if user is allowed
+        this.next();
       }
     },
     template: 'user',
@@ -220,6 +250,7 @@ Router.map(function() {
         Router.go('login');
       } else {
         // check if user is allowed
+        this.next();
       }
     },
     template: 'userCreate',
@@ -232,11 +263,25 @@ Router.map(function() {
         Router.go('login');
       } else {
         // check if user is allowed
+        this.next();
       }
     },
     template: 'userView',
     title: 'View User',
     name: 'userView'
+  });
+  this.route('profile', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        // check if user is allowed
+        this.next();
+      }
+    },
+    template: 'profile',
+    title: 'Profile',
+    name: 'profile'
   });
   this.route('/lock', function() {
       this.render('lock');

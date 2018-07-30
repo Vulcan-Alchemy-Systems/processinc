@@ -1,6 +1,9 @@
 import { Template } from 'meteor/templating';
 
 import './sidebar.tpl.html';
+import './userMenu.tpl.html';
+import './adminMenu.tpl.html';
+import './developerMenu.tpl.html';
 
 (function() {
     'use strict';
@@ -21,7 +24,6 @@ import './sidebar.tpl.html';
     Template.sidebar.onRendered(sidebarNav);
 
     function sidebarNav() {
-
         var $sidebarNav = $('.sidebar-nav');
         var $sidebarContent = $('.sidebar-content');
 
@@ -32,8 +34,7 @@ import './sidebar.tpl.html';
             // check click is on a tag
             if (!item) return;
 
-            var ele = $(item),
-                liparent = ele.parent()[0];
+            var ele = $(item), liparent = ele.parent()[0];
 
             var lis = ele.parent().parent().children(); // markup: ul > li > a
             // remove .active from childs
@@ -54,8 +55,8 @@ import './sidebar.tpl.html';
         // find the a element in click context
         // doesn't check deeply, asumens two levels only
         function getItemElement(event) {
-            var element = event.target,
-                parent = element.parentNode;
+            var element = event.target, parent = element.parentNode;
+
             if (element.tagName.toLowerCase() === 'a') return element;
             if (parent.tagName.toLowerCase() === 'a') return parent;
             if (parent.parentNode.tagName.toLowerCase() === 'a') return parent.parentNode;
@@ -108,7 +109,5 @@ import './sidebar.tpl.html';
                 $('#offcanvas-toggler').parent().addClass('active');
             }
         });
-
     }
-
 })();

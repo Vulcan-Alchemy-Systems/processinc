@@ -1,0 +1,34 @@
+<template name="adminMenu">
+  <li class="{{isActiveRoute regex='admin|growType|intakeType|returnType|weightType|role|user'}}">
+    <a href="{{pathFor 'admin'}}" class="ripple">
+      <span class="pull-right nav-caret">
+        <em class="ion-ios-arrow-right"></em>
+      </span>
+      <span class="pull-right nav-label"></span>
+      <span class="nav-icon">
+        <img src="" data-svg-replace="/img/icons/radio-waves.svg" alt="MenuItem" class="hidden">
+      </span>
+      <span>Admin</span>
+    </a>
+    <ul class="sidebar-subnav">
+      <li class="{{isActiveRoute regex='growType'}}">
+        <a href="{{pathFor 'growType'}}" class="ripple" title="Grow Types"><span class="pull-right nav-label"></span><span>Grow Types</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='intakeType'}}">
+        <a href="{{pathFor 'intakeType'}}" class="ripple"><span class="pull-right nav-label"></span><span>Intake Types</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='returnType'}}">
+        <a href="{{pathFor 'returnType'}}" class="ripple"><span class="pull-right nav-label"></span><span>Return Types</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='weightType'}}">
+        <a href="{{pathFor 'weightType'}}" class="ripple"><span class="pull-right nav-label"></span><span>Weight Types</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='role'}}">
+        <a href="{{pathFor 'role'}}" class="ripple"><span class="pull-right nav-label"></span><span>Roles</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='user'}}">
+        <a href="{{pathFor 'user'}}" class="ripple"><span class="pull-right nav-label"></span><span>Users</span></a>
+      </li>
+    </ul>
+  </li>
+</template>

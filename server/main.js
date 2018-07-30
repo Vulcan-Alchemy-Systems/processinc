@@ -45,6 +45,23 @@ Meteor.startup(() => {
   }
 
   // admin
+  if(Roles.getUsersInRole('Admin').count() === 0) {
+    console.log('Inserting admin users');
+    JSON.parse(Assets.getText("admin.json")).admin.forEach(function(doc) {
+      var result = Accounts.createUser({
+        email: doc.email,
+        password: doc.password,
+        profile: {
+          status: doc.status
+        }
+      });
+      console.log('Inserted admin user: ' + result);
+
+      // add user to admin role
+      Roles.addUsersToRoles(result, 'Admin');
+      console.log(result + ' added to role admin');
+    });
+  }
 
   // WeightType
   if(WeightType.find().count() === 0) {

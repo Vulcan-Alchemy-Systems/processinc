@@ -214,10 +214,7 @@ Router.map(function() {
         template: 'messagesBoard',
         title: 'Messages Board'
     });
-    this.route('profile', {
-        template: 'profile',
-        title: 'Profile'
-    });
+    
     this.route('search', {
         template: 'search',
         title: 'Search'

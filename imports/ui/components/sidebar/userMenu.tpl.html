@@ -1,0 +1,26 @@
+<template name="userMenu">
+  <li class="{{isActiveRoute regex='dashboard|profile|job|messagesBoard'}}">
+    <a href="{{pathFor 'dashboard'}}" class="ripple">
+      <span class="pull-right nav-caret">
+        <em class="ion-ios-arrow-right"></em>
+      </span>
+      <span class="pull-right nav-label"></span>
+      <span class="nav-icon"><img src="" data-svg-replace="/img/icons/aperture.svg" alt="MenuItem" class="hidden"></span>
+      <span>Dashboard</span>
+    </a>
+    <ul class="sidebar-subnav">
+      <li class="{{isActiveRoute regex='dashboard'}}">
+        <a href="{{pathFor 'dashboard'}}" class="ripple" title="Dashboard Home"><span class="pull-right nav-label"></span><span>Home</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='profile'}}">
+        <a href="{{pathFor 'profile'}}" class="ripple" title="My Profile"><span class="pull-right nav-label"></span><span>Profile</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='job'}}">
+        <a href="{{pathFor 'job'}}" class="ripple" title="My Jobs"><span class="pull-right nav-label"></span><span>Jobs</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='messagesBoard'}}">
+        <a href="{{pathFor 'messages-board'}}" class="ripple"><span class="pull-right nav-label"></span><span>Messages</span></a>
+      </li>
+    </ul>
+  </li>
+</template>

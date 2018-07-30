@@ -126,4 +126,10 @@ import './utils/svgreplace.js';
         return "";
       }
     });
+
+    // siteName
+    Template.registerHelper('siteName', function () {
+      return Meteor.settings.public.siteName;
+    });
+
 })();
