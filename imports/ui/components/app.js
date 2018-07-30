@@ -103,7 +103,7 @@ import './utils/svgreplace.js';
     // shortDate
     Template.registerHelper('shortDate', function (date) {
       if(date) {
-        return moment(date).format('MM/DD/YYYY');
+        return moment(date).format(Meteor.settings.public.shortDate);
       } else {
         return null;
       }
@@ -112,7 +112,7 @@ import './utils/svgreplace.js';
     // longDate
     Template.registerHelper('longDate', function (date) {
       if(date) {
-        return moment(date).format('MM/DD/YYYY HH:mm:ss');
+        return moment(date).format(Meteor.settings.public.longDate);
       } else {
         return null;
       }
@@ -132,4 +132,28 @@ import './utils/svgreplace.js';
       return Meteor.settings.public.siteName;
     });
 
+    // copyright
+    Template.registerHelper('copyright', function() {
+      return Meteor.settings.public.copyright;
+    });
+
+    // siteVersion
+    Template.registerHelper('siteVersion', function() {
+      return Meteor.settings.public.siteVersion;
+    });
+
+    // developerMode
+    Template.registerHelper('developerMode', function() {
+      return Meteor.settings.public.features.developerMode;
+    });
+
+    // headerSearch
+    Template.registerHelper('headerSearch', function() {
+      return Meteor.settings.public.features.headerSearch;
+    });
+
+    // headerSettings
+    Template.registerHelper('headerSettings', function() {
+      return Meteor.settings.public.features.headerSettings;
+    });
 })();

@@ -19,6 +19,11 @@
     "phone": {
       "primary": "",
       "fax": ""
+    },
+    "features": {
+      "developerMode": false,
+      "headerSearch": false,
+      "headerSettings": false
     }
   }
 }

@@ -1,20 +1,27 @@
 <template name="layout">
     <div class="layout-container">
-        <header class="header-container">{{> header }}</header>
-        <aside class="sidebar-container">{{> sidebar }}</aside>
+        <header class="header-container">{{> header}}</header>
+        <aside class="sidebar-container">{{> sidebar}}</aside>
         <div class="sidebar-layout-obfuscator"></div>
         <main class="main-container">
-            <section>{{> yield }}</section>
+            <section>{{> yield}}</section>
             <footer>
-                <span>2018 - {{siteName}}.</span>
+                <span>{{copyright}} - {{siteName}} - Version: {{siteVersion}}</span>
             </footer>
         </main>
     </div>
-    <!-- Search template -->
-    {{> headerSearch }}
-    <!-- End Search template -->
-    <!-- Settings template -->
-    {{> settings }}
-    <!-- End Settings template -->
-    {{> yield region="bodyChild" }}
+
+    {{#if headerSearch}}
+      <!-- Search template -->
+      {{> headerSearch}}
+      <!-- End Search template -->
+    {{/if}}
+
+    {{#if headerSettings}}
+      <!-- Settings template -->
+      {{> settings}}
+      <!-- End Settings template -->
+    {{/if}}
+
+    {{> yield region="bodyChild"}}
 </template>

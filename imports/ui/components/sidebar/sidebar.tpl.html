@@ -16,7 +16,9 @@
         {{> adminMenu}}
       {{/if}}
       {{#if isInRole 'Developer'}}
-        {{> developerMenu}}
+        {{#if developerMode}}
+          {{> developerMenu}}
+        {{/if}}
       {{/if}}
       </ul>
     </nav>

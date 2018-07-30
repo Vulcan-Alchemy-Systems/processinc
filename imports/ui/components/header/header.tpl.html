@@ -8,7 +8,9 @@
         </ul>
         <h2 class="header-title">{{title}}</h2>
         <ul class="pull-right">
+          {{#if headerSearch}}
             <li><a id="header-search" href="#" class="ripple"><em class="ion-ios-search-strong"></em></a></li>
+          {{/if}}
             <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle has-badge ripple"><em class="ion-person"></em><sup class="badge bg-danger"></sup></a>
                 <ul class="dropdown-menu dropdown-menu-right md-dropdown-menu">
                     <li><a href="{{pathFor 'dashboard'}}"><em class="ion-home icon-fw"></em>Dashboard</a></li>
@@ -19,7 +21,9 @@
                     <li><a href="{{pathFor 'login'}}"><em class="ion-log-out icon-fw"></em>Logout</a></li>
                 </ul>
             </li>
+            {{#if headerSettings}}
             <li><a id="header-settings" href="#" class="ripple"><em class="ion-gear-b"></em></a></li>
+            {{/if}}
         </ul>
     </nav>
 </template>
