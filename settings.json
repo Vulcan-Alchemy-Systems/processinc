@@ -1,0 +1,24 @@
+{
+  "private": {
+
+  },
+  "public": {
+    "siteName": "Vulcan Alchemy Systems",
+    "siteUrl": "https://vulcaniot.net/",
+    "copyright": "2017",
+    "siteVersion": "1.0.0",
+    "shortDate": "MM/DD/YYYY",
+    "longDate": "MM/DD/YYYY HH:mm:ss",
+    "address": {
+      "street": "3881 NE Bryant",
+      "streetCont": "",
+      "city": "Portland",
+      "state": "Oregon",
+      "postal": "97221"
+    },
+    "phone": {
+      "primary": "",
+      "fax": ""
+    }
+  }
+}
