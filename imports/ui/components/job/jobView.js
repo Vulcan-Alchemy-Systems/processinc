@@ -10,6 +10,8 @@ import './jobView.html';
       this.autorun(() => {
         var id = Router.current().params._id;
         this.subscribe('singleJob', id);
+        this.subscribe('allJobForms', id);
+          this.subscribe('allIntakeType');
       });
     });
 
@@ -23,6 +25,11 @@ import './jobView.html';
       job: function() {
         var id = Router.current().params._id;
         var result = Job.findOne({_id: id});
+        return result;
+      },
+      jobForms: function() {
+        var id = Router.current().params._id;
+        var result = JobForm.find({jobId: id, deleted: false}).fetch();
         return result;
       }
     });

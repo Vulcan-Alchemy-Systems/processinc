@@ -31,6 +31,19 @@ import './intakeType.html';
       });
     });
 
+    Template.registerHelper('intakeTypeName', function(id) {
+    
+      var result = IntakeType.findOne({_id: id});
+
+      console.log(result);
+
+      if(result) {
+        return result.name;
+      } else {
+        return 'Unknown';
+      }
+    })
+
     // onRendered
     Template.intakeType.onRendered(function() {});
 

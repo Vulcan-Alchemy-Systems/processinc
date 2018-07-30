@@ -72,6 +72,13 @@ JobSchema = new SimpleSchema({
       return new Date();
     }
   },
+  createdBy: {
+    type: String,
+    label: "Created By",
+    autoValue: function () {
+      return Meteor.userId();
+    }
+  }
 });
 
 Job.attachSchema(JobSchema);

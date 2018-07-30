@@ -74,7 +74,30 @@
       <div class="card">
         <h5 class="card-heading">Forms</h5>
         <div class="card-body">
-
+          <div class="table-responsive bootgrid">
+            <table id="job-forms" class="table table-striped table-vmiddle">
+              <thead>
+                <tr>
+                  <th>Form</th>
+                  <th>Created</th>
+                  <th>Created By</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each jobForms}}
+                <tr>
+                  <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="view-job-form">{{intakeTypeName intakeType}}</a></td>
+                  <td>{{shortDate created}}</td>
+                  <td><a href="/user/{{createdBy}}" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a></td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="3">No Forms</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="card">
