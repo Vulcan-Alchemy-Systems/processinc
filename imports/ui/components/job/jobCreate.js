@@ -89,6 +89,8 @@ import './jobCreate.html';
               closeOnClickOutside: false,
               closeOnEsc: false,
             }, function() {
+              // record History
+              Meteor.call('createJobHistory', result, 'Job was created');
               Router.go('/job/'+result+'/view');
             });
           }

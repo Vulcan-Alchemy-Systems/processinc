@@ -4,7 +4,7 @@ SimpleSchema.debug = true;
 
 JobForm = new Meteor.Collection("jobForm");
 
-IntakeType.allow({
+JobForm.allow({
   insert: function(userId, doc) {
     return true;
   },

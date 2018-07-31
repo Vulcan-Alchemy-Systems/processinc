@@ -36,6 +36,7 @@ import './jobUpdate.html';
     Template.jobUpdate.events({
       'click #saveBtn': function(event) {
         event.preventDefault();
+
         var userId = $('#userId').val();
         var name = $('#name').val();
         var description = $('#description').val();
@@ -57,6 +58,7 @@ import './jobUpdate.html';
               closeOnClickOutside: false,
               closeOnEsc: false,
             }, function() {
+              Meteor.call('createJobHistory', id, 'Job was updated');
               Router.go('/job/'+id+'/view');
             });
           }

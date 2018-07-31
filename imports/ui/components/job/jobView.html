@@ -86,7 +86,7 @@
               <tbody>
                 {{#each jobForms}}
                 <tr>
-                  <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="view-job-form">{{intakeTypeName intakeType}}</a></td>
+                  <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="viewJobForm">{{intakeTypeName intakeType}}</a></td>
                   <td>{{shortDate created}}</td>
                   <td><a href="/user/{{createdBy}}" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a></td>
                 </tr>
@@ -110,8 +110,128 @@
     <div class="col-md-5 col-lg-4">
       <div class="card">
         <h5 class="card-heading">History</h5>
+        <div class="card-body">
+          <div class="table-responsive bootgrid">
+            <table id="job-history" class="table table-striped table-vmiddle">
+              <tbody>
+              {{#each jobHistory}}
+                <tr>
+                  <td>
+                    <p>{{message}}</p>
+                    <p class="small text-muted">
+                      <a href="/user/{{createdBy}}/view" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a> - {{longDate created}}
+                    </p>
+                  </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td>No History</td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- View Form -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="jobFormModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><span id="intakeType"></span></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Created By:</b> <span id="createdBy"></span> <b>on:</b> <span id="created"></span></p>
+            </div>
+          </div>
+          <h4>Biomass Details</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Grow Type:</b> <span id="growType"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Strain:</b> <span id="strain"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Condition:</b> <span id="condition"></span></p>
+            </div>
+          </div>
+          <h4>Lab Information</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Lab Tested:</b> <span id="labTested"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Lab Sheet Provided:</b> <span id="labSheetProvided"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Tracking Enabled:</b> <span id="trackingEnabled"></span></p>
+            </div>
+          </div>
+          <h4>Intake Weights</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive bootgrid">
+                <table class="table table-striped table-vmiddle">
+                  <thead>
+                    <tr>
+                      <th>Kilos</th>
+                      <th>Grams</th>
+                      <th>Ounces</th>
+                      <th>Pounds</th>
+                      <th>Tons</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td id="kilos"></td>
+                      <td id="grams"></td>
+                      <td id="ounces"></td>
+                      <td id="pounds"></td>
+                      <td id="tons"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <h4>Pre Processing</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Pre Processing Needed:</b> <span id="prerocessing"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Pre Processing Notes:</b> <span id="prerocessingNote"></span></p>
+            </div>
+          </div>
+          <h4>Deliverables</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <p><b>Deliverables:</b> <span id="returnType"></span></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{/if}}
 </template>

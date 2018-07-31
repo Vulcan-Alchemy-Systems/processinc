@@ -31,11 +31,8 @@ import './intakeType.html';
       });
     });
 
-    Template.registerHelper('intakeTypeName', function(id) {
-    
+    Template.registerHelper('intakeTypeName', function(id) {    
       var result = IntakeType.findOne({_id: id});
-
-      console.log(result);
 
       if(result) {
         return result.name;
@@ -78,8 +75,6 @@ import './intakeType.html';
         $('.modal-compose').modal('toggle');
       },
       'click #editBtn': function(event) {
-        event.preventDefault();
-
         event.preventDefault();
 
         var _id = $('#_id').val();

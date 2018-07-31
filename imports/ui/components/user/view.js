@@ -14,6 +14,7 @@ import './view.html';
       this.subscribe('singleUser', userId);
       this.subscribe('allRole');
       this.subscribe('userJobs', userId)
+      this.subscribe('userJobHistory', userId)
     });
   });
 
@@ -43,6 +44,14 @@ import './view.html';
       var userId =  Router.current().params._id;
       var result = Job.find({userId: userId});
       return result;
+    },
+    userHistory: function() {
+      var userId =  Router.current().params._id;
+      var jobHistory = JobHistory.find({createdBy: userId, deleted: false}).fetch();
+
+      console.log(jobHistory);
+
+      return jobHistory;
     }
   });
 

@@ -24,6 +24,10 @@
                 <td>{{shortDate expectedFinish}}</td>
                 <td>{{status}}</td>
               </tr>
+            {{else}}
+            <tr>
+              <td colspan="6">No Jobs</td>
+            </tr>
             {{/each}}
           </tbody>
         </table>
