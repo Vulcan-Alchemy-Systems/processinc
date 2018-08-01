@@ -1,0 +1,198 @@
+<template name="location">
+  {{#if Template.subscriptionsReady}}
+  <div class="container-fluid">
+    <h5 class="mt0">Locations</h5>
+    <div class="card">
+      <div class="table-responsive bootgrid">
+        <table id="bootgrid-command" class="table table-striped table-vmiddle">
+          <thead>
+            <tr>
+              <th data-column-id="id" data-type="numeric">ID</th>
+              <th data-column-id="sender">Name</th>
+              <th data-column-id="street" data-order="desc">Street</th>
+              <th data-column-id="city" data-order="desc">City</th>
+              <th data-column-id="state" data-order="desc">State</th>
+              <th data-column-id="postal" data-order="desc">Postal</th>
+              {{#if isInRole 'Admin'}}
+              <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+              {{/if}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each locations}}
+            <tr>
+              <td><a href="/location/{{_id}}/view" title="View location {{_id}}">{{_id}}</a></td>
+              <td>{{name}}</td>
+              <td>{{street}}</td>
+              <td>{{city}}</td>
+              <td>{{state}}</td>
+              <td>{{postal}}</td>
+              {{#if isInRole 'Admin'}}
+              <td class="text-right">
+                <button type="button" class="btn btn-flat btn-sm btn-info edit-location" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                <button type="button" class="btn btn-flat btn-sm btn-danger delete-location" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+              </td>
+              {{/if}}
+            </tr>
+            {{else}}
+            <tr>
+              <td colspan="7">No Locations</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {{#if isInRole 'Admin'}}
+  <!-- Floating button for compose-->
+  <div class="floatbutton">
+    <ul class="mfb-component--br mfb-zoomin">
+      <li class="mfb-component__wrap">
+        <a id="create" href="#" class="mfb-component__button--main">
+          <i class="mfb-component__main-icon--resting ion-android-add"></i>
+          <i class="mfb-component__main-icon--active ion-android-add"></i>
+        </a>
+        <ul class="mfb-component__list"></ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Modal for create -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form action="" novalidate="" id="location-form" class="form-validate">
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Name *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="name" id="name" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Street *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="street" id="street" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Street Cont</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="streetCont" id="streetCont" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">City *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="city" id="city" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">State *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="state" id="state" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Postal *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="postal" id="postal" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Phone *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="phone" id="phone" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Fax</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="fax" id="fax" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Active</label>
+                  <div class="col-sm-10">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="" id="active" name="active"/>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_id" id="_id" value="" />
+            <button type="button" class="btn btn-success" id="saveBtn">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  <!-- End Modal content example for compose-->
+  {{/if}}
+</template>

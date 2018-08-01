@@ -152,8 +152,19 @@ Meteor.methods({
       deleted: false
     }
 
+    var isSafeToProcess = Match.test( object, {
+      biomassWeight: String,
+      returnType: String,
+      intakeType: String
+    });
+
+    var result = JobForm.update(id, {$set: object});
   },
   deleteJobForm: function(id) {
+    var result = JobForm.update(id, {$set: {
+      deleted: true
+    }});
 
+    return result;
   }
 });

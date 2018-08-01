@@ -81,6 +81,7 @@
                   <th>Form</th>
                   <th>Created</th>
                   <th>Created By</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -89,6 +90,10 @@
                   <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="viewJobForm">{{intakeTypeName intakeType}}</a></td>
                   <td>{{shortDate created}}</td>
                   <td><a href="/user/{{createdBy}}" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a></td>
+                  <td class="text-right">
+                    <button type="button" class="btn btn-flat btn-sm btn-info" id="jobFormEdit" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                    <button type="button" class="btn btn-flat btn-sm btn-danger" id="jobFormDelete" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                  </td>
                 </tr>
                 {{else}}
                 <tr>
@@ -189,6 +194,7 @@
                 <table class="table table-striped table-vmiddle">
                   <thead>
                     <tr>
+                      <th class="col-md-2"></th>
                       <th>Kilos</th>
                       <th>Grams</th>
                       <th>Ounces</th>
@@ -198,11 +204,56 @@
                   </thead>
                   <tbody>
                     <tr>
+                      <td><b class="small">Gross Weight</b></td>
                       <td id="kilos"></td>
                       <td id="grams"></td>
                       <td id="ounces"></td>
                       <td id="pounds"></td>
                       <td id="tons"></td>
+                    </tr>
+                    <tr>
+                      <td><b class="small">Container Weight</b></td>
+                      <td id="containerKilos"></td>
+                      <td id="containerGrams"></td>
+                      <td id="containerOunces"></td>
+                      <td id="containerPounds"></td>
+                      <td id="containerTons"></td>
+                    </tr>
+                    <tr>
+                      <td><b class="small">Net Weight</b></td>
+                      <td id="netKilos"></td>
+                      <td id="netGrams"></td>
+                      <td id="netOunces"></td>
+                      <td id="netPounds"></td>
+                      <td id="netTons"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <h4>Estimated Yields</h4>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive bootgrid">
+                <table class="table table-striped table-vmiddle">
+                  <thead>
+                    <th class="col-md-2"></th>
+                    <th>Kilos</th>
+                    <th>Grams</th>
+                    <th>Ounces</th>
+                    <th>Pounds</th>
+                    <th>Tons</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><b class="small">5% Distillate Yield</b></td>
+                      <td id="yieldKilos"></td>
+                      <td id="yieldGrams"></td>
+                      <td id="yieldOunces"></td>
+                      <td id="yieldPounds"></td>
+                      <td id="yieldTons"></td>
                     </tr>
                   </tbody>
                 </table>

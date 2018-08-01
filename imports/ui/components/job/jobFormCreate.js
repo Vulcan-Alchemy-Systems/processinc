@@ -60,12 +60,12 @@ import './jobFormCreate.html';
             var growType = $('#growType').val();
             var strain = $('#strain').val();
             var condition = $('#condition').val();
-            var labTested = $('#labTested').is(":checked");;
-            var labSheetProvided = $('#labSheetProvided').is(":checked");;
-            var trackingEnabled = $('#trackingEnabled').is(":checked");;
+            var labTested = $('#labTested').is(":checked");
+            var labSheetProvided = $('#labSheetProvided').is(":checked");
+            var trackingEnabled = $('#trackingEnabled').is(":checked");
             var biomassWeight = $('#biomassWeight').val();
             var containerWeight = $('#containerWeight').val();
-            var prerocessing = $('#prerocessing').is(":checked");;
+            var prerocessing = $('#prerocessing').is(":checked");
             var preprocessingNote = $('#preprocessingNote').val();
             var returnType = $('#returnType').val();
 

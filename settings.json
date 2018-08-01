@@ -22,8 +22,8 @@
     },
     "features": {
       "developerMode": false,
-      "headerSearch": false,
-      "headerSettings": false
+      "headerSearch": true,
+      "headerSettings": true
     }
   }
 }

@@ -1,5 +1,5 @@
 <template name="userMenu">
-  <li class="{{isActiveRoute regex='dashboard|profile|job|messagesBoard'}}">
+  <li class="{{isActiveRoute regex='dashboard|profile|job|messagesBoard|location'}}">
     <a href="{{pathFor 'dashboard'}}" class="ripple">
       <span class="pull-right nav-caret">
         <em class="ion-ios-arrow-right"></em>
@@ -19,7 +19,10 @@
         <a href="{{pathFor 'job'}}" class="ripple" title="My Jobs"><span class="pull-right nav-label"></span><span>Jobs</span></a>
       </li>
       <li class="{{isActiveRoute regex='messagesBoard'}}">
-        <a href="{{pathFor 'messages-board'}}" class="ripple"><span class="pull-right nav-label"></span><span>Messages</span></a>
+        <a href="{{pathFor 'messagesBoard'}}" class="ripple"><span class="pull-right nav-label"></span><span>Messages</span></a>
+      </li>
+      <li class="{{isActiveRoute regex='location'}}">
+        <a href="{{pathFor 'location'}}" class="ripple"><span class="pull-right nav-label"></span><span>Locations</span></a>
       </li>
     </ul>
   </li>

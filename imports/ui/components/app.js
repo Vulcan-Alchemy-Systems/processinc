@@ -28,6 +28,12 @@ import './growType/growType.js';
 import './intakeType/intakeType.js';
 import './returnType/returnType.js';
 import './weightType/weightType.js';
+
+// Location
+import './location/location.js';
+import './location/locationView.js';
+
+// dev
 import './charts/flot.js';
 import './charts/radial.js';
 import './charts/rickshaw.js';

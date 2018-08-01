@@ -28,6 +28,34 @@ Router.route('/dashboard', {
   name: 'dashboard'
 });
 
+// location
+Router.map(function() {
+  this.route('/location', {
+      onBeforeAction: function() {
+        if(!Meteor.userId()) {
+          Router.go('login');
+        } else {
+          this.next();
+        }
+      },
+      template: 'location',
+      title: 'Locations',
+      name: 'location'
+  });
+  this.route('/location/:_id/view', {
+      onBeforeAction: function() {
+        if(!Meteor.userId()) {
+          Router.go('login');
+        } else {
+          this.next();
+        }
+      },
+      template: 'locationView',
+      title: 'View Location',
+      name: 'locationView'
+  });
+});
+
 // Job Routes
 Router.map(function() {
   this.route('/job', {

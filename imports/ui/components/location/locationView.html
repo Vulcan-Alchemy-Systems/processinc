@@ -1,0 +1,103 @@
+<template name="locationView">
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">{{location.name}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left column-->
+      <div class="col-md-7 col-lg-8">
+        <form editable-form="" name="user.profileForm" class="card">
+          <h5 class="card-heading pb0">
+            <!-- START dropdown-->
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li><a href="#">Edit</a></li>
+                <li><a href="#">Delete</a></li>
+              </ul>
+            </div>
+          </h5>
+          <h5 class="card-heading pb0">Address Information</h5>
+          <div class="card-body">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Street:</td>
+                  <td>{{location.street}}</td>
+                </tr>
+                <tr>
+                  <td>Street Cont.:</td>
+                  <td>{{location.streetCont}}</td>
+                </tr>
+                <tr>
+                  <td>City:</td>
+                  <td>{{location.city}}</td>
+                </tr>
+                <tr>
+                  <td>State:</td>
+                  <td>{{location.state}}</td>
+                </tr>
+                <tr>
+                  <td>Postal</td>
+                  <td>{{location.postal}}</td>
+                </tr>
+                <tr>
+                  <td>Phone:</td>
+                  <td>{{location.phone}}</td>
+                </tr>
+                <tr>
+                  <td>Fax:</td>
+                  <td>{{location.fax}}</td>
+                </tr>
+                <tr>
+                  <td>Active:</td>
+                  <td>{{location.status}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-divider"></div>
+          <h5 class="card-heading pb0">Active Jobs</h5>
+          <div class="card-body">
+
+          </div>
+        </form>
+      </div>
+      <!-- Right column-->
+      <div class="col-md-5 col-lg-4">
+        <div class="card">
+          <h5 class="card-heading">
+            <!-- START dropdown-->
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li><a href="#">New Room</a></li>
+              </ul>
+            </div>
+            <!-- END dropdown-->Rooms
+          </h5>
+          <div class="mda-list">
+
+          </div>
+          <div class="card-body pv0 text-right"><a href="#" class="btn btn-flat btn-info">View all</a></div>
+          <div class="card-divider"></div>
+          <h5 class="card-heading">Machines</h5>
+          <div class="card-body pb0">
+            <p class="pull-left mr"><em class="ion-record text-info"></em></p>
+            <div class="oh">
+              <p><strong class="mr-sm">Closed Loop Extractor</strong></p>
+              <div class="clearfix">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
