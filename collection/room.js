@@ -17,6 +17,16 @@ Room.allow({
 });
 
 RoomSchema = new SimpleSchema({
+  // locationId
+
+  // name
+
+  // description
+
+  // status
+
+  // type
+
   deleted: {
     type: Boolean,
     label: "Deleted",
@@ -49,6 +59,6 @@ Meteor.methods({
 
   },
   deleteRoom: function() {
-    
+
   }
 });

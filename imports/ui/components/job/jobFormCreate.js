@@ -16,7 +16,18 @@ import './jobFormCreate.html';
 
     // onRendered
     Template.jobFormCreate.onRendered(function() {
-
+      $('#newJobForm').validate({
+          errorPlacement: errorPlacementInput,
+          // Form rules
+          rules: {
+              biomassWeight: {
+                  required: true
+              },
+              containerWeight: {
+                  required: true
+              },
+          }
+      });
     });
 
     // helpers
@@ -92,6 +103,8 @@ import './jobFormCreate.html';
       }
     });
 
+    // Necessary to place dyncamic error messages
+    // without breaking the expected markup for custom input
     function errorPlacementInput(error, element) {
         if( element.parent().parent().is('.mda-input-group') ) {
             error.insertAfter(element.parent().parent()); // insert at the end of group
@@ -105,7 +118,6 @@ import './jobFormCreate.html';
         else {
             error.insertAfter(element);
         }
-
-        console.log(error)
     }
+
 })();

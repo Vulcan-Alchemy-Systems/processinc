@@ -2,145 +2,135 @@
   {{#if Template.subscriptionsReady}}
   <div class="container-overlap bg-blue-500">
     <div class="media m0 pv">
-      <div class="media-left"><a href="#"><img src="/img/user/03.jpg" alt="User" class="media-object img-circle thumb64"/></a></div>
+      <div class="media-left"></div>
       <div class="media-body media-middle">
-        <h4 class="media-heading">{{job.name}}</h4><span class="text-muted"><b>Status:</b> {{job.status}}</span>
+        <h4 class="media-heading">View Job</h4>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-7 col-lg-8">
-      <form editable-form="" name="user.profileForm" class="card">
-        <h5 class="card-heading pb0">
-          <!-- START dropdown-->
-          <div class="pull-right dropdown">
-            <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-              <li><a href="job/{{job._id}}/edit" title="Edit this Job">Edit</a></li>
-              <li><a href="#" title="Delete this Job" id="deleteJob">Delete</a></li>
-              <li><a href="job/{{job._id}}/form/create">New Form</a></li>
-              <li><a href="job/{{job._id}}/note/create">New Note</a></li>
-            </ul>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7 col-lg-8">
+        <div class="card">
+          <h5 class="card-heading pb0">
+            <!-- START dropdown-->
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li><a href="job/{{job._id}}/edit" title="Edit this Job">Edit</a></li>
+                <li><a href="#" title="Delete this Job" id="deleteJob">Delete</a></li>
+                <li><a href="job/{{job._id}}/form/create">New Form</a></li>
+                <li><a href="job/{{job._id}}/note/create">New Note</a></li>
+              </ul>
+            </div>
+            <!-- END dropdown-->
+            Details
+          </h5>
+          <div class="card-body">
+            <p>{{job.description}}</p>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>ID:</td>
+                  <td>{{job._id}}</td>
+                </tr>
+                <tr>
+                  <td>User:</td>
+                  <td><a href="/user/{{job.userId}}/view" title="View user {{userEmail job.userId}}">{{userEmail job.userId}}</a></td>
+                </tr>
+                <tr>
+                  <td>Status:</td>
+                  <td>{{job.status}}</td>
+                </tr>
+                <tr>
+                  <td>Created:</td>
+                  <td>{{shortDate job.created}}</td>
+                </tr>
+                <tr>
+                  <td>Started:</td>
+                  <td>{{#if job.start}}{{shortDate job.start}}{{else}}Not Started{{/if}}</td>
+                </tr>
+                <tr>
+                  <td>Expected Finish:</td>
+                  <td>{{shortDate job.expectedFinish}}</td>
+                </tr>
+                <tr>
+                  <td>Finish:</td>
+                  <td>{{#if job.finish}}{{shortDate job.finish}}{{else}}Not Finished{{/if}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <!-- END dropdown-->
-          Details
-        </h5>
-        <div class="card-body">
-          <p>{{job.description}}</p>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>ID:</b></p></div>
-            <div><p>{{job._id}}</p></div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>User:</b></p></div>
-            <div><p><a href="/user/{{job.userId}}/view" title="View user {{userEmail job.userId}}">{{userEmail job.userId}}</a></p></div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>Status:</b></p></div>
-            <div><p>{{job.status}}</p></div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>Created:</b></p></div>
-            <div><p>{{shortDate job.created}}</p></div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>Started:</b></p></div>
-            <div><p>
-              {{#if job.start}}
-                {{shortDate job.start}}
-              {{else}}
-                Not Started
-              {{/if}}
-              </p>
+          <div class="card-divider"></div>
+          <h5 class="card-heading">Forms</h5>
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="job-forms" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th>Form</th>
+                    <th>Created</th>
+                    <th>Created By</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each jobForms}}
+                  <tr>
+                    <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="viewJobForm">{{intakeTypeName intakeType}}</a></td>
+                    <td>{{shortDate created}}</td>
+                    <td><a href="/user/{{createdBy}}" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a></td>
+                    <td class="text-right">
+                      <button type="button" class="btn btn-flat btn-sm btn-info" id="jobFormEdit" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                      <button type="button" class="btn btn-flat btn-sm btn-danger" id="jobFormDelete" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                    </td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="3">No Forms</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>Expected Finish:</b></p></div>
-            <div><p>{{shortDate job.expectedFinish}}</p></div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-lg-2"><p><b>Finish:</b></p></div>
-            <div><p>
-              {{#if job.finish}}
-                {{shortDate job.finish}}
-              {{else}}
-                Not Finished
-              {{/if}}
-              </p>
-            </div>
+          <div class="card-divider"></div>
+          <h5 class="card-heading">Notes</h5>
+          <div class="card-body">
+
           </div>
         </div>
-      </form>
-      <div class="card">
-        <h5 class="card-heading">Forms</h5>
-        <div class="card-body">
-          <div class="table-responsive bootgrid">
-            <table id="job-forms" class="table table-striped table-vmiddle">
-              <thead>
-                <tr>
-                  <th>Form</th>
-                  <th>Created</th>
-                  <th>Created By</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each jobForms}}
-                <tr>
-                  <td><a href="#" title="View form {{intakeTypeName intakeType}}" id="viewJobForm">{{intakeTypeName intakeType}}</a></td>
-                  <td>{{shortDate created}}</td>
-                  <td><a href="/user/{{createdBy}}" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a></td>
-                  <td class="text-right">
-                    <button type="button" class="btn btn-flat btn-sm btn-info" id="jobFormEdit" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
-                    <button type="button" class="btn btn-flat btn-sm btn-danger" id="jobFormDelete" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
-                  </td>
-                </tr>
-                {{else}}
-                <tr>
-                  <td colspan="3">No Forms</td>
-                </tr>
+      </div>
+      <!-- right column -->
+      <div class="col-md-5 col-lg-4">
+        <div class="card">
+          <h5 class="card-heading">History</h5>
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="job-history" class="table table-striped table-vmiddle">
+                <tbody>
+                {{#each jobHistory}}
+                  <tr>
+                    <td>
+                      <p>{{message}}</p>
+                      <p class="small text-muted">
+                        <a href="/user/{{createdBy}}/view" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a> - {{longDate created}}
+                      </p>
+                    </td>
+                  </tr>
+                  {{else}}
+                  <tr>
+                    <td>No History</td>
+                  </tr>
                 {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <h5 class="card-heading">Notes</h5>
-        <div class="card-body">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-md-5 col-lg-4">
-      <div class="card">
-        <h5 class="card-heading">History</h5>
-        <div class="card-body">
-          <div class="table-responsive bootgrid">
-            <table id="job-history" class="table table-striped table-vmiddle">
-              <tbody>
-              {{#each jobHistory}}
-                <tr>
-                  <td>
-                    <p>{{message}}</p>
-                    <p class="small text-muted">
-                      <a href="/user/{{createdBy}}/view" title="View {{userEmail createdBy}}">{{userEmail createdBy}}</a> - {{longDate created}}
-                    </p>
-                  </td>
-                </tr>
-                {{else}}
-                <tr>
-                  <td>No History</td>
-                </tr>
-              {{/each}}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <!-- View Form -->
   <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="jobFormModal">
     <div class="modal-dialog modal-lg">

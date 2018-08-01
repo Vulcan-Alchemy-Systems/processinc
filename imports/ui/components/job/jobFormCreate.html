@@ -1,210 +1,183 @@
 <template name="jobFormCreate">
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">New Job Form</h4>
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
-    <h5 class="mt0">New Job Form</h5>
-    <form id="new-job-form" name="newJobForm" novalidate="" class="form-validate">
-      <div class="card">
-        <div class="card-heading"><small class="pull-right">* Required fields</small>
-          <div class="panel-title">Job Form Details</div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Form Type *</label>
-                  <div class="col-sm-10 col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <form id="newJobForm" name="newJobForm" novalidate="" class="card form-validate">
+          <h5 class="card-heading pb0">Job Form Details <small class="pull-right">* Required fields</small></h5>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
                     <select name="intakeType" id="intakeType" required="true" class="form-control">
                       <option value="">-- Select One --</option>
                       {{#each intakeTypeSelect}}
                         <option value="{{value}}">{{label}}</option>
                       {{/each}}
                     </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Form Type</label>
                   </div>
                 </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div id="distilate" class="hidden">
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <legend>Biomass Details</legend>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Grow Type *</label>
-                    <div class="col-sm-10 col-md-6">
-                      <select name="growType" id="growType" required="true" class="form-control">
-                        {{#each growTypeSelect}}
-                          <option value="{{value}}">{{label}}</option>
-                        {{/each}}
-                      </select>
-                    </div>
-                  </div>
-                </fieldset>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Strain</label>
-                    <div class="col-sm-10">
+
+            <div id="distilate" class="hidden">
+              <h5>Biomass Details</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <select name="growType" id="growType" required="true" class="form-control">
+                          {{#each growTypeSelect}}
+                            <option value="{{value}}">{{label}}</option>
+                          {{/each}}
+                        </select>
+                        <div class="mda-form-control-line"></div>
+                        <label>Grow Type</label>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
                       <input type="text" name="strain" id="strain" required="false" class="form-control"/>
+                      <div class="mda-form-control-line"></div>
+                      <label>Strain</label>
                     </div>
                   </div>
-                </fieldset>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Condition</label>
-                    <div class="col-sm-10 col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
                       <textarea name="condition" id="condition" required="false" class="form-control"></textarea>
+                      <div class="mda-form-control-line"></div>
+                      <label>Condition</label>
                     </div>
                   </div>
-                </fieldset>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <legend>Lab Information</legend>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Lab Tested</label>
-                    <div class="col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="" id="labTested" name="labTested"/>
-                        </label>
+              <h5>Lab Information</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="labTested" name="labTested"/><em class="bg-blue-500 empty"></em> Lab Tested
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="labSheetProvided" name="labSheetProvided"/><em class="bg-blue-500 empty"></em> Lab Sheet Provided
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="trackingEnabled" name="trackingEnabled"/><em class="bg-blue-500 empty"></em> Enable Tracking System
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <h5>Intake Weights</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <input type="text" name="biomassWeight" id="biomassWeight" tabindex="0" aria-required="true" aria-invalid="true" class="form-control"/>
+                        <div class="mda-form-control-line"></div>
+                        <label>Total Biomass Weight *</label>
                       </div>
                     </div>
-                  </div>
-                </fieldset>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Lab Sheet Provided</label>
-                    <div class="col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="" id="labSheetProvided" name="labSheetProvided"/>
-                        </label>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <input type="text" name="containerWeight" id="containerWeight" required="true" class="form-control"/>
+                        <div class="mda-form-control-line"></div>
+                        <label>Container Weight *</label>
                       </div>
                     </div>
-                  </div>
-                </fieldset>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Enable Tracking System</label>
-                    <div class="col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="" id="trackingEnabled" name="trackingEnabled"/>
-                        </label>
-                      </div>
+              <h5>Pre Processing</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="prerocessing" name="prerocessing"/><em class="bg-blue-500 empty"></em> Pre Processing Needed
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <textarea name="preprocessingNote" id="preprocessingNote" required="false" class="form-control" aria-multiline="true" aria-invalid="false"></textarea>
+                      <div class="mda-form-control-line"></div>
+                      <label>Pre Processing Notes</label>
                     </div>
                   </div>
-                </fieldset>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <legend>Intake Weights</legend>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Total Biomass Weight *</label>
-                    <div class="col-sm-4">
-                      <input type="text" name="biomassWeight" id="biomassWeight" required="true" class="form-control"/>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Container Weight *</label>
-                    <div class="col-sm-4">
-                      <input type="text" name="containerWeight" id="containerWeight" required="true" class="form-control"/>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <legend>Pre Processing</legend>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Pre Processing Needed</label>
-                    <div class="col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="" id="prerocessing" name="prerocessing"/>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Pre Processing Notes</label>
-                    <div class="col-sm-10 col-sm-6">
-                      <textarea name="preprocessingNote" id="preprocessingNote" required="false" class="form-control"></textarea>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <fieldset>
-                   <legend>Deliverables</legend>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Return Type *</label>
-                    <div class="col-sm-10 col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
                       <select name="returnType" id="returnType" required="true" class="form-control">
-                        {{#each returnTypeSelect}}
-                          <option value="{{value}}">{{label}}</option>
-                        {{/each}}
-                      </select>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </div>
+                       {{#each returnTypeSelect}}
+                         <option value="{{value}}">{{label}}</option>
+                       {{/each}}
+                     </select>
+                     <div class="mda-form-control-line"></div>
+                     <label>Return Type</label>
+                   </div>
+                 </div>
+               </div>
+             </div>
 
+             <div class="text-center">
+               <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+             </div>
+
+            </div>
+            <!-- End distilate form -->
           </div>
-          <hr/>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </template>

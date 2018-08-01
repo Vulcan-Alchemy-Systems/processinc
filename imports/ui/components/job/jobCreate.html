@@ -1,91 +1,91 @@
 <template name="jobCreate">
-  <div class="container-fluid">
-    <h5 class="mt0">New Job</h5>
-    <form id="new-job-form" name="newJobForm" novalidate="" class="form-validate">
-      <div class="card">
-        <div class="card-heading"><small class="pull-right">* Required fields</small>
-          <div class="panel-title">Job Details</div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">User *</label>
-                  <div class="col-sm-10">
-                    <select name="userId" id="userId" required="true" class="form-control">
-                      {{#each userList}}
-                        <option value="{{value}}" {{selected value userId}}>{{label}}</option>
-                      {{/each}}
-                    </select>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Name *</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="name" id="name" required="true" class="form-control"/>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Description *</label>
-                  <div class="col-sm-10">
-                    <textarea rows="6" class="form-control" name="description" id="description" required="true"></textarea>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Start *</label>
-                  <div class="col-sm-4">
-                    <div id="datepicker-container-1" class="rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary">
-                      <input type="text" name="start" id="start" required="true" class="form-control" placeholder="Select a date.."/>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <fieldset>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Expected Finish *</label>
-                  <div class="col-sm-4">
-                    <div id="datepicker-container-2" class="rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary">
-                      <input type="text" name="expectedFinish" id="expectedFinish" required="true" class="form-control" placeholder="Select a date.."/>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <hr/>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-          </div>
-        </div>
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">New Job</h4>
       </div>
-    </form>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <form id="new-job-form" name="newJobForm" novalidate="" class="card">
+        <h5 class="card-heading pb0">Job Details <small class="pull-right text-danger">* Required fields</small></h5>
+        <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="userId" id="userId" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                    {{#each userList}}
+                      <option value="{{value}}" {{selected value userId}}>{{label}}</option>
+                    {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>User <small class="text-danger">*</small></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="name" id="name" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Name <small class="text-danger">*</small></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mda-form-group">
+                <div class="mda-form-control">
+                  <textarea rows="6" class="form-control" name="description" id="description" required="true"></textarea>
+                  <div class="mda-form-control-line"></div>
+                  <label>Description <small class="text-danger">*</small></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="start" id="start" required="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <div class="mda-form-control-line"></div>
+                    <div id="datepicker-container-1" class="ui-datepicker ui-datepicker-popup dp-theme-primary"></div>
+                    <label>Start <small class="text-danger">*</small></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="expectedFinish" id="expectedFinish" required="true" class="form-control rel-wrapper"/>
+                    <div class="mda-form-control-line"></div>
+                    <div id="datepicker-container-2" class="ui-datepicker ui-datepicker-popup dp-theme-primary"></div>
+                    <label>Expected Finish <small class="text-danger">*</small></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
