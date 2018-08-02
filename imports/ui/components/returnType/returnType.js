@@ -95,7 +95,7 @@ import './returnType.html';
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
                 Meteor.call('deleteReturnType', _id, function(error, result) {
@@ -105,9 +105,7 @@ import './returnType.html';
                     swal('Deleted!', 'Your Return Type has been deleted.', 'success');
                   }
                 });
-            } else {
-                swal('Cancelled', 'Your Return Type is safe :)', 'error');
-            }
+            } 
         });
       }
     });

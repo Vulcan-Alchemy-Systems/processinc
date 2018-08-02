@@ -78,7 +78,7 @@ import './growType.html';
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
                 Meteor.call('deleteGrowType', _id, function(error, result) {
@@ -88,8 +88,6 @@ import './growType.html';
                     swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
                   }
                 });
-            } else {
-                swal('Cancelled', 'Your imaginary file is safe :)', 'error');
             }
         });
       },

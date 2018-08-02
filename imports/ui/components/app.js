@@ -14,6 +14,8 @@
 import './user/view.js';
 import './user/create.js';
 import './user/list.js';
+import './profile/profile.js';
+
 // Roles
 import './role/role.js';
 // Jobs
@@ -64,7 +66,7 @@ import './maps/google-map.js';
 import './maps/vector-map.js';
 import './maps/datamaps.js';
 import './pages/messages.js';
-import './pages/profile.js';
+
 import './pages/gallery.js';
 import './pages/search.js';
 import './pages/wall.js';

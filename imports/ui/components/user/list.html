@@ -1,29 +1,43 @@
 <template name="user">
   {{#if Template.subscriptionsReady}}
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">Users</h4>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
-    <h5 class="mt0">Users</h5>
-    <div class="card">
-      <div class="table-responsive bootgrid">
-        <table id="bootgrid-command" class="table table-striped table-vmiddle">
-          <thead>
-            <tr>
-              <th data-column-id="id" data-type="numeric">ID</th>
-              <th data-column-id="sender">Email</th>
-              <th data-column-id="created" data-order="desc">Created</th>
-              <th data-column-id="created" data-order="desc">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each users}}
-            <tr>
-              <td><a href="/user/{{_id}}/view" title="">{{_id}}</a></td>
-              <td>{{getUserEmail emails}}</td>
-              <td>{{createdAt}}</td>
-              <td>{{profile.status}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+    <div class="row">
+      <div class="col-md-12">
+        <div  class="card">
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="bootgrid-command" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th data-column-id="id" data-type="numeric">ID</th>
+                    <th data-column-id="sender">Email</th>
+                    <th data-column-id="created" data-order="desc">Created</th>
+                    <th data-column-id="created" data-order="desc">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each users}}
+                  <tr>
+                    <td><a href="/user/{{_id}}/view" title="">{{_id}}</a></td>
+                    <td>{{getUserEmail emails}}</td>
+                    <td>{{createdAt}}</td>
+                    <td>{{profile.status}}</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

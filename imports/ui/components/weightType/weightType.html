@@ -1,32 +1,46 @@
 <template name="weightType">
   {{#if Template.subscriptionsReady}}
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">Weight Types</h4>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
-    <h5 class="mt0">Weight Types</h5>
-    <div class="card">
-      <div class="table-responsive bootgrid">
-        <table id="bootgrid-command" class="table table-striped table-vmiddle">
-          <thead>
-            <tr>
-              <th data-column-id="id" data-type="numeric">ID</th>
-              <th data-column-id="sender">Name</th>
-              <th data-column-id="created" data-order="desc">Created</th>
-              <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each weightTypes}}
-            <tr>
-              <td>{{_id}}</td>
-              <td>{{name}}</td>
-              <td>{{longDate created}}</td>
-              <td class="text-right">
-                <button type="button" class="btn btn-flat btn-sm btn-info edit-weight-type" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
-                <button type="button" class="btn btn-flat btn-sm btn-danger delete-weight-type" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
-              </td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+    <div class="row">
+      <div class="col-md-12">
+        <div  class="card">
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="bootgrid-command" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th data-column-id="id" data-type="numeric">ID</th>
+                    <th data-column-id="sender">Name</th>
+                    <th data-column-id="created" data-order="desc">Created</th>
+                    <th data-column-id="commands" data-formatter="commands" data-sortable="false"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each weightTypes}}
+                  <tr>
+                    <td>{{_id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{longDate created}}</td>
+                    <td class="text-right">
+                      <button type="button" class="btn btn-flat btn-sm btn-info edit-weight-type" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                      <button type="button" class="btn btn-flat btn-sm btn-danger delete-weight-type" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -58,7 +72,9 @@
               </div>
             </div>
             <input type="hidden" name="_id" id="_id" value="" />
-            <button type="button" class="btn btn-success" id="saveBtn">Save</button>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+            </div>
           </form>
         </div>
       </div>

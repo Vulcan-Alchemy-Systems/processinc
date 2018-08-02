@@ -85,7 +85,7 @@ import './role.html';
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
                 Meteor.call('deleteRole', name, function(error, result) {
@@ -95,8 +95,6 @@ import './role.html';
                     swal('Deleted!', 'Your Role has been deleted.', 'success');
                   }
                 });
-            } else {
-                swal('Cancelled', 'Your Role is safe :)', 'error');
             }
         });
       }
