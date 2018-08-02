@@ -31,7 +31,7 @@ import './intakeType.html';
       });
     });
 
-    Template.registerHelper('intakeTypeName', function(id) {    
+    Template.registerHelper('intakeTypeName', function(id) {
       var result = IntakeType.findOne({_id: id});
 
       if(result) {
@@ -103,7 +103,7 @@ import './intakeType.html';
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
                 Meteor.call('deleteIntakeType', _id, function(error, result) {
@@ -113,8 +113,6 @@ import './intakeType.html';
                     swal('Deleted!', 'Your Intake Type has been deleted.', 'success');
                   }
                 });
-            } else {
-                swal('Cancelled', 'Your Intake Type is safe :)', 'error');
             }
         });
       }

@@ -85,7 +85,7 @@ import './weightType.html';
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
                 Meteor.call('deleteWeightType', _id, function(error, result) {
@@ -95,9 +95,7 @@ import './weightType.html';
                     swal('Deleted!', 'Your Weight Type has been deleted.', 'success');
                   }
                 });
-            } else {
-                swal('Cancelled', 'Your Weight Type is safe :)', 'error');
-            }
+            } 
         });
       }
     });

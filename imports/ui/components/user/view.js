@@ -47,9 +47,7 @@ import './view.html';
     },
     userHistory: function() {
       var userId =  Router.current().params._id;
-      var jobHistory = JobHistory.find({createdBy: userId, deleted: false}).fetch();
-
-      console.log(jobHistory);
+      var jobHistory = JobHistory.find({createdBy: userId, deleted: false},{skip: 0, limit: 5, sort: {created: -1}}).fetch();
 
       return jobHistory;
     }
