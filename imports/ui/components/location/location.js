@@ -45,7 +45,7 @@ import './location.html';
         var postal = $('#postal').val();
         var phone = $('#phone').val();
         var fax = $('#fax').val();
-        var active = $('#active').is(":checked");;
+        var active = $('#active').is(":checked");
 
         Meteor.call('createLocation', name, description, street, streetCont, city, state, postal, phone, fax, active, function(error, result) {
           if(error) {

@@ -12,9 +12,11 @@
     <nav class="sidebar-nav">
       <ul>
       {{> userMenu}}
+
       {{#if isInRole 'Admin'}}
         {{> adminMenu}}
       {{/if}}
+
       {{#if isInRole 'Developer'}}
         {{#if developerMode}}
           {{> developerMenu}}

@@ -32,6 +32,7 @@ import './weightType/weightType.js';
 // Location
 import './location/location.js';
 import './location/locationView.js';
+import './room/roomView.js';
 
 // dev
 import './charts/flot.js';
@@ -161,5 +162,13 @@ import './utils/svgreplace.js';
     // headerSettings
     Template.registerHelper('headerSettings', function() {
       return Meteor.settings.public.features.headerSettings;
+    });
+
+    Template.registerHelper('active', function(active) {
+      if(active) {
+        return 'Active';
+      } else {
+        return 'Not Active';
+      }
     });
 })();

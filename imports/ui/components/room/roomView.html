@@ -1,0 +1,45 @@
+<template name="roomView">
+  {{#if Template.subscriptionsReady}}
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">Room Name</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left column-->
+      <div class="col-md-7 col-lg-8">
+        <div class="card">
+          <h5 class="card-heading pb0">
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                <li><a href="#">Edit</a></li>
+                <li><a href="#">Delete</a></li>
+                <li><a href="#">New Machine</a></li>
+              </ul>
+            </div>
+            Room Details
+          </h5>
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column-->
+      <div class="col-md-5 col-lg-4">
+        <div class="card">
+          <h5 class="card-heading">Machines</h5>
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>

@@ -1,4 +1,5 @@
 <template name="locationView">
+  {{#if Template.subscriptionsReady}}
   <div class="container-overlap bg-blue-500">
     <div class="media m0 pv">
       <div class="media-left"></div>
@@ -11,7 +12,7 @@
     <div class="row">
       <!-- Left column-->
       <div class="col-md-7 col-lg-8">
-        <form editable-form="" name="user.profileForm" class="card">
+        <div class="card">
           <h5 class="card-heading pb0">
             <!-- START dropdown-->
             <div class="pull-right dropdown">
@@ -21,8 +22,8 @@
                 <li><a href="#">Delete</a></li>
               </ul>
             </div>
+            Address Information
           </h5>
-          <h5 class="card-heading pb0">Address Information</h5>
           <div class="card-body">
             <table class="table table-striped">
               <tbody>
@@ -56,7 +57,7 @@
                 </tr>
                 <tr>
                   <td>Active:</td>
-                  <td>{{location.status}}</td>
+                  <td>{{active location.status}}</td>
                 </tr>
               </tbody>
             </table>
@@ -66,7 +67,7 @@
           <div class="card-body">
 
           </div>
-        </form>
+        </div>
       </div>
       <!-- Right column-->
       <div class="col-md-5 col-lg-4">
@@ -76,23 +77,39 @@
             <div class="pull-right dropdown">
               <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
               <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                <li><a href="#">New Room</a></li>
+                {{#if isInRole 'Admin'}}
+                <li><a href="#" title="New Room" id="newRoom">New Room</a></li>
+                {{/if}}
               </ul>
             </div>
             <!-- END dropdown-->Rooms
           </h5>
-          <div class="mda-list">
+          <div class="table-responsive bootgrid">
+            <table class="table table-striped">
+              <tbody>
+                {{#each rooms}}
+                <tr>
+                  <td><a href="/location/{{location._id}}/room/{{_id}}/view" title="View Room">{{name}}</a></td>
+                  <td>{{type}}</td>
+                  <td>{{active active}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="3">No Rooms</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
 
-          </div>
-          <div class="card-body pv0 text-right"><a href="#" class="btn btn-flat btn-info">View all</a></div>
-          <div class="card-divider"></div>
-          <h5 class="card-heading">Machines</h5>
-          <div class="card-body pb0">
-            <p class="pull-left mr"><em class="ion-record text-info"></em></p>
-            <div class="oh">
-              <p><strong class="mr-sm">Closed Loop Extractor</strong></p>
-              <div class="clearfix">
+            <div class="card-divider"></div>
+            <h5 class="card-heading">Machines</h5>
+            <div class="card-body pb0">
+              <p class="pull-left mr"><em class="ion-record text-info"></em></p>
+              <div class="oh">
+                <p><strong class="mr-sm">Closed Loop Extractor</strong></p>
+                <div class="clearfix">
 
+                </div>
               </div>
             </div>
           </div>
@@ -100,4 +117,80 @@
       </div>
     </div>
   </div>
+
+  {{#if isInRole 'Admin'}}
+  <!-- New Room Form -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5>New Room <small class="pull-right">* Required fields</small></h5>
+         </div>
+        <div class="modal-body">
+          <form id="newRoomForm" name="newRoomForm" novalidate="" class="form-validate">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="name" id="name" required minlength="2" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Name *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <textarea name="description" id="description" required="true" ria-required="true" aria-invalid="true" class="form-control"></textarea>
+                    <div class="mda-form-control-line"></div>
+                    <label>Description *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="type" id="type" required="true" class="form-control">
+                      <option value="Office">Office</option>
+                      <option value="Office">Kitchen</option>
+                      <option value="Prep">Prep</option>
+                      <option value="Extraction">Extraction</option>
+                      <option value="Distillation">Distillation</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Room Type</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mb">
+                  <label class="mda-checkbox">
+                    <input type="checkbox" value="" id="active" name="active"/><em class="bg-blue-500 empty"></em> Active
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" id="saveRoomBtn">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  {{/if}}
 </template>

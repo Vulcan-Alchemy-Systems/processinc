@@ -21,7 +21,7 @@
       "fax": ""
     },
     "features": {
-      "developerMode": false,
+      "developerMode": true,
       "headerSearch": true,
       "headerSettings": true
     }
