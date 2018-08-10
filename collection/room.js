@@ -104,7 +104,7 @@ Meteor.methods({
       throw new Meteor.Error('Failed to save Room');
     }
   },
-  updateRoom: function(id, locationId, nam, description, active, type) {
+  updateRoom: function(id, locationId, name, description, active, type) {
     var object = {
       locationId: locationId,
       name: name,
@@ -120,6 +120,9 @@ Meteor.methods({
       description: String,
       type: String
     });
+
+    var result = Room.update(id, {$set: object});
+    return result;
 
     if ( isSafeToProcess) {
       var result = Room.update(id, {$set: object});

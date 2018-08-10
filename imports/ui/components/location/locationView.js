@@ -47,7 +47,7 @@ import './locationView.html';
       'click #newRoom': function(event) {
         event.preventDefault();
 
-        $('#newRoomBtn').modal('toggle');
+        $('#newRoomModal').modal('toggle');
       },
       'click #saveRoomBtn': function(event) {
         event.preventDefault();
@@ -70,7 +70,7 @@ import './locationView.html';
               closeOnEsc: false
             }, function() {
               $('#newRoomForm').trigger("reset");
-              $('.modal-compose').modal('toggle');
+              $('#newRoomModal').modal('toggle');
             });
           }
         });
