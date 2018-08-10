@@ -10,6 +10,7 @@ import './jobUpdate.html';
       this.autorun(() => {
         var id = Router.current().params._id;
         this.subscribe('singleJob', id);
+        this.subscribe('allLocations');
       });
     });
 
@@ -30,7 +31,14 @@ import './jobUpdate.html';
         var result = Job.findOne({_id: id});
         return result;
       },
-
+      locations: function() {
+        return Location.find({deleted: false}).map(function(values) {
+          return {
+            label: values.name,
+            value: values._id
+          };
+        });
+      }
     });
 
     Template.jobUpdate.events({
@@ -38,6 +46,7 @@ import './jobUpdate.html';
         event.preventDefault();
 
         var userId = $('#userId').val();
+        var locationId = $('#locationId').val();
         var name = $('#name').val();
         var description = $('#description').val();
         var start = $('#start').val();
@@ -46,7 +55,7 @@ import './jobUpdate.html';
         var status = $('#status').val();
         var id = Router.current().params._id;
 
-        Meteor.call('updateJob', id, userId, name, description, start, expectedFinish, finish, status, function(error, result) {
+        Meteor.call('updateJob', id, userId, locationId, name, description, start, expectedFinish, finish, status, function(error, result) {
           if(error) {
             swal('Error', error, 'error');
           } else {

@@ -12,3 +12,9 @@ Meteor.publish("singleJob", function(id) {
 Meteor.publish("userJobs", function(userId) {
   return Job.find({userId: userId, deleted: false});
 });
+
+// allLocationJobs
+Meteor.publish("allLocationJobs", function(id) {
+  console.log(id);
+  return Job.find({locationId: id});
+});

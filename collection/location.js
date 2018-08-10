@@ -150,6 +150,7 @@ Meteor.methods({
       deleted: false
     }
 
+
     var isSafeToProcess = Match.test( object, {
 
     });

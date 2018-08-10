@@ -17,6 +17,7 @@ import './jobView.html';
         this.subscribe('allReturnType');
         this.subscribe('allGrowType');
         this.subscribe('allActiveUser');
+        this.subscribe('allLocations');
       });
     });
 
@@ -40,7 +41,7 @@ import './jobView.html';
       },
       jobHistory: function() {
         var id = Router.current().params._id;
-        var result = JobHistory.find({jobId: id, deleted: false}).fetch();
+        var result = JobHistory.find({jobId: id, deleted: false}, {skip: 0, limit: 5, sort: {created: -1}}).fetch();
         return result;
       }
     });

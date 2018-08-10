@@ -1,4 +1,4 @@
-// allJobs
+// allLocations
 Meteor.publish("allLocations", function() {
   return Location.find({deleted: false});
 });
