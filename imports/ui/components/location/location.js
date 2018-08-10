@@ -43,7 +43,7 @@ import './location.html';
 
         $('.modal-compose').modal();
       },
-      'click #saveBtn': function(event) {
+      'click #locationSaveBtn': function(event) {
         event.preventDefault();
 
         var name = $('#name').val();
@@ -69,6 +69,7 @@ import './location.html';
               closeOnClickOutside: false,
               closeOnEsc: false,
             }, function() {
+              $('.modal-compose').modal('toggle');
               Router.go('/location/'+result+'/view');
             });
           }

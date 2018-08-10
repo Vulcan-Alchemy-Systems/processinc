@@ -1,5 +1,5 @@
 {
   "location": [
-    { "_id" : "mqXL6skB959B24qBv", "name" : "Vulcan Main Office", "description" : null, "street" : "3881 NE Bryant Street", "city" : "Portland", "state" : "Oregon", "postal" : "97211", "phone" : "(503) 123-1234", "active" : true, "deleted" : false, "created" : ISODate("2018-08-10T17:29:42.891Z"), "createdBy" : "dYu3BkBvWifnLe2cC" }
+    { "_id" : "mqXL6skB959B24qBv", "name" : "Vulcan Main Office", "description" : null, "street" : "3881 NE Bryant Street", "city" : "Portland", "state" : "Oregon", "postal" : "97211", "phone" : "(503) 123-1234", "active" : true, "deleted" : false, "created" : "2018-08-10T17:29:42.891Z", "createdBy" : "dYu3BkBvWifnLe2cC" }
   ]
 }
