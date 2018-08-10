@@ -73,4 +73,26 @@ Meteor.startup(() => {
       }
     });
   }
+
+  // location
+  if(Location.find().count() === 0) {
+    console.log('Inserting locations');
+    JSON.parse(Assets.getText("location.json")).location.forEach(function(doc) {
+      if(doc._id) {
+        var result = Location.insert(doc);
+        console.log('Inserted ' + result + ' location');
+      }
+    });
+  }
+
+  // room
+  if(Room.find().count() === 0) {
+    console.log('Inserting rooms');
+    JSON.parse(Assets.getText("room.json")).room.forEach(function(doc) {
+      if(doc._id) {
+        var result = Room.insert(doc);
+        console.log('Inserted ' + result + ' room');
+      }
+    });
+  }
 });
