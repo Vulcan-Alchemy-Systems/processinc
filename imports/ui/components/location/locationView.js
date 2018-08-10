@@ -75,7 +75,47 @@ import './locationView.html';
           }
         });
       },
-      'click #editLocationBtn':function() {
+      'click #deleteLocationBtn': function(event) {
+        event.preventDefault();
+        var id = Router.current().params._id;
+
+        swal({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this Location!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          dangerMode: true,
+          }, function(isConfirm){
+            if (isConfirm) {
+              Meteor.call('deleteLocation', id, function(error, result) {
+                if(error) {
+                  swal('Error', error, 'error');
+                } else {
+                  swal({
+                    title: 'Success',
+                    text: 'The Location was deleted.',
+                    type: 'success',
+                    closeModal: true,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                  }, function() {
+                    // redirect to view
+                      Router.go('/location');
+                  });
+                }
+              });
+            } else {
+                swal('Cancelled', 'The Location was not deleted', 'error');
+            }
+          });
+      },
+
+      'click #editLocationBtn': function(event) {
         event.preventDefault();
         var id = Router.current().params._id;
         var results = Location.findOne({_id: id});

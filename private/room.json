@@ -1,8 +1,8 @@
 {
   "room": [
-    { "_id" : "PhPwS47nsjbsxCjwf", "locationId" : "mqXL6skB959B24qBv", "name" : "Extraction", "description" : "Main extraction room in suite A", "active" : true, "type" : "Extraction", "deleted" : false, "created" : ISODate("2018-08-02T00:18:19.972Z"), "createdBy" : "dYu3BkBvWifnLe2cC" }
-{ "_id" : "gEzGHuoKSLjcNh7Kk", "locationId" : "mqXL6skB959B24qBv", "name" : "Distillation", "description" : "Main distillation lab located in suite A", "active" : true, "type" : "Distillation", "deleted" : false, "created" : ISODate("2018-08-02T00:22:11.412Z"), "createdBy" : "dYu3BkBvWifnLe2cC" }
-{ "_id" : "EGZg47XqGw867oGpZ", "locationId" : "mqXL6skB959B24qBv", "name" : "Main Office", "description" : "Main office located in suite C", "active" : true, "type" : "Office", "deleted" : false, "created" : ISODate("2018-08-02T00:36:49.344Z"), "createdBy" : "dYu3BkBvWifnLe2cC" }
-{ "_id" : "B2M9LdEuS5kJB9wbe", "locationId" : "mqXL6skB959B24qBv", "name" : "Distillation-2", "description" : "Old lab", "active" : true, "type" : "Distillation", "deleted" : false, "created" : ISODate("2018-08-10T00:51:26.921Z"), "createdBy" : "dYu3BkBvWifnLe2cC" }
+    { "_id" : "PhPwS47nsjbsxCjwf", "locationId" : "mqXL6skB959B24qBv", "name" : "Extraction", "description" : "Main extraction room in suite A", "active" : true, "type" : "Extraction", "deleted" : false, "created" : "2018-08-02T00:18:19.972Z", "createdBy" : "dYu3BkBvWifnLe2cC" }
+{ "_id" : "gEzGHuoKSLjcNh7Kk", "locationId" : "mqXL6skB959B24qBv", "name" : "Distillation", "description" : "Main distillation lab located in suite A", "active" : true, "type" : "Distillation", "deleted" : false, "created" : "2018-08-02T00:22:11.412Z", "createdBy" : "dYu3BkBvWifnLe2cC" }
+{ "_id" : "EGZg47XqGw867oGpZ", "locationId" : "mqXL6skB959B24qBv", "name" : "Main Office", "description" : "Main office located in suite C", "active" : true, "type" : "Office", "deleted" : false, "created" : "2018-08-02T00:36:49.344Z", "createdBy" : "dYu3BkBvWifnLe2cC" }
+{ "_id" : "B2M9LdEuS5kJB9wbe", "locationId" : "mqXL6skB959B24qBv", "name" : "Distillation-2", "description" : "Old lab", "active" : true, "type" : "Distillation", "deleted" : false, "created" : "2018-08-10T00:51:26.921Z", "createdBy" : "dYu3BkBvWifnLe2cC" }
   ]
 }
