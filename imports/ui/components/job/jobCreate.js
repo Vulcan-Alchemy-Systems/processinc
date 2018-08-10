@@ -9,6 +9,7 @@ import './jobCreate.html';
     Template.jobCreate.onCreated(function() {
       this.autorun(() => {
         this.subscribe('allActiveUser');
+        this.subscribe('allLocations');
       });
     });
 
@@ -63,6 +64,14 @@ import './jobCreate.html';
             value: values._id
           };
         });
+      },
+      locations: function() {
+        return Location.find({deleted: false}).map(function(values) {
+          return {
+            label: values.name,
+            value: values._id
+          };
+        });
       }
     });
 
@@ -71,13 +80,14 @@ import './jobCreate.html';
       'click #saveBtn': function(event) {
         event.preventDefault();
         var userId = $('#userId').val();
+        var locationId = $('#locationId').val();
         var name = $('#name').val();
         var description = $('#description').val();
         var start = $('#start').val();
         var expectedFinish = $('#expectedFinish').val();
 
 
-        Meteor.call('createJob', userId, name, description, start, expectedFinish, function(error, result) {
+        Meteor.call('createJob', userId, locationId, name, description, start, expectedFinish, function(error, result) {
           if(error) {
             swal('Error', error, 'error');
           } else {

@@ -25,7 +25,42 @@
             Room Details
           </h5>
           <div class="card-body">
-
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Id:</td>
+                  <td>{{room._id}}</td>
+                </tr>
+                <tr>
+                  <td>Location:</td>
+                  <td><a href="/location/{{room.locationId}}/view" title="View location {{locationName room.locationId}}">{{locationName room.locationId}}</a></td>
+                </tr>
+                <tr>
+                  <td>Name:</td>
+                  <td>{{room.name}}</td>
+                </tr>
+                <tr>
+                  <td>Description:</td>
+                  <td>{{room.description}}</td>
+                </tr>
+                <tr>
+                  <td>Type:</td>
+                  <td>{{room.type}}</td>
+                </tr>
+                <tr>
+                  <td>Status:</td>
+                  <td>{{active room.active}}</td>
+                </tr>
+                <tr>
+                  <td>Created:</td>
+                  <td>{{shortDate room.created}}</td>
+                </tr>
+                <tr>
+                  <td>Created By:</td>
+                  <td><a href="/user/{{room.createdBy}}/view" title="View {{userEmail room.createdBy}}">{{userEmail room.createdBy}}</a></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

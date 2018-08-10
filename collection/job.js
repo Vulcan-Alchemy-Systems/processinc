@@ -23,6 +23,12 @@ JobSchema = new SimpleSchema({
     label: "User",
     optional: false,
   },
+  // locationId
+  locationId: {
+    type: String,
+    label: "Location",
+    optional: false,
+  },
   // name
   name: {
     type: String,
@@ -85,9 +91,10 @@ Job.attachSchema(JobSchema);
 
 Meteor.methods({
   // createJob
-  createJob: function(userId, name, description, start, expectedFinish) {
+  createJob: function(userId, locationId, name, description, start, expectedFinish) {
     var object = {
       userId: userId,
+      locationId: locationId,
       name: name,
       description: description,
       start: start,
@@ -97,8 +104,11 @@ Meteor.methods({
       deleted: false,
     }
 
+      console.log(object);
+
     var isSafeToProcess = Match.test( object, {
       userId: String,
+      locationId: String,
       name: String,
       description: String,
       start: Date,
@@ -118,9 +128,10 @@ Meteor.methods({
     }
   },
   // updateJob
-  updateJob: function(id, userId, name, description, start, expectedFinish, finish, status) {
+  updateJob: function(id, userId, locationId, name, description, start, expectedFinish, finish, status) {
     var object = {
       userId: userId,
+      locationId: locationId,
       name: name,
       description: description,
       start: start,
@@ -131,6 +142,7 @@ Meteor.methods({
 
     var isSafeToProcess = Match.test( object, {
       userId: String,
+      locationId: String,
       name: String,
       description: String,
       start: Date,

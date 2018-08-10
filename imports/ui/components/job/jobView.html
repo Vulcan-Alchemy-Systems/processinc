@@ -21,6 +21,8 @@
                 <li><a href="#" title="Delete this Job" id="deleteJob">Delete</a></li>
                 <li><a href="job/{{job._id}}/form/create">New Form</a></li>
                 <li><a href="job/{{job._id}}/note/create">New Note</a></li>
+                <li><a href="job/{{job._id}}/process/create">New Process</a></li>
+                <li><a href="job/{{job._id}}/deliverable/create">New Deliverable</a></li>
               </ul>
             </div>
             <!-- END dropdown-->
@@ -37,6 +39,10 @@
                 <tr>
                   <td>User:</td>
                   <td><a href="/user/{{job.userId}}/view" title="View user {{userEmail job.userId}}">{{userEmail job.userId}}</a></td>
+                </tr>
+                <tr>
+                  <td>Location:</td>
+                  <td><a href="/location/{{job.locationId}}/view" title="View location {{locationName job.locationId}}">{{locationName job.locationId}}</a></td>
                 </tr>
                 <tr>
                   <td>Status:</td>
@@ -87,7 +93,7 @@
                   </tr>
                   {{else}}
                   <tr>
-                    <td colspan="3">No Forms</td>
+                    <td colspan="4">No Forms</td>
                   </tr>
                   {{/each}}
                 </tbody>
@@ -103,6 +109,20 @@
       </div>
       <!-- right column -->
       <div class="col-md-5 col-lg-4">
+        <div class="card">
+          <h5 class="card-heading">Processing</h5>
+          <div class="card-body">
+
+          </div>
+        </div>
+
+        <div class="card">
+          <h5 class="card-heading">Deliverables</h5>
+          <div class="card-body">
+
+          </div>
+        </div>
+
         <div class="card">
           <h5 class="card-heading">History</h5>
           <div class="card-body">

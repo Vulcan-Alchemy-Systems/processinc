@@ -18,7 +18,7 @@
             <div class="pull-right dropdown">
               <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
               <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                <li><a href="#">Edit</a></li>
+                <li><a href="#" title="Edit location" id="editLocationBtn">Edit</a></li>
                 <li><a href="#">Delete</a></li>
               </ul>
             </div>
@@ -64,8 +64,38 @@
           </div>
           <div class="card-divider"></div>
           <h5 class="card-heading pb0">Active Jobs</h5>
-          <div class="card-body">
 
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="bootgrid-command" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th data-column-id="id">ID</th>
+                    <th data-column-id="user">User</th>
+                    <th data-column-id="description">Name</th>
+                    <th data-column-id="created">Created</th>
+                    <th data-column-id="expectedFinish">Expected Finish</th>
+                    <th data-column-id="status">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each jobs}}
+                    <tr>
+                      <td><a href="/job/{{_id}}/view" title="View Job {{_id}}">{{_id}}</a></td>
+                      <td><a href="/user/{{userId}}/view" title="View User {{userEmail userId}}">{{userEmail userId}}</a></td>
+                      <td>{{name}}</td>
+                      <td>{{shortDate created}}</td>
+                      <td>{{shortDate expectedFinish}}</td>
+                      <td>{{status}}</td>
+                    </tr>
+                  {{else}}
+                  <tr>
+                    <td colspan="6">No Jobs</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -120,7 +150,7 @@
 
   {{#if isInRole 'Admin'}}
   <!-- New Room Form -->
-  <div tabindex="-1" role="dialog" class="modal fade modal-compose">
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="newRoomBtn">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
@@ -186,6 +216,140 @@
               <button type="submit" class="btn btn-primary" id="saveRoomBtn">Save</button>
             </div>
 
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for update location -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="editLocationModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form action="" novalidate="" id="locationForm" class="form-validate">
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Name *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="locationName" id="locationName" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Street *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="street" id="street" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Street Cont</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="streetCont" id="streetCont" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">City *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="city" id="city" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">State *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="state" id="state" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Postal *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="postal" id="postal" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Phone *</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="phone" id="phone" required="true" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Fax</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="fax" id="fax" required="false" class="form-control"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Active</label>
+                  <div class="col-sm-10">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="" id="locationActive" name="locationActive"/>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_id" id="_id" value="" />
+            <button type="button" class="btn btn-success" id="locationSaveBtn" name="locationSaveBtn">Save</button>
           </form>
         </div>
       </div>

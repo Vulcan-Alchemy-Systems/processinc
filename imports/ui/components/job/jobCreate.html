@@ -33,6 +33,23 @@
               <div class="col-md-12">
                 <div class="mda-form-group">
                   <div class="mda-form-control">
+                    <select name="locationId" id="locationId" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                    {{#each locations}}
+                      <option value="{{value}}" {{selected value locationId}}>{{label}}</option>
+                    {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Location <small class="text-danger">*</small></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
                     <input type="text" name="name" id="name" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
                     <div class="mda-form-control-line"></div>
                     <label>Name <small class="text-danger">*</small></label>

@@ -26,6 +26,16 @@ import './location.html';
       }
     });
 
+    Template.registerHelper('locationName', function (locationId) {
+      var result = Location.findOne({_id: locationId});
+
+      if(result) {
+        return result.name;
+      } else {
+        return 'Unknown';
+      }
+    });
+
     // events
     Template.location.events({
       'click #create': function(event) {
