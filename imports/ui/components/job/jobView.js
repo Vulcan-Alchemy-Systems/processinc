@@ -13,6 +13,7 @@ import './jobView.html';
         this.subscribe('singleJob', id);
         this.subscribe('allJobForms', id);
         this.subscribe('allJobHistory', id);
+        this.subscribe('allJobProcess', id);
         this.subscribe('allIntakeType');
         this.subscribe('allReturnType');
         this.subscribe('allGrowType');
