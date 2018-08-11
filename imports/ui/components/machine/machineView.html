@@ -1,0 +1,174 @@
+<template name="machineView">
+  {{#if Template.subscriptionsReady}}
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">{{machine.name}}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left column-->
+      <div class="col-md-7 col-lg-8">
+        <div class="card">
+          <h5 class="card-heading pb0">
+            <div class="pull-right dropdown">
+              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                {{#if isInRole 'Admin'}}
+                <li><a href="#" title="Edit Machine" id="editMachineBtn">Edit</a></li>
+                <li><a href="#" title="Delete Machine" id="deleteMachineBtn">Delete</a></li>
+                {{/if}}
+              </ul>
+            </div>
+              Machine Details
+          </h5>
+          <div class="card-body">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Id:</td>
+                  <td>{{machine._id}}</td>
+                </tr>
+                <tr>
+                  <td>Name:</td>
+                  <td>{{machine.name}}</td>
+                </tr>
+                <tr>
+                  <td>Location:</td>
+                  <td><a href="/location/{{machine.locationId}}/view">{{locationName machine.locationId}}</a></td>
+                </tr>
+                <tr>
+                  <td>Room:</td>
+                  <td><a href="/location/{{machine.locationId}}/room/{{machine.roomId}}/view" title="View room">{{roomName machine.roomId}}</a></td>
+                </tr>
+                <tr>
+                  <td>Manufacture:</td>
+                  <td>{{machine.manufacture}}</td>
+                </tr>
+                <tr>
+                  <td>Model:</td>
+                  <td>{{machine.model}}</td>
+                </tr>
+                <tr>
+                  <td>Type:</td>
+                  <td>{{machine.type}}</td>
+                </tr>
+                <tr>
+                  <td>Status:</td>
+                  <td>{{machine.status}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+        <!-- Right column-->
+        <div class="col-md-5 col-lg-4">
+          <div class="card">
+            <h5 class="card-heading">History</h5>
+            <div class="card-body">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{#if isInRole 'Admin'}}
+    <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="editModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+           <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h5>Edit Machine <small class="pull-right">* Required fields</small></h5>
+           </div>
+          <div class="modal-body">
+            <form id="editMachineForm" name="editMachineForm" novalidate="" class="form-validate">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <input type="text" name="machineName" id="machineName" required minlength="2" class="form-control"/>
+                      <div class="mda-form-control-line"></div>
+                      <label>Name *</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <input type="text" name="manufacture" id="manufacture" required minlength="2" class="form-control"/>
+                      <div class="mda-form-control-line"></div>
+                      <label>Manufacture *</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <input type="text" name="model" id="model" required minlength="2" class="form-control"/>
+                      <div class="mda-form-control-line"></div>
+                      <label>Model *</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <select name="machineType" id="machineType" required="true" class="form-control">
+                        <option value="Office Equipment">Office Equipment</option>
+                        <option value="Lab Equipment">Lab Equipment</option>
+                        <option value="Prep Equipment">Prep Equipment</option>
+                        <option value="mechanical Equipment">Mechanical</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <div class="mda-form-control-line"></div>
+                      <label>Type</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <select name="machineStatus" id="machineStatus" required="true" class="form-control">
+                        <option value="In Use">In Use</option>
+                        <option value="Not In Use">Not In Use</option>
+                        <option value="Broken">Broken</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Decommissioned">Decommissioned</option>
+                      </select>
+                      <div class="mda-form-control-line"></div>
+                      <label>Status</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" id="saveMachineBtn">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/if}}
+  {{/if}}
+</template>

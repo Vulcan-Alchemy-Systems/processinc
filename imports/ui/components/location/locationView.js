@@ -12,6 +12,7 @@ import './locationView.html';
         this.subscribe('singleLocation', id);
         this.subscribe('allLocationRooms', id);
         this.subscribe('allLocationJobs', id);
+        this.subscribe('locationMachines', id);
       });
     });
 
@@ -36,6 +37,12 @@ import './locationView.html';
           var id = Router.current().params._id;
           var results = Job.find({locationId: id}).fetch();
           return results;
+      },
+      machines: function() {
+        var locationId = Router.current().params._id;
+        console.log(locationId);
+        var results = Machine.find({locationId: locationId}).fetch();
+        return results;
       }
     });
 

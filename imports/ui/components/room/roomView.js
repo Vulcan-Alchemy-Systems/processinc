@@ -12,6 +12,7 @@ import './roomView.html';
         var roomId = Router.current().params.roomId;
         this.subscribe('singleLocation', locationId);
         this.subscribe('singleRoom', roomId);
+        this.subscribe('roomMachines', roomId);
       });
     });
 
@@ -26,6 +27,11 @@ import './roomView.html';
         var roomId = Router.current().params.roomId;
         var result = Room.findOne({_id: roomId});
         return result;
+      },
+      machines: function() {
+        var roomId = Router.current().params.roomId;
+        var results = Machine.find({roomId: roomId}).fetch();
+        return results;
       }
     });
 
@@ -105,7 +111,7 @@ import './roomView.html';
                     closeOnEsc: false,
                   }, function() {
                     // redirect to view
-                      Router.go('/location/' + locationId + '/view');
+                    Router.go('/location/' + locationId + '/view');
                   });
                 }
               });
@@ -113,6 +119,39 @@ import './roomView.html';
                 swal('Cancelled', 'The Room was not deleted', 'error');
             }
           });
+      },
+      'click #createMachineBtn': function(event) {
+        event.preventDefault();
+        $('#createMachineModal').modal('toggle');
+      },
+      'click #saveMachineBtn': function(event) {
+        event.preventDefault();
+
+        var roomId = Router.current().params.roomId;
+        var locationId = Router.current().params.locationId;
+        var name = $('#machineName').val();
+        var manufacture = $('#manufacture').val();
+        var model = $('#model').val();
+        var type = $('#machineType').val();
+        var status = $('#machineStatus').val();
+
+        Meteor.call('createMachine', locationId, roomId, name, manufacture, model, type, status, function(error, result) {
+          if(error) {
+            swal('Error', error, 'error');
+          } else {
+            swal({
+              title: 'Success',
+              text: 'The Room was saved.',
+              type: 'success',
+              closeModal: true,
+              closeOnClickOutside: false,
+              closeOnEsc: false
+            }, function() {
+              $('#createMachineForm').trigger("reset");
+              $('#createMachineModal').modal('toggle');
+            });
+          }
+        });
       }
     });
 })();

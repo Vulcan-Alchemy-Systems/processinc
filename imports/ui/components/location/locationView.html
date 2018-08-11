@@ -124,15 +124,24 @@
 
             <div class="card-divider"></div>
             <h5 class="card-heading">Machines</h5>
-            <div class="card-body pb0">
-              <p class="pull-left mr"><em class="ion-record text-info"></em></p>
-              <div class="oh">
-                <p><strong class="mr-sm">Closed Loop Extractor</strong></p>
-                <div class="clearfix">
-
-                </div>
+              <div class="table-responsive bootgrid">
+                <table class="table table-striped">
+                  <tbody>
+                  {{#each machines}}
+                    <tr>
+                      <td>
+                        <a href="/machine/{{_id}}/view" title="View machine">{{name}}</a>
+                      </td>
+                      <td>{{status}}</td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="2">No Machines</td>
+                    </tr>
+                  {{/each}}
+                  </tbody>
+                </table>
               </div>
-            </div>
           </div>
         </div>
       </div>

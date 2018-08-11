@@ -28,6 +28,34 @@ Router.route('/dashboard', {
   name: 'dashboard'
 });
 
+// machine
+Router.map(function() {
+  this.route('/machine', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'machine',
+    title: 'Machines',
+    name: 'machine'
+  });
+  this.route('/machine/:id/view', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'machineView',
+    title: 'View Machine',
+    name: 'machineView'
+  });
+});
+
 // location
 Router.map(function() {
   this.route('/location', {

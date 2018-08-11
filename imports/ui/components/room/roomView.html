@@ -17,9 +17,11 @@
             <div class="pull-right dropdown">
               <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
               <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                {{#if isInRole 'Admin'}}
                 <li><a href="#" title="Edit Room" id="editRoomBtn">Edit</a></li>
                 <li><a href="#" title="Delete Room" id="deleteRoomBtn">Delete</a></li>
-                <li><a href="#">New Machine</a></li>
+                <li><a href="#" title="New Machine" id="createMachineBtn">New Machine</a></li>
+                {{/if}}
               </ul>
             </div>
             Room Details
@@ -70,7 +72,24 @@
         <div class="card">
           <h5 class="card-heading">Machines</h5>
           <div class="card-body">
-
+            <div class="table-responsive bootgrid">
+              <table class="table table-striped">
+                <tbody>
+                {{#each machines}}
+                  <tr>
+                    <td>
+                      <a href="/machine/{{_id}}/view" title="View machine">{{name}}</a>
+                    </td>
+                    <td>{{status}}</td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="2">No Machines</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -145,6 +164,96 @@
               <button type="submit" class="btn btn-primary" id="saveRoomBtn">Save</button>
             </div>
 
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="createMachineModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5>New Machine <small class="pull-right">* Required fields</small></h5>
+         </div>
+        <div class="modal-body">
+          <form id="createMachineForm" name="createMachineForm" novalidate="" class="form-validate">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="machineName" id="machineName" required minlength="2" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Name *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="manufacture" id="manufacture" required minlength="2" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Manufacture *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="model" id="model" required minlength="2" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Model *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="machineType" id="machineType" required="true" class="form-control">
+                      <option value="Office Equipment">Office Equipment</option>
+                      <option value="Lab Equipment">Lab Equipment</option>
+                      <option value="Prep Equipment">Prep Equipment</option>
+                      <option value="mechanical Equipment">Mechanical</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Type</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="machineStatus" id="machineStatus" required="true" class="form-control">
+                      <option value="In Use">In Use</option>
+                      <option value="Not In Use">Not In Use</option>
+                      <option value="Broken">Broken</option>
+                      <option value="Maintenance">Maintenance</option>
+                      <option value="Decommissioned">Decommissioned</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Status</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" id="saveMachineBtn">Save</button>
+            </div>
           </form>
         </div>
       </div>

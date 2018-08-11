@@ -36,6 +36,14 @@ import './location/location.js';
 import './location/locationView.js';
 import './room/roomView.js';
 
+// room
+import './room/room.js';
+
+
+// machines
+import './machine/machine.js';
+import './machine/machineView.js';
+
 // dev
 import './charts/flot.js';
 import './charts/radial.js';
