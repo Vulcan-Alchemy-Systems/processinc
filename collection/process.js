@@ -52,13 +52,6 @@ ProcessSchema = new SimpleSchema({
     optional: true,
   },
 
-  // weightType
-  weightType: {
-    type: String,
-    label: "Weight Type",
-    optional: true,
-  },
-
   deleted: {
     type: Boolean,
     label: "Deleted",
@@ -86,28 +79,28 @@ ProcessSchema = new SimpleSchema({
 Process.attachSchema(ProcessSchema);
 
 Meteor.methods({
-  createProcess: function(jobId, name, date, userId, weight, weightType) {
+  createProcess: function(jobId, name, date, userId, weight) {
     var object = {
       jobId: jobId,
       name: name,
       date: date,
       userId: userId,
       weight: weight,
-      weightType: weightType
+      deleted: false
     }
 
     var result = Process.insert(object);
 
     return result;
   },
-  updateProcess: function(id, jobId, name, date, userId, weight, weightType) {
+  updateProcess: function(id, jobId, name, date, userId, weight) {
     var object = {
       jobId: jobId,
       name: name,
       date: date,
       userId: userId,
       weight: weight,
-      weightType: weightType
+      deleted: false
     }
 
     var result = Process.update(id, {$set: object});
