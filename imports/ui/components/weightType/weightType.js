@@ -24,6 +24,26 @@ import './weightType.html';
       }
     });
 
+    // userSelectList
+    Template.registerHelper('weightTypeSelectList', function (userId) {
+      return WeightType.find().map(function(values) {
+        return {
+          label: values.name,
+          value: values._id
+        };
+      });
+    });
+
+    Template.registerHelper('weightTypeName', function (id) {
+      var result = WeightType.findOne({_id: id});
+
+      if(result) {
+        return result.name
+      } else {
+        return 'Unknown';
+      }
+    });
+
     // events
     Template.weightType.events({
       'click #create': function(event) {
@@ -95,7 +115,7 @@ import './weightType.html';
                     swal('Deleted!', 'Your Weight Type has been deleted.', 'success');
                   }
                 });
-            } 
+            }
         });
       }
     });

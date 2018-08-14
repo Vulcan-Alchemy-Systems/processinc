@@ -2,9 +2,9 @@ import SimpleSchema from 'simpl-schema';
 
 SimpleSchema.debug = true;
 
-Deliverable = new Meteor.Collection("deliverable");
+Process = new Meteor.Collection("process");
 
-Deliverable.allow({
+Process.allow({
   insert: function(userId, doc) {
     return true;
   },
@@ -16,7 +16,7 @@ Deliverable.allow({
   },
 });
 
-DeliverableSchema = new SimpleSchema({
+ProcessSchema = new SimpleSchema({
   // jobId
   jobId: {
     type: String,
@@ -24,10 +24,10 @@ DeliverableSchema = new SimpleSchema({
     optional: false,
   },
 
-  // userId
-  userId: {
+  // name
+  name: {
     type: String,
-    label: "User",
+    label: "Name",
     optional: false,
   },
 
@@ -38,25 +38,18 @@ DeliverableSchema = new SimpleSchema({
     optional: false,
   },
 
+  // userId
+  userId: {
+    type: String,
+    label: "User",
+    optional: false,
+  },
+
   // weight
   weight: {
     type: String,
     label: "Weight",
-    optional: false,
-  },
-
-  // weightType
-  weightType: {
-    type: String,
-    label: "Weight Type",
-    optional: false,
-  },
-
-  // lot
-  lot: {
-    type: String,
-    label: "Lot",
-    optional: false,
+    optional: true,
   },
 
   deleted: {
@@ -82,48 +75,44 @@ DeliverableSchema = new SimpleSchema({
   }
 });
 
-Deliverable.attachSchema(DeliverableSchema);
+
+Process.attachSchema(ProcessSchema);
 
 Meteor.methods({
-  // createDeliverable
-  createDeliverable: function(jobId, userId, date, weight, weightType, lot) {
+  createProcess: function(jobId, name, date, userId, weight) {
     var object = {
       jobId: jobId,
-      userId: userId,
+      name: name,
       date: date,
+      userId: userId,
       weight: weight,
-      weightType: weightType,
-      lot: lot,
       deleted: false
     }
 
-    var result = Deliverable.insert(object);
+    var result = Process.insert(object);
 
     return result;
   },
-  // updateDeliverable
-  updateDeliverable: function(id, jobId, userId, date, weight, weightType, lot) {
+  updateProcess: function(id, jobId, name, date, userId, weight) {
     var object = {
       jobId: jobId,
-      userId: userId,
+      name: name,
       date: date,
+      userId: userId,
       weight: weight,
-      weightType: weightType,
-      lot: lot,
       deleted: false
     }
 
-    var result = Deliverable.update(id, {$set: object});
+    var result = Process.update(id, {$set: object});
 
     return result;
   },
-  // deleteDeliverable
-  deleteDeliverable: function(id) {
+  deleteProcess: function(id) {
     var object = {
       deleted: true
     }
 
-    var result = Deliverable.update(id, {$set: object});
+    var result = Process.update(id, {$set: object});
 
     return result;
   }

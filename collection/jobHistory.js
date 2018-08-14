@@ -64,8 +64,6 @@ Meteor.methods({
       deleted: Boolean
     });
 
-    console.log(isSafeToProcess);
-
     if(isSafeToProcess) {
       var result = JobHistory.insert(object);
       return result;
