@@ -1,5 +1,5 @@
 <template name="adminMenu">
-  <li class="{{isActiveRoute regex='admin|growType|intakeType|returnType|weightType|role|user'}}">
+  <li class="{{isActiveRoute regex='admin|growType|intakeType|returnType|weightType|role'}}">
     <a href="{{pathFor 'admin'}}" class="ripple">
       <span class="pull-right nav-caret">
         <em class="ion-ios-arrow-right"></em>
@@ -25,9 +25,6 @@
       </li>
       <li class="{{isActiveRoute regex='role'}}">
         <a href="{{pathFor 'role'}}" class="ripple"><span class="pull-right nav-label"></span><span>Roles</span></a>
-      </li>
-      <li class="{{isActiveRoute regex='user'}}">
-        <a href="{{pathFor 'user'}}" class="ripple"><span class="pull-right nav-label"></span><span>Users</span></a>
       </li>
     </ul>
   </li>

@@ -55,11 +55,51 @@ import './view.html';
 
   // events
   Template.userView.events({
+    // userUpdateBtn
+    'click #userUpdateBtn': function(event) {
+      event.preventDefault();
+
+
+    },
+
+    // userDeleteBtn
+    'click #userDeleteBtn': function(event) {
+      event.preventDefault();
+      var userId =  Router.current().params._id;
+      swal({
+          title: 'Are you sure?',
+          text: 'This will remove this user!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          closeOnConfirm: false,
+          closeOnCancel: false
+      }, function(isConfirm) {
+          if (isConfirm) {
+            var id = Router.current().params._id;
+            Meteor.call('removeUser', id, function(error, result) {
+                if(error) {
+                  swal('Error', error, 'error');
+                } else {
+                  swal('Deleted!', 'The user has been removed.', 'success');
+                }
+              });
+          } else {
+              swal('Cancelled', 'The User is safe :)', 'error');
+          }
+      });
+    },
+
+    // newRoleBtn
     'click #newRoleBtn': function(event) {
       event.preventDefault();
 
       $('.role-modal').modal('toggle');
     },
+
+    // saveRoleBtn
     'click #saveRoleBtn': function(event) {
       var role = $('#role').val();
       var _id = Router.current().params._id;
@@ -74,6 +114,8 @@ import './view.html';
         }
       })
     },
+
+    // remove-role
     'click .remove-role': function(event) {
       event.preventDefault();
       var role = event.currentTarget.id;
