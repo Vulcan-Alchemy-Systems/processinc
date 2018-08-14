@@ -65,13 +65,6 @@ RoomSchema = new SimpleSchema({
       return new Date();
     }
   },
-  createdBy: {
-    type: String,
-    label: "Created By",
-    autoValue: function () {
-      return Meteor.userId();
-    }
-  }
 });
 
 Room.attachSchema(RoomSchema);
