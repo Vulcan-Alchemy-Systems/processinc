@@ -99,13 +99,6 @@ LocationSchema = new SimpleSchema({
     autoValue: function () {
       return new Date();
     }
-  },
-  createdBy: {
-    type: String,
-    label: "Created By",
-    autoValue: function () {
-      return Meteor.userId();
-    }
   }
 });
 
