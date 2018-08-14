@@ -44,28 +44,35 @@ Meteor.methods({
     }
   },
 
-  userUpdate: function(email, password, status, birthday, phone) {
-    var object = {
-      email: email,
-      password: password,
+  userUpdate: function(userId, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender) {
+    var profile = {
+      firstName: firstName,
+      lastName: lastName,
+      displayName: displayName,
       status: status,
       birthday: birthday,
+      website: website,
+      gender: gender
+    }
+
+    var mailingAddress = {
+      street: street,
+      streetCont: streetCont,
+      city: city,
+      state: state,
+      postal: postal,
       phone: phone
     }
 
-    var isSafeToProcess = Match.test( object, {
-      email: String,
-      password: String,
-      status: String,
-      birthday: String,
-      phone: String
-    });
-
-    if ( isSafeToProcess) {
-
-    } else {
-      throw new Meteor.Error('Failed to save user');
+    var object = {
+      email: email,
+      mailingAddress: mailingAddress,
+      profile: profile
     }
+
+    var result = Meteor.users.update(userId, {$set: object});
+
+    return result;
   },
 
   removeUser: function(id) {

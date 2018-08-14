@@ -22,7 +22,7 @@ import './view.html';
   Template.userView.helpers({
     user: function() {
       var userId = Router.current().params._id;
-      var result = Meteor.users.findOne({_id: userId}, {fields: {profile: 1, emails: 1, createdAt: 1, roles: 1}});
+      var result = Meteor.users.findOne({_id: userId}, {fields: {profile: 1, emails: 1, mailingAddress: 1, createdAt: 1, roles: 1}});
       return result;
     },
     getUserEmail: function(emails) {
@@ -59,7 +59,68 @@ import './view.html';
     'click #userUpdateBtn': function(event) {
       event.preventDefault();
 
+      var userId = Router.current().params._id;
 
+      var result = Meteor.users.findOne({_id: userId}, {fields: {profile: 1, emails: 1, mailingAddress: 1, createdAt: 1, roles: 1}});
+
+      $('#email').val(result.emails[0].address);
+      $('#firstName').val(result.profile.firstName);
+      $('#lastName').val(result.profile.lastName);
+      $('#displayName').val(result.profile.displayName);
+      $('#birthday').val(result.profile.birthday);
+      $('#gender').val(result.profile.gender);
+      $('#website').val(result.profile.website);
+      $('#status').val(result.profile.status);
+
+      if(result.mailingAddress) {
+        $('#street').val(result.mailingAddress.street);
+        $('#streetCont').val(result.mailingAddress.streetCont);
+        $('#city').val(result.mailingAddress.city);
+        $('#state').val(result.mailingAddress.state);
+        $('#postal').val(result.mailingAddress.postal);
+        $('#phone').val(result.mailingAddress.phone);
+      }
+
+      $('#updateUserModal').modal('toggle');
+    },
+
+    // saveUserBtn
+    'click #saveUserBtn': function(event) {
+      event.preventDefault();
+
+      var userId = Router.current().params._id;
+      var firstName = $('#firstName').val();
+      var lastName = $('#lastName').val();
+      var displayName = $('#displayName').val();
+      var status = $('#status').val();
+      var birthday = $('#birthday').val();
+      var website = $('#website').val();
+      var gender = $('#gender').val();
+
+      var street = $('#street').val();
+      var streetCont = $('#streetCont').val();
+      var city =  $('#city').val();
+      var state = $('#state').val();
+      var postal = $('#postal').val();
+      var phone = $('#phone').val();
+      var email = $('#email').val();
+
+      Meteor.call('userUpdate', userId, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender, function(error, result) {
+        if(error) {
+          swal('Error', error, 'error');
+        } else {
+          swal({
+            title: 'Success',
+            text: 'The user was saved.',
+            type: 'success',
+            closeModal: true,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+          }, function() {
+            $('#updateUserModal').modal('toggle');
+          });
+        }
+      });
     },
 
     // userDeleteBtn

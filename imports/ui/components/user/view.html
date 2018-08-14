@@ -38,28 +38,40 @@
                   </td>
                 </tr>
                 <tr>
+                  <td><em class="ion-egg icon-fw mr"></em>Name</td>
+                  <td>{{user.profile.firstName}} {{user.profile.lastName}} ({{user.profile.displayName}})</td>
+                </tr>
+                <tr>
                   <td><em class="ion-egg icon-fw mr"></em>Birthday</td>
-                  <td><span data-type="date" data-mode="popup" class="is-editable text-inherit"></span></td>
+                  <td>{{user.profile.birthday}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
-                  <td><span data-type="date" data-mode="popup" class="is-editable text-inherit"></span></td>
+                  <td>{{user.createdAt}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-man icon-fw mr"></em>Gender</td>
-                  <td><a id="gender" href="#" data-type="select" data-pk="1" data-value="2" data-title="Select sex" class="text-inherit"></a></td>
+                  <td>{{user.profile.gender}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-android-home icon-fw mr"></em>Address</td>
-                  <td><span class="is-editable text-inherit"></span></td>
+                  <td>
+                    {{#if user.mailingAddress}}
+                      {{user.mailingAddress.street}} {{user.mailingAddress.city}}, {{user.mailingAddress.state}} {{user.mailingAddress.postal}}
+                    {{/if}}
+                  </td>
                 </tr>
                 <tr>
                   <td><em class="ion-email icon-fw mr"></em>Email</td>
-                  <td><span class="is-editable text-inherit"><a href="#">{{userEmail user._id}}</a></span></td>
+                  <td>{{userEmail user._id}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-ios-telephone icon-fw mr"></em>Contact phone</td>
-                  <td><span class="is-editable text-inherit"></span></td>
+                  <td>
+                    {{#if user.mailingAddress}}
+                      {{user.mailingAddress.phone}}
+                    {{/if}}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -196,5 +208,195 @@
       </div>
     </div>
   </div>
+
+  <!-- updateModel -->
+  <div tabindex="-1" role="dialog" class="modal fade role-modal" id="updateUserModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>
+        <div class="modal-body">
+          <form action="" novalidate="" id="updateUserForm" class="form-validate">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="email" name="email" id="email" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>E-Mail</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4>Personal Information</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="firstName" id="firstName" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>First Name</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="lastName" id="lastName" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Last Name</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="displayName" id="displayName" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Display Name</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="birthday" id="birthday" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Birthday</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="gender" id="gender" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Gender</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="website" id="website" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Website</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4>Contact Information</h4>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="street" id="street" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Street</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="streetCont" id="streetCont" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Street Cont</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="city" id="city" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>City</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="state" id="state" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>State</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="postal" id="postal" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Postal</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="phone" id="phone" required="false" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Phone</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="status" id="status" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="Active">Active</option>
+                      <option value="Suspended">Suspended</option>
+                      <option value="Deleted">Deleted</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Status</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" id="saveUserBtn">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{/if}}
 </template>
