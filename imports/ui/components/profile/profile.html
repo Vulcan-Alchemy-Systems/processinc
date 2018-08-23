@@ -35,64 +35,48 @@
                   </td>
                 </tr>
                 <tr>
+                  <td><em class="ion-egg icon-fw mr"></em>Name</td>
+                  <td>{{user.profile.firstName}} {{user.profile.lastName}} ({{user.profile.displayName}})</td>
+                </tr>
+                <tr>
                   <td><em class="ion-egg icon-fw mr"></em>Birthday</td>
-                  <td><span data-type="date" data-mode="popup" class="is-editable text-inherit">10/11/2000</span></td>
+                  <td>{{user.profile.birthday}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-ios-body icon-fw mr"></em>Member since</td>
-                  <td><span data-type="date" data-mode="popup" class="is-editable text-inherit">05/11/2015</span></td>
+                  <td>{{user.createdAt}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-man icon-fw mr"></em>Gender</td>
-                  <td><a id="gender" href="#" data-type="select" data-pk="1" data-value="2" data-title="Select sex" class="text-inherit"></a></td>
+                  <td>{{user.profile.gender}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-android-home icon-fw mr"></em>Address</td>
-                  <td><span class="is-editable text-inherit">Some street, 123</span></td>
+                  <td>
+                    {{#if user.mailingAddress}}
+                      {{user.mailingAddress.street}} {{user.mailingAddress.city}}, {{user.mailingAddress.state}} {{user.mailingAddress.postal}}
+                    {{/if}}
+                  </td>
                 </tr>
                 <tr>
                   <td><em class="ion-email icon-fw mr"></em>Email</td>
-                  <td><span class="is-editable text-inherit"><a href="#">{{profileEmail}}</a></span></td>
+                  <td>{{userEmail user._id}}</td>
                 </tr>
                 <tr>
                   <td><em class="ion-ios-telephone icon-fw mr"></em>Contact phone</td>
-                  <td><span class="is-editable text-inherit">13-123-46578</span></td>
+                  <td>
+                    {{#if user.mailingAddress}}
+                      {{user.mailingAddress.phone}}
+                    {{/if}}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="card-divider"></div>
-          <h5 class="card-heading pb0">Recent articles</h5>
+          <h5 class="card-heading pb0">Jobs</h5>
           <div class="card-body">
-            <ul class="mda-list">
-              <li class="mda-list-item pl0 bb">
-                <div class="mda-list-item-text">
-                  <h3><a href="#">Release 3.0 is out</a></h3>
-                  <p>Proin metus justo, commodo in ultrices...</p><small class="text-muted">2 days ago</small>
-                </div>
-                <div class="pull-right">
-                  <div class="pt-lg"><em tooltip="Active" class="icon-2x ion-checkmark-circled text-success"></em></div>
-                </div>
-              </li>
-              <li class="mda-list-item pl0 bb">
-                <div class="mda-list-item-text">
-                  <h3><a href="#">Improving compatibility</a></h3>
-                  <p>Proin metus justo, commodo in ultrices...</p><small class="text-muted">3 days ago</small>
-                </div>
-                <div class="pull-right">
-                  <div class="pt-lg"><em tooltip="Active" class="icon-2x ion-checkmark-circled text-success"></em></div>
-                </div>
-              </li>
-              <li class="mda-list-item pl0">
-                <div class="mda-list-item-text">
-                  <h3><a href="#">Small decisions count</a></h3>
-                  <p>Proin metus justo, commodo in ultrices...</p><small class="text-muted">3 days ago</small>
-                </div>
-                <div class="pull-right">
-                  <div class="pt-lg"><em tooltip="Pending" class="icon-2x ion-minus-circled text-warning"></em></div>
-                </div>
-              </li>
-            </ul>
+            
           </div>
         </div>
       </div>

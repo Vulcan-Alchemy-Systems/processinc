@@ -21,6 +21,7 @@
                 <li><a href="#" id="userUpdateBtn" title="Edit user">Edit</a></li>
                 <li><a href="#" id="userDeleteBtn" title="Delete User">Delete</a></li>
                 <li><a href="/job/create/{{user._id}}" title="New Job">New Job</a></li>
+                <li><a href="#" id="createRoleBtn" class="new-role-btn">New Role</a></li>
                 {{/if}}
                 <li><a href="#">Message</a></li>
               </ul>
@@ -121,16 +122,6 @@
       <div class="col-md-5 col-lg-4">
         <div class="card">
           <h5 class="card-heading">
-            <!-- START dropdown-->
-            <div class="pull-right dropdown">
-              <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
-              <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
-                {{#if isInRole 'Admin'}}
-                <li><a href="#" id="newRoleBtn" class="new-role-btn">New Role</a></li>
-                {{/if}}
-              </ul>
-            </div>
-            <!-- END dropdown-->
             Roles
           </h5>
           <div class="card-body">
@@ -183,7 +174,7 @@
   </div>
 
   <!-- Modal for roles -->
-  <div tabindex="-1" role="dialog" class="modal fade role-modal">
+  <div tabindex="-1" role="dialog" class="modal fade role-modal" id="createRoleModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -210,7 +201,7 @@
   </div>
 
   <!-- updateModel -->
-  <div tabindex="-1" role="dialog" class="modal fade role-modal" id="updateUserModal">
+  <div tabindex="-1" role="dialog" class="modal fade" id="updateUserModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">

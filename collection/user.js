@@ -17,31 +17,34 @@ Meteor.users.allow({
 
 // methods
 Meteor.methods({
-  userCreate: function(email, password, status) {
-    var object = {
+  userCreate: function(password, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender) {
+    var profile = {
+      firstName: firstName,
+      lastName: lastName,
+      displayName: displayName,
+      status: status,
+      birthday: birthday,
+      website: website,
+      gender: gender
+    }
+
+    var mailingAddress = {
+      street: street,
+      streetCont: streetCont,
+      city: city,
+      state: state,
+      postal: postal,
+      phone: phone
+    }
+
+    var result = Accounts.createUser({
       email: email,
       password: password,
-      status: status
-    }
-
-    var isSafeToProcess = Match.test( object, {
-      email: String,
-      password: String,
-      status: String
+      profile: profile,
+      mailingAddress: mailingAddress
     });
 
-    if ( isSafeToProcess) {
-      var result = Accounts.createUser({
-        email: email,
-        password: password,
-        profile: {
-          status: status
-        }
-      });
-      return result;
-    } else {
-      throw new Meteor.Error('Failed to save user');
-    }
+    return result;
   },
 
   userUpdate: function(userId, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender) {
@@ -75,8 +78,14 @@ Meteor.methods({
     return result;
   },
 
-  removeUser: function(id) {
+  removeUser: function(userId) {
 
+    var profile = {
+      status: 'Deleted'
+    }
+
+    var result = Meteor.users.update(userId, {$set: profile});
+    return result;
   },
 
   addUserToRole: function(user, role) {

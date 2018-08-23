@@ -12,7 +12,6 @@
 // IMPORTS
 // -----------------------------------
 import './user/view.js';
-import './user/create.js';
 import './user/list.js';
 import './profile/profile.js';
 

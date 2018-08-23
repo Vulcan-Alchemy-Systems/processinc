@@ -154,10 +154,9 @@ import './view.html';
     },
 
     // newRoleBtn
-    'click #newRoleBtn': function(event) {
+    'click #createRoleBtn': function(event) {
       event.preventDefault();
-
-      $('.role-modal').modal('toggle');
+      $('#createRoleModal').modal('toggle');
     },
 
     // saveRoleBtn
