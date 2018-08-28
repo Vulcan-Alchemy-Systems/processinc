@@ -84,7 +84,14 @@ Meteor.methods({
       status: 'Deleted'
     }
 
-    var result = Meteor.users.update(userId, {$set: profile});
+    var object = {
+      profile: profile
+    }
+
+    var result = Meteor.users.update(userId, {$set: object});
+
+    console.log(userId);
+
     return result;
   },
 

@@ -6,7 +6,7 @@ import './list.html';
 Template.user.onCreated(function() {
   this.autorun(() => {
     // subscribe
-    this.subscribe('allUser');
+    this.subscribe('allActiveUser');
     this.subscribe('allRole');
   });
 });
@@ -17,7 +17,7 @@ Template.user.onRendered(function() {});
 // helpers
 Template.user.helpers({
   users: function() {
-    var results = Meteor.users.find({}, {fields: {profile: 1, emails: 1, createdAt: 1}});
+    var results = Meteor.users.find({'profile.status': 'Active'}, {fields: {profile: 1, emails: 1, createdAt: 1}});
     return results;
   },
   getUserEmail: function(emails) {

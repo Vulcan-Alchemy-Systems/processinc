@@ -96,7 +96,6 @@ import './view.html';
       var birthday = $('#birthday').val();
       var website = $('#website').val();
       var gender = $('#gender').val();
-
       var street = $('#street').val();
       var streetCont = $('#streetCont').val();
       var city =  $('#city').val();
@@ -140,11 +139,21 @@ import './view.html';
       }, function(isConfirm) {
           if (isConfirm) {
             var id = Router.current().params._id;
+
             Meteor.call('removeUser', id, function(error, result) {
                 if(error) {
                   swal('Error', error, 'error');
                 } else {
-                  swal('Deleted!', 'The user has been removed.', 'success');
+                  swal({
+                    title: 'Success',
+                    text: 'The User was deleted.',
+                    type: 'success',
+                    closeModal: true,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                  }, function() {
+                    Router.go('/user');
+                  });
                 }
               });
           } else {
@@ -192,6 +201,7 @@ import './view.html';
       }, function(isConfirm) {
           if (isConfirm) {
             var _id = Router.current().params._id;
+
             var user = Meteor.users.findOne({_id: _id}, {fields: {profile: 1, emails: 1, createdAt: 1}});
 
             Meteor.call('removeUserRole', user, role, function(error, result) {
