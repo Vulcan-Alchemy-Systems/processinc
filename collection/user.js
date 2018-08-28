@@ -17,59 +17,82 @@ Meteor.users.allow({
 
 // methods
 Meteor.methods({
-  userCreate: function(email, password, status) {
-    var object = {
-      email: email,
-      password: password,
-      status: status
-    }
-
-    var isSafeToProcess = Match.test( object, {
-      email: String,
-      password: String,
-      status: String
-    });
-
-    if ( isSafeToProcess) {
-      var result = Accounts.createUser({
-        email: email,
-        password: password,
-        profile: {
-          status: status
-        }
-      });
-      return result;
-    } else {
-      throw new Meteor.Error('Failed to save user');
-    }
-  },
-
-  userUpdate: function(email, password, status, birthday, phone) {
-    var object = {
-      email: email,
-      password: password,
+  userCreate: function(password, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender) {
+    var profile = {
+      firstName: firstName,
+      lastName: lastName,
+      displayName: displayName,
       status: status,
       birthday: birthday,
+      website: website,
+      gender: gender
+    }
+
+    var mailingAddress = {
+      street: street,
+      streetCont: streetCont,
+      city: city,
+      state: state,
+      postal: postal,
       phone: phone
     }
 
-    var isSafeToProcess = Match.test( object, {
-      email: String,
-      password: String,
-      status: String,
-      birthday: String,
-      phone: String
+    var result = Accounts.createUser({
+      email: email,
+      password: password,
+      profile: profile,
+      mailingAddress: mailingAddress
     });
 
-    if ( isSafeToProcess) {
-
-    } else {
-      throw new Meteor.Error('Failed to save user');
-    }
+    return result;
   },
 
-  removeUser: function(id) {
+  userUpdate: function(userId, firstName, lastName, displayName, status, birthday, street, streetCont, city, state, postal, phone, email, website, gender) {
+    var profile = {
+      firstName: firstName,
+      lastName: lastName,
+      displayName: displayName,
+      status: status,
+      birthday: birthday,
+      website: website,
+      gender: gender
+    }
 
+    var mailingAddress = {
+      street: street,
+      streetCont: streetCont,
+      city: city,
+      state: state,
+      postal: postal,
+      phone: phone
+    }
+
+    var object = {
+      email: email,
+      mailingAddress: mailingAddress,
+      profile: profile
+    }
+
+    var result = Meteor.users.update(userId, {$set: object});
+
+    return result;
+  },
+
+  removeUser: function(userId) {
+
+    var profile = {
+      status: 'Deleted'
+    }
+
+    var object = {
+      profile: profile
+    }
+
+    var result = Meteor.users.update(userId, {$set: object});
+
+    console.log(userId);
+
+    return result;
   },
 
   addUserToRole: function(user, role) {

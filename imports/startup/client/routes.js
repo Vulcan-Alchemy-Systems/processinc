@@ -312,19 +312,6 @@ Router.map(function() {
     title: 'Users',
     name: 'user'
   });
-  this.route('/user/create', {
-    onBeforeAction: function() {
-      if(!Meteor.userId()) {
-        Router.go('login');
-      } else {
-        // check if user is allowed
-        this.next();
-      }
-    },
-    template: 'userCreate',
-    title: 'New User',
-    name: 'userCreate'
-  });
   this.route('/user/:_id/view', {
     onBeforeAction: function() {
       if(!Meteor.userId()) {
