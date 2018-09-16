@@ -135,8 +135,9 @@ Meteor.methods({
 
     return result;
   },
-  updateJobForm: function(id, intakeType, growType, strain, condition, labTested, labSheetProvided, trackingEnabled, biomassWeight, containerWeight, prerocessing, preprocessingNote, returnType) {
+  updateJobForm: function(id, jobId, intakeType, growType, strain, condition, labTested, labSheetProvided, trackingEnabled, biomassWeight, containerWeight, prerocessing, preprocessingNote, returnType) {
     var object = {
+      jobId: jobId,
       intakeType: intakeType,
       growType: growType,
       strain: strain,
