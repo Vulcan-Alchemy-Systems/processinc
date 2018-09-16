@@ -1,0 +1,184 @@
+<template name="jobFormUpdate">
+  {{#if Template.subscriptionsReady}}
+  <div class="container-overlap bg-blue-500">
+    <div class="media m0 pv">
+      <div class="media-left"></div>
+      <div class="media-body media-middle">
+        <h4 class="media-heading">Edit Job Form</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <form id="updateJobForm" name="updateJobForm" novalidate="" class="card form-validate" action="#">
+          <h5 class="card-heading pb0">Job Form Details <small class="pull-right">* Required fields</small></h5>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="intakeType" id="intakeType" required="true" class="form-control">
+                      <option value="">-- Select One --</option>
+                      {{#each intakeTypeSelect}}
+                        <option value="{{value}}" {{jobFormSelect value jobForm.intakeType}}>{{label}}</option>
+                      {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Form Type</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div id="distilate" class="hidden">
+              <h5>Biomass Details</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <select name="growType" id="growType" required="true" class="form-control">
+                          {{#each growTypeSelect}}
+                            <option value="{{value}}">{{label}}</option>
+                          {{/each}}
+                        </select>
+                        <div class="mda-form-control-line"></div>
+                        <label>Grow Type</label>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <input type="text" name="strain" id="strain"  class="form-control"/>
+                      <div class="mda-form-control-line"></div>
+                      <label>Strain</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <textarea name="condition" id="condition" class="form-control"></textarea>
+                      <div class="mda-form-control-line"></div>
+                      <label>Condition</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h5>Lab Information</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="labTested" name="labTested"/><em class="bg-blue-500 empty"></em> Lab Tested
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="labSheetProvided" name="labSheetProvided"/><em class="bg-blue-500 empty"></em> Lab Sheet Provided
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="trackingEnabled" name="trackingEnabled"/><em class="bg-blue-500 empty"></em> Enable Tracking System
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <h5>Intake Weights</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <input type="text" name="biomassWeight" id="biomassWeight" required="true" tabindex="0" aria-required="true" aria-invalid="true" class="form-control" value="{{jobForm.biomassWeight}}"/>
+                        <div class="mda-form-control-line"></div>
+                        <label>Total Biomass Weight *</label>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                        <input type="text" name="containerWeight" id="containerWeight" required="true" class="form-control"/>
+                        <div class="mda-form-control-line"></div>
+                        <label>Container Weight *</label>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <h5>Pre Processing</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb">
+                    <label class="mda-checkbox">
+                      <input type="checkbox" value="" id="prerocessing" name="prerocessing"/><em class="bg-blue-500 empty"></em> Pre Processing Needed
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <textarea name="preprocessingNote" id="preprocessingNote"  class="form-control" aria-multiline="true" aria-invalid="false"></textarea>
+                      <div class="mda-form-control-line"></div>
+                      <label>Pre Processing Notes</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mda-form-group">
+                    <div class="mda-form-control">
+                      <select name="returnType" id="returnType" required="true" class="form-control">
+                       {{#each returnTypeSelect}}
+                         <option value="{{value}}">{{label}}</option>
+                       {{/each}}
+                     </select>
+                     <div class="mda-form-control-line"></div>
+                     <label>Return Type</label>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             <div class="text-center">
+               <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+             </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{/if}}
+</template>

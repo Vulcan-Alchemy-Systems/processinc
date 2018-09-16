@@ -23,6 +23,8 @@ import './job/jobCreate.js';
 import './job/jobView.js';
 import './job/jobUpdate.js';
 import './job/jobFormCreate.js';
+import './job/jobFormUpdate.js';
+
 // Admin
 import './admin/admin.js';
 import './growType/growType.js';
