@@ -15,6 +15,7 @@ import './jobView.html';
         this.subscribe('allJobHistory', id);
         this.subscribe('allJobProcess', id);
         this.subscribe('allJobDeliverable', id);
+        this.subscribe('allJobNotes', id);
         this.subscribe('allIntakeType');
         this.subscribe('allReturnType');
         this.subscribe('allGrowType');
@@ -44,6 +45,11 @@ import './jobView.html';
         var result = JobForm.find({jobId: id, deleted: false}).fetch();
         return result;
       },
+      jobNotes: function() {
+        var id = Router.current().params._id;
+        var results = JobNote.find({jobId: id, deleted: false}).fetch();
+        return results;
+      },
       jobHistory: function() {
         var id = Router.current().params._id;
         var result = JobHistory.find({jobId: id, deleted: false}, {skip: 0, limit: 5, sort: {created: -1}}).fetch();
@@ -63,6 +69,111 @@ import './jobView.html';
 
     // events
     Template.jobView.events({
+      // createNoteBtn
+      'click #createNoteBtn': function(event) {
+        event.preventDefault();
+          $('#createJobNoteModal').modal('toggle');
+      },
+      // saveJobNoteBtn
+      'click #saveJobNoteBtn': function(event) {
+        event.preventDefault();
+
+        var jobId =  Router.current().params._id;
+        var note = $('#note').val();
+        var id = $('#jobNoteId').val();
+
+        if(id) {
+          Meteor.call('updateJobNote', id, jobId, note, function(error, result) {
+            if(error) {
+              swal('Error', error, 'error');
+            } else {
+              swal({
+                title: 'Success',
+                text: 'The Note was saved.',
+                type: 'success',
+                closeModal: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+              }, function() {
+                $('#createJobNoteForm').trigger("reset");
+                $('#createJobNoteModal').modal('toggle');
+                Meteor.call('createJobHistory', jobId, 'Note was saved');
+              });
+            }
+          });
+        } else {
+          Meteor.call('createJobNote', jobId, note, function(error, result) {
+            if(error) {
+              swal('Error', error, 'error');
+            } else {
+              swal({
+                title: 'Success',
+                text: 'The Note was saved.',
+                type: 'success',
+                closeModal: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+              }, function() {
+                $('#createJobNoteForm').trigger("reset");
+                $('#createJobNoteModal').modal('toggle');
+                Meteor.call('createJobHistory', jobId, 'Note was saved');
+                console.log(result);
+              });
+            }
+          });
+        }
+      },
+      // jobNoteEditBtn
+      'click #jobNoteEditBtn': function(event) {
+        event.preventDefault();
+        var id = this._id;
+        var note = this.note;
+
+        $('#note').val(note);
+        $('#jobNoteId').val(id);
+        $('#createJobNoteModal').modal('toggle');
+      },
+      // jobNoteDeleteBtn
+      'click #jobNoteDeleteBtn': function(event) {
+        event.preventDefault();
+        var id = this._id;
+        var jobId =  Router.current().params._id;
+
+        swal({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this Note!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          dangerMode: true,
+        }, function(isConfirm){
+          if (isConfirm) {
+            Meteor.call('deleteJobNote', id, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              } else {
+                swal({
+                  title: 'Success',
+                  text: 'The Note was deleted.',
+                  type: 'success',
+                  closeModal: true,
+                  closeOnClickOutside: false,
+                  closeOnEsc: false,
+                }, function() {
+                  // record History
+                  Meteor.call('createJobHistory', jobId, 'Job Note was deleted');
+                });
+              }
+            });
+          } else {
+            swal('Cancelled', 'The Job Note was not deleted', 'error');
+          }
+        });
+      },
       // createProcessBtn
       'click #createProcessBtn': function(event) {
         event.preventDefault();
