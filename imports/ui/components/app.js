@@ -24,6 +24,7 @@ import './job/jobView.js';
 import './job/jobUpdate.js';
 import './job/jobFormCreate.js';
 import './job/jobFormUpdate.js';
+import './job/jobHistory.js';
 
 // Admin
 import './admin/admin.js';
