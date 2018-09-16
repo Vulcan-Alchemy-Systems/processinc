@@ -160,6 +160,8 @@ Meteor.methods({
     });
 
     var result = JobForm.update(id, {$set: object});
+
+    return result;
   },
   deleteJobForm: function(id) {
     var result = JobForm.update(id, {$set: {
