@@ -67,7 +67,9 @@
               </tbody>
             </table>
           </div>
-          <div class="card-divider"></div>
+        </div>
+
+        <div class="card">
           <h5 class="card-heading">Forms</h5>
           <div class="card-body">
             <div class="table-responsive bootgrid">
@@ -100,7 +102,9 @@
               </table>
             </div>
           </div>
-          <div class="card-divider"></div>
+        </div>
+
+        <div class="card">
           <h5 class="card-heading">Notes</h5>
           <div class="card-body">
             <div class="table-responsive bootgrid">
@@ -124,6 +128,30 @@
           </div>
           </div>
         </div>
+
+        <div class="card">
+          <h5 class="card-heading">Reports</h5>
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <h6>Yield <span class="small text-muted">(in grams)</span></h6>
+              <table id="yieldReport" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th>Postblast</th>
+                    <th>Crude</th>
+                    <th>Yield</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>{{postblast}}</td>
+                  <td>{{crude}}</td>
+                  <td>{{yield postblast crude}}</td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!-- right column -->
       <div class="col-md-5 col-lg-4">
@@ -434,7 +462,7 @@
                     <input type="text" name="processWeight" id="processWeight" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
                     <div class="mda-form-control-line"></div>
 
-                    <label>Weight *</label>
+                    <label>Weight <span class="small">grams</span>*</label>
                   </div>
                 </div>
               </div>
