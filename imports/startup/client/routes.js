@@ -206,6 +206,18 @@ Router.map(function() {
     title: 'View Job Form',
     name: 'jobFormView'
   });
+  this.route('/job/:_id/history', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'jobHistory',
+    title: 'View Job History',
+    name: 'jobHistory'
+  });
 });
 
 // roles routes
