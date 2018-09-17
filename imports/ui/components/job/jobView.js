@@ -64,6 +64,54 @@ import './jobView.html';
         var jobId = Router.current().params._id;
         var results = Deliverable.find({deleted: false, jobId: jobId}, {sort: {date: 1}}).fetch();
         return results;
+      },
+      postblast: function() {
+        var jobId = Router.current().params._id;
+        var total = 0;
+
+        Process.find({deleted: false, jobId: jobId, name: 'Post Blast'}).map(function(doc) {
+          total += parseInt(doc.weight);
+        });
+
+        return total;
+      },
+      crude: function() {
+        var jobId = Router.current().params._id;
+        var total = 0;
+
+        Process.find({deleted: false, jobId: jobId, name: 'Crude'}).map(function(doc) {
+          total += parseInt(doc.weight);
+        });
+
+        return total;
+      },
+      yield: function(postblast, crude) {
+        var total = ((crude/postblast) * 100).toFixed(2);
+        return total;
+      },
+      biomass: function() {
+        var jobId = Router.current().params._id;
+        var total = 0;
+
+        Process.find({deleted: false, jobId: jobId, name: 'Biomass'}).map(function(doc) {
+          total += parseInt(doc.weight);
+        });
+
+        return total;
+      },
+      distilate: function() {
+        var jobId = Router.current().params._id;
+        var total = 0;
+
+        Process.find({deleted: false, jobId: jobId, name: 'Distilate'}).map(function(doc) {
+          total += parseInt(doc.weight);
+        });
+
+        return total;
+      },
+      distilateYield: function(crude, distilate) {
+        var total = ((distilate/crude) * 100).toFixed(2);
+        return total;
       }
     });
 
