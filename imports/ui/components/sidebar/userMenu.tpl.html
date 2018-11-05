@@ -1,5 +1,5 @@
 <template name="userMenu">
-  <li class="{{isActiveRoute regex='dashboard|profile|job|messagesBoard|location|roomView|machine|machineView|user'}}">
+  <li class="{{isActiveRoute regex='dashboard|profile|job|messagesBoard|location|roomView|machine|machineView|user|inventory'}}">
     <a href="{{pathFor 'dashboard'}}" class="ripple">
       <span class="pull-right nav-caret">
         <em class="ion-ios-arrow-right"></em>
@@ -15,11 +15,12 @@
       <li class="{{isActiveRoute regex='profile'}}">
         <a href="{{pathFor 'profile'}}" class="ripple" title="My Profile"><span class="pull-right nav-label"></span><span>Profile</span></a>
       </li>
-      <li class="{{isActiveRoute regex='job'}}">
-        <a href="{{pathFor 'job'}}" class="ripple" title="My Jobs"><span class="pull-right nav-label"></span><span>Jobs</span></a>
-      </li>
       <li class="{{isActiveRoute regex='messagesBoard'}}">
         <a href="{{pathFor 'messagesBoard'}}" class="ripple"><span class="pull-right nav-label"></span><span>Messages</span></a>
+      </li>
+      {{#if isInRole 'Employee'}}
+      <li class="{{isActiveRoute regex='job'}}">
+        <a href="{{pathFor 'job'}}" class="ripple" title="My Jobs"><span class="pull-right nav-label"></span><span>Jobs</span></a>
       </li>
       <li class="{{isActiveRoute regex='user'}}">
         <a href="{{pathFor 'user'}}" class="ripple"><span class="pull-right nav-label"></span><span>Users</span></a>
@@ -30,6 +31,12 @@
       <li class="{{isActiveRoute regex='machine'}}">
         <a href="{{pathFor 'machine'}}" class="ripple"><span class="pull-right nav-label"></span><span>Machines</span></a>
       </li>
+      {{/if}}
+      {{#if isInRole 'Manager'}}
+      <li class="{{isActiveRoute regex='inventory'}}">
+        <a href="{{pathFor 'inventory'}}" class="ripple"><span class="pull-right nav-label"></span><span>Inventory</span></a>
+      </li>
+      {{/if}}
     </ul>
   </li>
 </template>

@@ -41,10 +41,12 @@ import './room/roomView.js';
 // room
 import './room/room.js';
 
-
 // machines
 import './machine/machine.js';
 import './machine/machineView.js';
+
+// inventory
+import './inventory/inventory.js';
 
 // dev
 import './charts/flot.js';

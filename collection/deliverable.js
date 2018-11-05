@@ -65,6 +65,12 @@ DeliverableSchema = new SimpleSchema({
     optional: false,
   },
 
+  delivered: {
+    type: Boolean,
+    label: "Delivered",
+    optional: false,
+  },
+
   // created
   created: {
     type: Date,

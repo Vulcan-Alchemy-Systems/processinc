@@ -220,14 +220,25 @@ Router.map(function() {
   });
 });
 
+Router.route('/inventory', {
+  onBeforeAction: function() {
+    if(!Meteor.userId()) {
+      Router.go('login');
+    } else {
+      this.next();
+    }
+  },
+  template: 'inventory',
+  title: 'Inventory',
+  name: 'inventory'
+});
+
 // roles routes
 Router.route('/role', {
   onBeforeAction: function() {
     if(!Meteor.userId()) {
       Router.go('login');
     } else {
-      // check if user is allowed
-
       this.next();
     }
   },
