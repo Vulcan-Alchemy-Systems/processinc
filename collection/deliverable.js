@@ -65,6 +65,12 @@ DeliverableSchema = new SimpleSchema({
     optional: false,
   },
 
+  delivered: {
+    type: Boolean,
+    label: "Delivered",
+    optional: false,
+  },
+
   // created
   created: {
     type: Date,
@@ -94,6 +100,7 @@ Meteor.methods({
       weight: weight,
       weightType: weightType,
       lot: lot,
+      delivered: false,
       deleted: false
     }
 
@@ -110,11 +117,22 @@ Meteor.methods({
       weight: weight,
       weightType: weightType,
       lot: lot,
+      delivered: false,
       deleted: false
     }
 
     var result = Deliverable.update(id, {$set: object});
 
+    return result;
+  },
+  // markDeliverable
+  markDeliverable: function(id) {
+
+    var object = {
+      delivered: true
+    }
+    var result = Deliverable.update(id, {$set: object});
+      console.log(id);
     return result;
   },
   // deleteDeliverable

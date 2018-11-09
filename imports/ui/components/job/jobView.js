@@ -9,6 +9,7 @@ import './jobView.html';
     Template.jobView.onCreated(function() {
       this.autorun(() => {
         var id = Router.current().params._id;
+        Session.set('machines', []);
 
         this.subscribe('singleJob', id);
         this.subscribe('allJobForms', id);
@@ -22,6 +23,8 @@ import './jobView.html';
         this.subscribe('allActiveUser');
         this.subscribe('allLocations');
         this.subscribe('allWeightType');
+        this.subscribe('allMachines');
+
       });
     });
 
@@ -29,7 +32,9 @@ import './jobView.html';
     Template.jobView.onRendered(function() {
       var id = Router.current().params._id;
       Meteor.call('createJobHistory', id, 'Job was viewed');
+      $('.clockpicker').clockpicker({
 
+      });
 
     });
 
@@ -80,13 +85,18 @@ import './jobView.html';
         var total = 0;
 
         Process.find({deleted: false, jobId: jobId, name: 'Crude'}).map(function(doc) {
-          total += parseInt(doc.weight);
+          if(doc.weight) {
+            total += parseInt(doc.weight);
+          }
         });
 
         return total;
       },
       yield: function(postblast, crude) {
-        var total = ((crude/postblast) * 100).toFixed(2);
+        var total = 0;
+        if(postblast) {
+          total = ((crude/postblast) * 100).toFixed(2);
+        }
         return total;
       },
       biomass: function() {
@@ -102,25 +112,82 @@ import './jobView.html';
       distilate: function() {
         var jobId = Router.current().params._id;
         var total = 0;
-
         Process.find({deleted: false, jobId: jobId, name: 'Distilate'}).map(function(doc) {
           total += parseInt(doc.weight);
         });
-
         return total;
       },
       distilateYield: function(crude, distilate) {
-        var total = ((distilate/crude) * 100).toFixed(2);
+        var total = 0;
+        if(distilate) {
+          total = ((distilate/crude) * 100).toFixed(2);
+        }
         return total;
+      },
+      selectMachines: function() {
+        return Session.get('machines');
       }
     });
 
     // events
     Template.jobView.events({
+      // processName
+      'change #processName': function(event) {
+        event.preventDefault();
+        var processName = $('#processName').val();
+        $('#processRow').removeClass('hidden');
+
+        switch(processName) {
+          case 'First Pass':
+          case 'Second Pass':
+          case 'Third Pass':
+            $('#processStartRow').show();
+            $('#processEndRow').show();
+            $('#endWeightRow').show();
+            $('#finishTxt').show();
+            $('#machineRow').show();
+            var machines =  Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
+              return  {
+                label: values.name,
+                value: values._id
+              };
+            });
+
+            Session.set('machines', machines);
+            //;
+          break;
+          case 'Crude':
+            var machines =  Machine.find({deleted: false, type: 'Extraction Equipment'}).map(function(values) {
+              return  {
+                label: values.name,
+                value: values._id
+              };
+            });
+
+            Session.set('machines', machines);
+            $('#processStartRow').hide();
+            $('#processEndRow').hide();
+            $('#endWeightRow').hide();
+            $('#finishTxt').hide();
+            $('#machineRow').show();
+          break;
+          case 'Biomass':
+          case 'Post Blast':
+          case 'Distilate':
+            $('#processStartRow').hide();
+            $('#processEndRow').hide();
+            $('#endWeightRow').hide();
+            $('#finishTxt').hide();
+            $('#machineRow').hide();
+          break;
+        }
+        console.log(processName);
+
+      },
       // createNoteBtn
       'click #createNoteBtn': function(event) {
         event.preventDefault();
-          $('#createJobNoteModal').modal('toggle');
+        $('#createJobNoteModal').modal('toggle');
       },
       // saveJobNoteBtn
       'click #saveJobNoteBtn': function(event) {
@@ -226,6 +293,11 @@ import './jobView.html';
       'click #createProcessBtn': function(event) {
         event.preventDefault();
         $('#processDate').datepicker({container:'#datepickerContainer1'});
+        $('.clockpicker').clockpicker({
+          placement: 'top',
+          align: 'left',
+          donetext: 'Done'
+        });
         $('#createProcessModal').modal('toggle');
       },
       // createDeliverableBtn
@@ -344,6 +416,7 @@ import './jobView.html';
           }
         });
       },
+
       // saveProcessBtn
       'click #saveProcessBtn': function(event) {
         event.preventDefault();
@@ -351,12 +424,16 @@ import './jobView.html';
         var jobId =  Router.current().params._id;
         var name = $('#processName').val();
         var date = $('#processDate').val();
+        var start = $('#processStart').val();
+        var end = $('#processEnd').val();
         var userId = $('#processUser').val();
+        var endWeight = $('#endWeight').val();
         var weight = $('#processWeight').val();
+        var machine = $('#processMachine').val();
         var id = $('#processId').val();
 
         if(id) {
-          Meteor.call('updateProcess', id, jobId, name, date, userId, weight, function(error, result) {
+          Meteor.call('updateProcess', id, jobId, name, date, userId, weight, start, end, endWeight, machine, function(error, result) {
             if(error) {
               swal('Error', error, 'error');
             } else {
@@ -406,8 +483,6 @@ import './jobView.html';
         var weight = $('#deliverableWeight').val();
         var weightType = $('#weightType').val();
         var lot = $('#lot').val();
-
-        console.log(id);
 
         if(id) {
           Meteor.call('updateDeliverable', id, jobId, userId, date, weight, weightType, lot, function(error, result) {

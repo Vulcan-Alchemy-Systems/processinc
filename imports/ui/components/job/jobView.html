@@ -420,6 +420,7 @@
                 <div class="mda-form-group">
                   <div class="mda-form-control">
                     <select name="processName" id="processName" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="">-- Select One --</option>
                       <option value="Biomass">Biomasss</option>
                       <option value="Post Blast">Post Blast</option>
                       <option value="Crude">Crude</option>
@@ -434,7 +435,7 @@
                 </div>
               </div>
             </div>
-
+            <div id="processRow" class="hidden">
             <div class="row">
               <div class="col-md-12">
                 <div class="mda-form-group">
@@ -464,23 +465,78 @@
               </div>
             </div>
 
+            <div class="row" id="machineRow">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="machines" id="machines" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      {{#each selectMachines}}
+                        <option value="{{value}}">{{label}}</option>
+                      {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Machine *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="processStartRow">
+              <div class="col-md-12">
+                <div data-autoclose="true" class="mda-form-group clockpicker">
+                  <div class="mda-form-control">
+                    <input type="text" name="processStart" id="processStart" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <label>Start Time *</label>
+                    <div class="mda-form-control-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="processEndRow">
+              <div class="col-md-12">
+                <div data-autoclose="true" class="mda-form-group clockpicker">
+                  <div class="mda-form-control">
+                    <input type="text" name="processEnd" id="processEnd" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <label>End Time *</label>
+                    <div class="mda-form-control-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="endWeightRow">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="endWeight" id="endWeight" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+
+                    <label>Start Weight <span class="small">grams</span> *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-12">
                 <div class="mda-form-group">
                   <div class="mda-form-control">
                     <input type="text" name="processWeight" id="processWeight" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
                     <div class="mda-form-control-line"></div>
-
-                    <label>Weight <span class="small">grams</span>*</label>
+                    <label><span id="finishTxt">Finish</span> Weight <span class="small">grams</span> *</label>
                   </div>
                 </div>
               </div>
             </div>
 
+
+
             <input type="hidden" id="processId" name="processId" value="" />
             <div class="text-center">
               <button type="button" class="btn btn-primary" id="saveProcessBtn">Save</button>
             </div>
+          </div>
           </form>
         </div>
       </div>

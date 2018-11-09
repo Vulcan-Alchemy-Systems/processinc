@@ -8,7 +8,6 @@ import './job.html';
     // on created
     Template.job.onCreated(function() {
       this.autorun(() => {
-        // subscribe
         this.subscribe('allJobs');
       });
     });
@@ -24,22 +23,30 @@ import './job.html';
       }
     });
 
+    // jobStatusSelectList
     Template.registerHelper('jobStatusSelectList', function (userId) {
       return [{
-        label: 'New',
-        value: 'New'
-      },{
-      label: 'In Process',
-      value:'In Process'
-    },{
-      label: 'On Hold',
-      value: 'On Hold'
-    },{
-      label: 'Completed',
-      value: 'Completed'
-    },{
-      label: 'Canceled',
-      value: 'Canceled'
-    }];
+          label: 'New',
+          value: 'New'
+        },{
+          label: 'In Process',
+          value:'In Process'
+        },{
+          label: 'On Hold',
+          value: 'On Hold'
+        },{
+          label: 'Completed',
+          value: 'Completed'
+        },{
+          label: 'Canceled',
+          value: 'Canceled'
+        }];
+    });
+
+    // jobName
+    Template.registerHelper('jobName', function (jobId) {
+      var result = Job.findOne({_id: jobId});
+      var jobName = result.name;
+      return jobName;
     });
 })();
