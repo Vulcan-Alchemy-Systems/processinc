@@ -34,19 +34,26 @@
                   <th>Out</th>
                   <th>Balance</th>
                   <th>User</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
               {{#each deliverables}}
               <tr>
-                <td>{{_id}}</td>
-                <td>{{shortDate created}}</td>
+                <td class="text-center">
+                    <span class="barcode">*{{_id}}*</span><br>
+                    <span class="text-muted small">{{_id}}</span>
+                  </td>
+                <td>{{shortDate date}}</td>
                 <td><a href="/job/{{jobId}}/view" title="View Job">{{jobName jobId}}</a></td>
                 <td>{{lot}}</td>
-                <td>{{in weight delivered}}</td>
-                <td>{{out weight delivered}}</td>
+                <td>{{weightIn}}</td>
+                <td>{{weightOut}}</td>
                 <td>{{balance}}</td>
                 <td><a href="/user/{{createdBy}}/view" title="View User">{{userEmail createdBy}}</a></td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-flat btn-info btn-ship"><em class="ion-android-boat"></em></button>
+                </td>
               </tr>
               {{else}}
               <tr>

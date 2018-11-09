@@ -38,6 +38,20 @@ ProcessSchema = new SimpleSchema({
     optional: false,
   },
 
+  // start
+  start: {
+    type: Date,
+    label: "Start",
+    optional: true,
+  },
+
+  // end
+  end: {
+    type: Date,
+    label: "End",
+    optional: true,
+  },
+
   // userId
   userId: {
     type: String,
@@ -48,7 +62,19 @@ ProcessSchema = new SimpleSchema({
   // weight
   weight: {
     type: String,
-    label: "Weight",
+    label: "Start Weight",
+    optional: true,
+  },
+
+  endWeight: {
+    type: String,
+    label: "End Weight",
+    optional: true,
+  },
+
+  machine: {
+    type: String,
+    label: "machine",
     optional: true,
   },
 
@@ -79,7 +105,7 @@ ProcessSchema = new SimpleSchema({
 Process.attachSchema(ProcessSchema);
 
 Meteor.methods({
-  createProcess: function(jobId, name, date, userId, weight) {
+  createProcess: function(jobId, name, date, userId, weight, start, end, endWeight, machine) {
     var object = {
       jobId: jobId,
       name: name,
@@ -93,7 +119,7 @@ Meteor.methods({
 
     return result;
   },
-  updateProcess: function(id, jobId, name, date, userId, weight) {
+  updateProcess: function(id, jobId, name, date, userId, weight, start, end, endWeight, machine) {
     var object = {
       jobId: jobId,
       name: name,
