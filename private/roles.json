@@ -4,6 +4,7 @@
     { "_id" : "3TwaZNp7nvQBapkSB", "name" : "Developer" },
     { "_id" : "L7S58KJaCj6JvxjRz", "name" : "Grower" },
     { "_id" : "EbjRBA4cMjvRyiXqJ", "name" : "Processor" },
-    { "_id" : "M4AwE3P4SSZG3WPD4", "name" : "Manager" }
+    { "_id" : "M4AwE3P4SSZG3WPD4", "name" : "Manager" },
+    { "_id" : "zPWRfCgk29bo4NqkA", "name" : "Employee" }
   ]
 }

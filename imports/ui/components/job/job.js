@@ -9,11 +9,12 @@ import './job.html';
     Template.job.onCreated(function() {
       this.autorun(() => {
         this.subscribe('allJobs');
+        this.subscribe('allUser');
       });
     });
 
-    // on rendered
-    Template.job.onRendered(function() {});
+
+    
 
     // helpers
     Template.job.helpers({
