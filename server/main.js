@@ -59,6 +59,9 @@ Meteor.startup(() => {
 
       // add user to admin role
       Roles.addUsersToRoles(result, 'Admin');
+      Roles.addUsersToRoles(result, 'Developer');
+      Roles.addUsersToRoles(result, 'Manager');
+      Roles.addUsersToRoles(result, 'Employee');
       console.log(result + ' added to role admin');
     });
   }
