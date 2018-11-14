@@ -15,6 +15,8 @@ import './jobView.html';
         this.subscribe('allJobForms', id);
         this.subscribe('allJobHistory', id);
         this.subscribe('allJobProcess', id);
+        this.subscribe('allJobExtractionProcess', id);
+        this.subscribe('allJobDistillationProcess', id);
         this.subscribe('allJobDeliverable', id);
         this.subscribe('allJobNotes', id);
         this.subscribe('allIntakeType');
@@ -24,7 +26,6 @@ import './jobView.html';
         this.subscribe('allLocations');
         this.subscribe('allWeightType');
         this.subscribe('allMachines');
-
       });
     });
 
@@ -62,7 +63,17 @@ import './jobView.html';
       },
       processes: function() {
         var jobId = Router.current().params._id;
-        var results = Process.find({deleted: false, jobId: jobId}, {sort: {date: 1}}).fetch();
+        var results = Process.find({deleted: false, jobId: jobId}, {skip: 0, limit: 5, sort: {date: -1}}).fetch();
+        return results;
+      },
+      extractionProcess: function() {
+        var jobId = Router.current().params._id;
+        var results = ExtractionProcess.find({deleted: false, jobId: jobId}, {skip: 0, limit: 5, sort: {date: -1}}).fetch();
+        return results;
+      },
+      distillationProcess: function() {
+        var jobId = Router.current().params._id;
+        var results = DistillationProcess.find({deleted: false, jobId: jobId}, {skip: 0, limit: 5, sort: {date: -1}}).fetch();
         return results;
       },
       deliverables: function() {
@@ -78,25 +89,6 @@ import './jobView.html';
           total += parseInt(doc.weight);
         });
 
-        return total;
-      },
-      crude: function() {
-        var jobId = Router.current().params._id;
-        var total = 0;
-
-        Process.find({deleted: false, jobId: jobId, name: 'Crude'}).map(function(doc) {
-          if(doc.weight) {
-            total += parseInt(doc.weight);
-          }
-        });
-
-        return total;
-      },
-      yield: function(postblast, crude) {
-        var total = 0;
-        if(postblast) {
-          total = ((crude/postblast) * 100).toFixed(2);
-        }
         return total;
       },
       biomass: function() {
@@ -131,59 +123,284 @@ import './jobView.html';
 
     // events
     Template.jobView.events({
-      // processName
-      'change #processName': function(event) {
+      // createDistillationProcessBtn
+      'click #createDistillationProcessBtn': function(event) {
         event.preventDefault();
-        var processName = $('#processName').val();
-        $('#processRow').removeClass('hidden');
+        $('#distillationProcessId').val(null);
+        var id = $('#distillationProcessId').val();
+        $('.clockpicker').clockpicker({});
+        console.log(id);
 
-        switch(processName) {
-          case 'First Pass':
-          case 'Second Pass':
-          case 'Third Pass':
-            $('#processStartRow').show();
-            $('#processEndRow').show();
-            $('#endWeightRow').show();
-            $('#finishTxt').show();
-            $('#machineRow').show();
-            var machines =  Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
-              return  {
-                label: values.name,
-                value: values._id
-              };
+        var machines =  Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
+          return  {
+            label: values.name,
+            value: values._id
+          };
+        });
+        Session.set('machines', machines);
+        $('#distillationProcessDate').datepicker({container:'#distillationProcessDateContainer', autoclose: true});
+        $('#createDistillationProcessModal').modal('toggle');
+      },
+
+      // saveDistillationProcessBtn
+      'click #saveDistillationProcessBtn': function(event) {
+          event.preventDefault();
+          var jobId = Router.current().params._id;
+          var id = $('#distillationProcessId').val();
+          var date = $('#distillationProcessDate').val();
+          var shift = $('#distillationProcessShift').val();
+          var userId = $('#distillationProcessUser').val();
+          var pass = $('#distillationProcessPass').val();
+          var runStart = $('#distillationProcessRunStart').val();
+          var runEnd = $('#distillationProcessRunEnd').val();
+          var amountStart = $('#distillationProcessAmountStart').val();
+          var amountEnd = $('#distillationProcessAmountEnd').val();
+          var machine = $('#distillationProcessMachine').val();
+          var note = $('#distillationProcessNote').val();
+          console.log(id);
+
+          if(id) {
+            Meteor.call('updateDistillationProcess', id, jobId, date, shift, userId, pass, runStart, runEnd, amountStart, amountEnd, machine, note, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              } else {
+                swal({
+                  title: 'Success',
+                  text: 'The Distillation Process was updated.',
+                  type: 'success',
+                  closeModal: true,
+                  closeOnClickOutside: false,
+                  closeOnEsc: false,
+                }, function() {
+                  $('#createDistillationProcessForm').trigger("reset");
+                  $('#createDistillationProcessModal').modal('toggle');
+                  Meteor.call('createJobHistory', jobId, 'Distillation Process was saved');
+                });
+              }
             });
-
-            Session.set('machines', machines);
-            //;
-          break;
-          case 'Crude':
-            var machines =  Machine.find({deleted: false, type: 'Extraction Equipment'}).map(function(values) {
-              return  {
-                label: values.name,
-                value: values._id
-              };
+          } else {
+            Meteor.call('createDistillationProcess', jobId, date, shift, userId, pass, runStart, runEnd, amountStart, amountEnd, machine, note, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              } else {
+                swal({
+                  title: 'Success',
+                  text: 'The Distillation Process was created.',
+                  type: 'success',
+                  closeModal: true,
+                  closeOnClickOutside: false,
+                  closeOnEsc: false,
+                }, function() {
+                  $('#createDistillationProcessForm').trigger("reset");
+                  $('#createDistillationProcessModal').modal('toggle');
+                  Meteor.call('createJobHistory', jobId, 'Distillation Process was saved');
+                });
+              }
             });
-
-            Session.set('machines', machines);
-            $('#processStartRow').hide();
-            $('#processEndRow').hide();
-            $('#endWeightRow').hide();
-            $('#finishTxt').hide();
-            $('#machineRow').show();
-          break;
-          case 'Biomass':
-          case 'Post Blast':
-          case 'Distilate':
-            $('#processStartRow').hide();
-            $('#processEndRow').hide();
-            $('#endWeightRow').hide();
-            $('#finishTxt').hide();
-            $('#machineRow').hide();
-          break;
-        }
-        console.log(processName);
+          }
 
       },
+
+      // distillationProcessEditBtn
+      'click #distillationProcessEditBtn': function(event) {
+        event.preventDefault();
+        var machines =  Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
+          return  {
+            label: values.name,
+            value: values._id
+          };
+        });
+        Session.set('machines', machines);
+
+        $('#distillationProcessId').val(this._id);
+        $('#distillationProcessDate').val(moment(this.date).format(Meteor.settings.public.shortDate));
+        $('#distillationProcessShift').val(this.shift);
+        $('#distillationProcessPass').val(this.pass);
+        $('#distillationProcessRunStart').val(this.runStart);
+        $('#distillationProcessRunEnd').val(this.runEnd);
+        $('#distillationProcessAmountStart').val(this.amountStart);
+        $('#distillationProcessAmountEnd').val(this.amountEnd);
+        $('#distillationProcessMachine').val(this.machine);
+        $('#distillationProcessNote').val(this.note);
+
+        $('#createDistillationProcessModal').modal('toggle');
+      },
+
+      // distillationProcessDeleteBtn
+      'click #distillationProcessDeleteBtn': function() {
+        event.preventDefault();
+        var id = this._id;
+        var jobId = Router.current().params._id;
+
+        swal({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this process!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          dangerMode: true,
+        }, function(isConfirm) {
+          if (isConfirm) {
+            Meteor.call('deleteDistillationProcess', id, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              } else {
+                swal({
+                  title: 'Success',
+                  text: 'The Process was deleted.',
+                  type: 'success',
+                  closeModal: true,
+                  closeOnClickOutside: false,
+                  closeOnEsc: false,
+                }, function() {
+                  // record History
+                  Meteor.call('createJobHistory', jobId, 'Distillation Process was deleted');
+                });
+              }
+            });
+          } else {
+            swal('Cancelled', 'The process was not deleted', 'error');
+          }
+        });
+      },
+
+      // createExtractionProcessBtn
+      'click #createExtractionProcessBtn': function(event) {
+        event.preventDefault();
+        var machines =  Machine.find({deleted: false, type: 'Extraction Equipment'}).map(function(values) {
+          return  {
+            label: values.name,
+            value: values._id
+          };
+        });
+        Session.set('machines', machines);
+        $('#extractionProcessDate').datepicker({container:'#extractionProcessDateContainer', autoclose: true});
+        $('#createExtractionProcessModal').modal('toggle');
+      },
+
+      // saveExtractionProcessBtn
+      'click #saveExtractionProcessBtn': function(event) {
+        event.preventDefault();
+        var id = $('#extractionProcessId').val();
+        var jobId = Router.current().params._id;
+        var date = $('#extractionProcessDate').val();
+        var shift = $('#extractionProcessShift').val();
+        var userId = $('#extractionProcessUser').val();
+        var postBlast = $('#extractionProcessPostBlast').val();
+        var crude = $('#extractionProcessCrude').val();
+        var extractionYield = ((crude/postBlast) * 100).toFixed(2);
+        var machine = $('#extractionProcessMachine').val();
+        var note = $('extractionProcessNote').val();
+
+        if(id) {
+          Meteor.call('updateProcessExtraction', id, jobId, date, shift, userId, postBlast, crude, extractionYield, machine, note, function(error, result) {
+            if(error) {
+              swal('Error', error, 'error');
+            } else {
+              swal({
+                title: 'Success',
+                text: 'The Extraction Process was saved.',
+                type: 'success',
+                closeModal: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+              }, function() {
+                $('#createExtractionProcessForm').trigger("reset");
+                $('#createExtractionProcessModal').modal('toggle');
+                Meteor.call('createJobHistory', jobId, 'Extraction Process was saved');
+              });
+            }
+          });
+        } else {
+          Meteor.call('createProcessExtraction', jobId, date, shift, userId, postBlast, crude, extractionYield, machine, note, function(error, result) {
+            if(error) {
+              swal('Error', error, 'error');
+            } else {
+              swal({
+                title: 'Success',
+                text: 'The Extraction Process was saved.',
+                type: 'success',
+                closeModal: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+              }, function() {
+                $('#createExtractionProcessForm').trigger("reset");
+                $('#createExtractionProcessModal').modal('toggle');
+                Meteor.call('createJobHistory', jobId, 'Extraction Process was saved');
+              });
+            }
+          });
+        }
+      },
+
+      // extractionProcessEditBtn
+      'click #extractionProcessEditBtn': function(event) {
+          event.preventDefault();
+          var machines =  Machine.find({deleted: false, type: 'Extraction Equipment'}).map(function(values) {
+            return  {
+              label: values.name,
+              value: values._id
+            };
+          });
+          Session.set('machines', machines);
+
+          var id = this._id;
+          $('#extractionProcessDate').val( moment(this.date).format(Meteor.settings.public.shortDate));
+          $('#extractionProcessShift').val(this.shift);
+          $('#extractionProcessUser').val(this.userId);
+          $('#extractionProcessPostBlast').val(this.postBlast);
+          $('#extractionProcessCrude').val(this.crude);
+          $('#extractionProcessMachine').val(this.machine);
+          $('#extractionProcessId').val(id);
+          $('#createExtractionProcessModal').modal('toggle');
+      },
+
+      // extractionProcessDeleteBtn
+      'click #extractionProcessDeleteBtn': function(event) {
+        event.preventDefault();
+        var id = this._id;
+        var jobId = Router.current().params._id;
+
+        swal({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this process!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          dangerMode: true,
+        }, function(isConfirm) {
+          if (isConfirm) {
+            Meteor.call('deleteProcessExtraction', id, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              } else {
+                swal({
+                  title: 'Success',
+                  text: 'The Process was deleted.',
+                  type: 'success',
+                  closeModal: true,
+                  closeOnClickOutside: false,
+                  closeOnEsc: false,
+                }, function() {
+                  // record History
+                  Meteor.call('createJobHistory', jobId, 'Extraction Process was deleted');
+                });
+              }
+            });
+          } else {
+            swal('Cancelled', 'The process was not deleted', 'error');
+          }
+        });
+      },
+
       // createNoteBtn
       'click #createNoteBtn': function(event) {
         event.preventDefault();
@@ -238,6 +455,7 @@ import './jobView.html';
           });
         }
       },
+
       // jobNoteEditBtn
       'click #jobNoteEditBtn': function(event) {
         event.preventDefault();
@@ -248,6 +466,7 @@ import './jobView.html';
         $('#jobNoteId').val(id);
         $('#createJobNoteModal').modal('toggle');
       },
+
       // jobNoteDeleteBtn
       'click #jobNoteDeleteBtn': function(event) {
         event.preventDefault();
@@ -306,59 +525,7 @@ import './jobView.html';
         $('#deliverableDate').datepicker({container:'#datepickerContainer2'});
         $('#createDeliverableModal').modal('toggle');
       },
-      // processEditBtn
-      'click #processEditBtn': function(event) {
-        event.preventDefault();
 
-        $('#processId').val(this._id);
-        $('#processName').val(this.name);
-        $('#processUser').val(this.userId);
-        $('#processDate').val( moment(this.date).format(Meteor.settings.public.shortDate)) ;
-        $('#processWeight').val(this.weight);
-
-        $('#createProcessModal').modal('toggle');
-      },
-      // processDeleteBtn
-      'click #processDeleteBtn': function(event) {
-        event.preventDefault();
-        var id = this._id;
-        var jobId =  Router.current().params._id;
-        var name = this.name;
-        swal({
-          title: 'Are you sure?',
-          text: 'You will not be able to recover this Process!',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#DD6B55',
-          confirmButtonText: 'Delete',
-          cancelButtonText: 'Cancel',
-          closeOnConfirm: false,
-          closeOnCancel: false,
-          dangerMode: true,
-        }, function(isConfirm){
-          if (isConfirm) {
-            Meteor.call('deleteProcess', id, function(error, result) {
-              if(error) {
-                swal('Error', error, 'error');
-              } else {
-                swal({
-                  title: 'Success',
-                  text: 'The Process was deleted.',
-                  type: 'success',
-                  closeModal: true,
-                  closeOnClickOutside: false,
-                  closeOnEsc: false,
-                }, function() {
-                  // record History
-                  Meteor.call('createJobHistory', jobId, 'Job Process '+name+' was deleted');
-                });
-              }
-            });
-          } else {
-            swal('Cancelled', 'The Job Process was not deleted', 'error');
-          }
-        });
-      },
 
       // deliverableEditBtn
       'click #deliverableEditBtn': function(event) {

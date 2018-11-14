@@ -218,6 +218,42 @@ Router.map(function() {
     title: 'View Job History',
     name: 'jobHistory'
   });
+  this.route('/job/:_id/process', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'jobProcess',
+    title: 'View Job Process',
+    name: 'jobProcess'
+  });
+  this.route('/job/:_id/process/extraction', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'jobExtractionProcess',
+    title: 'View Extraction Process',
+    name: 'jobExtractionProcess'
+  });
+  this.route('/job/:_id/process/distillation', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'jobDistillationProcess',
+    title: 'View Distillation Process',
+    name: 'jobDistillationProcess'
+  });
 });
 
 Router.route('/inventory', {

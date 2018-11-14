@@ -17,12 +17,18 @@
             <div class="pull-right dropdown">
               <button type="button" data-toggle="dropdown" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
               <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                {{#if isInRole 'Manager'}}
                 <li><a href="job/{{job._id}}/edit" title="Edit this Job">Edit</a></li>
                 <li><a href="#" title="Delete this Job" id="deleteJobBtn">Delete</a></li>
+                {{/if}}
+
+                {{#if isInRole 'Employee'}}
                 <li><a href="job/{{job._id}}/form/create">New Form</a></li>
                 <li><a href="#" id="createNoteBtn">New Note</a></li>
-                <li><a href="#" id="createProcessBtn">New Process</a></li>
+                <li><a href="#" id="createExtractionProcessBtn">New Extraction Process</a></li>
+                <li><a href="#" id="createDistillationProcessBtn">New Distillation Process</a></li>
                 <li><a href="#" id="createDeliverableBtn">New Deliverable</a></li>
+                {{/if}}
               </ul>
             </div>
             <!-- END dropdown-->
@@ -148,8 +154,8 @@
                 <tbody>
                   <td>{{biomass}}</td>
                   <td>{{postblast}}</td>
-                  <td>{{crude}}</td>
-                  <td>{{yield postblast crude}}%</td>
+                  <td></td>
+                  <td>%</td>
                   <td>{{distilate}}</td>
                   <td>{{distilateYield crude distilate}}%</td>
                 </tbody>
@@ -162,37 +168,90 @@
       <!-- right column -->
       <div class="col-md-5 col-lg-4">
         <div class="card">
-          <h5 class="card-heading">Processing</h5>
+          <h5 class="card-heading">Extraction Process</h5>
           <div class="card-body">
             <div class="table-responsive bootgrid">
-              <table id="processTable" class="table table-striped table-vmiddle">
-                <tr>
-                  <th>Date</th>
-                  <th>Name</th>
-                  <th>User</th>
-                  <th>Weight</th>
-                  <th></th>
-                </tr>
+              <table id="extractionProcessTable" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Shift</th>
+                    <th>User</th>
+                    <th nowrap>Post Blast</th>
+                    <th>Crude</th>
+                    <th>Yield</th>
+                    <th></th>
+                  </tr>
+                </thead>
                 <tbody>
-                {{#each processes}}
+                {{#each extractionProcess}}
                   <tr>
                     <td>{{shortDate date}}</td>
-                    <td>{{name}}</td>
+                    <td>{{shift}}</td>
                     <td>{{userEmail userId}}</td>
-                    <td>{{weight}}</td>
-                    <td class="text-right">
-                      <button type="button" class="btn btn-flat btn-sm btn-info" id="processEditBtn" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
-                      <button type="button" class="btn btn-flat btn-sm btn-danger" id="processDeleteBtn" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                    <td>{{postBlast}}g</td>
+                    <td>{{crude}}g</td>
+                    <td>{{extractionYield}}%</td>
+                    <td class="text-right" nowrap>
+                      <button type="button" class="btn btn-flat btn-sm btn-info" id="extractionProcessEditBtn" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                      <button type="button" class="btn btn-flat btn-sm btn-danger" id="extractionProcessDeleteBtn" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
                     </td>
                   </tr>
                 {{else}}
                 <tr>
-                  <td colspan="5">No Process</td>
+                  <td colspan="7">No Extraction Process</td>
                 </tr>
                 {{/each}}
                 </tbody>
               </table>
             </div>
+            <div class="card-body pv0 text-right"><a href="/job/{{job._id}}/process/extraction" class="btn btn-flat btn-info">View all</a></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h5 class="card-heading">Distillation Process</h5>
+          <div class="card-body">
+            <div class="table-responsive bootgrid">
+              <table id="distillationProcessTable" class="table table-striped table-vmiddle">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Shift</th>
+                    <th>User</th>
+                    <th>Pass</th>
+                    <th nowrap>Run Start</th>
+                    <th nowrap>Run End</th>
+                    <th nowrap>Amount Start</th>
+                    <th nowrap>Amount End</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each distillationProcess}}
+                  <tr>
+                    <td>{{shortDate date}}</td>
+                    <td>{{shift}}</td>
+                    <td>{{userEmail userId}}</td>
+                    <td>{{pass}}</td>
+                    <td>{{runStart}}</td>
+                    <td>{{runEnd}}</td>
+                    <td>{{amountStart}}g</td>
+                    <td>{{amountEnd}}g</td>
+                    <td class="text-right" nowrap>
+                      <button type="button" class="btn btn-flat btn-sm btn-info" id="distillationProcessEditBtn" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
+                      <button type="button" class="btn btn-flat btn-sm btn-danger" id="distillationProcessDeleteBtn" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                    </td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="8">No Distillation Process</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <div class="card-body pv0 text-right"><a href="/job/{{job._id}}/process/distillation" class="btn btn-flat btn-info">View all</a></div>
           </div>
         </div>
 
@@ -405,6 +464,281 @@
     </div>
   </div>
 
+  <!-- createExtractionProcessModal -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="createExtractionProcessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">New Extraction Process</h4>
+        </div>
+        <div class="modal-body">
+          <form action="" novalidate="" id="createExtractionProcessForm" class="form-validate">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="extractionProcessDate" id="extractionProcessDate" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <div class="mda-form-control-line"></div>
+                    <div id="extractionProcessDateContainer" class="ui-datepicker ui-datepicker-popup dp-theme-primary"></div>
+                    <label>Date *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="extractionProcessShift" id="extractionProcessShift" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="First">First</option>
+                      <option value="Second">Second</option>
+                      <option value="Third">Third</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Shift *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="extractionProcessUser" id="extractionProcessUser" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                    {{#each employeeSelectList}}
+                      <option value="{{value}}">{{label}}</option>
+                    {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>User *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="extractionProcessPostBlast" id="extractionProcessPostBlast" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Post Blast <span class="small">(grams)</span> *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="extractionProcessCrude" id="extractionProcessCrude" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Crude <span class="small">(grams)</span> *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="extractionProcessMachine" id="extractionProcessMachine" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      {{#each selectMachines}}
+                        <option value="{{value}}">{{label}}</option>
+                      {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Machine *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <textarea name="extractionProcessNote" id="extractionProcessNote" required="false" class="form-control"></textarea>
+                    <div class="mda-form-control-line"></div>
+                    <label>Note</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="extractionProcessId" name="extractionProcessId" value="" />
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" id="saveExtractionProcessBtn">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- createDistillationProcessModal -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="createDistillationProcessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">New Distillation Process</h4>
+        </div>
+        <div class="modal-body">
+          <form action="" novalidate="" id="createDistillationProcessForm" class="form-validate">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="distillationProcessDate" id="distillationProcessDate" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <div class="mda-form-control-line"></div>
+                    <div id="distillationProcessDateContainer" class="ui-datepicker ui-datepicker-popup dp-theme-primary"></div>
+                    <label>Date *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="distillationProcessShift" id="distillationProcessShift" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="First">First</option>
+                      <option value="Second">Second</option>
+                      <option value="Third">Third</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Shift *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="distillationProcessUser" id="distillationProcessUser" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                    {{#each employeeSelectList}}
+                      <option value="{{value}}">{{label}}</option>
+                    {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>User *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="distillationProcessPass" id="distillationProcessPass" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      <option value="First">First</option>
+                      <option value="Second">Second</option>
+                      <option value="Third">Third</option>
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Pas *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div data-autoclose="true" class="mda-form-group clockpicker">
+                  <div class="mda-form-control">
+                    <input type="text" name="distillationProcessRunStart" id="distillationProcessRunStart" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <label>Run Start *</label>
+                    <div class="mda-form-control-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div data-autoclose="true" class="mda-form-group clockpicker">
+                  <div class="mda-form-control">
+                    <input type="text" name="distillationProcessRunEnd" id="distillationProcessRunEnd" required="true" ria-required="true" aria-invalid="true" class="form-control rel-wrapper ui-datepicker ui-datepicker-popup dp-theme-primary"/>
+                    <label>Run End *</label>
+                    <div class="mda-form-control-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="endWeightRow">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="distillationProcessAmountStart" id="distillationProcessAmountStart" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Amount Start <span class="small">grams</span> *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="endWeightRow">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <input type="text" name="distillationProcessAmountEnd" id="distillationProcessAmountEnd" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
+                    <div class="mda-form-control-line"></div>
+                    <label>Amount End <span class="small">grams</span> *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <select name="distillationProcessMachine" id="distillationProcessMachine" required="true" aria-required="true" aria-invalid="true" class="form-control">
+                      {{#each selectMachines}}
+                        <option value="{{value}}">{{label}}</option>
+                      {{/each}}
+                    </select>
+                    <div class="mda-form-control-line"></div>
+                    <label>Machine *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mda-form-group">
+                  <div class="mda-form-control">
+                    <textarea name="distillationProcessNote" id="distillationProcessNote" required="false" class="form-control"></textarea>
+                    <div class="mda-form-control-line"></div>
+                    <label>Note</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="distillationProcessId" name="distillationProcessId" value="" />
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" id="saveDistillationProcessBtn">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- createProcessModal -->
   <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="createProcessModal">
     <div class="modal-dialog modal-lg">
@@ -435,13 +769,14 @@
                 </div>
               </div>
             </div>
+
             <div id="processRow" class="hidden">
             <div class="row">
               <div class="col-md-12">
                 <div class="mda-form-group">
                   <div class="mda-form-control">
                     <select name="processUser" id="processUser" required="true" aria-required="true" aria-invalid="true" class="form-control">
-                    {{#each userSelectList}}
+                    {{#each employeeSelectList}}
                       <option value="{{value}}">{{label}}</option>
                     {{/each}}
                     </select>
@@ -511,7 +846,6 @@
                   <div class="mda-form-control">
                     <input type="text" name="endWeight" id="endWeight" required="true" ria-required="true" aria-invalid="true" class="form-control"/>
                     <div class="mda-form-control-line"></div>
-
                     <label>Start Weight <span class="small">grams</span> *</label>
                   </div>
                 </div>
