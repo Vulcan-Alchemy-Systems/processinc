@@ -11,17 +11,16 @@ import './jobUpdate.html';
         var id = Router.current().params._id;
         this.subscribe('singleJob', id);
         this.subscribe('allLocations');
+        this.subscribe('allActiveUser');
       });
     });
 
     // onRendered
     Template.jobUpdate.onRendered(function() {
       // dates
-      $('#start').datepicker({container:'#datepicker-container-1'});
-
-      $('#expectedFinish').datepicker({container:'#datepicker-container-2'});
-
-      $('#finish').datepicker({container:'#datepicker-container-3'});
+      $('#start').datepicker({container:'#datepicker-container-1', autoclose: true});
+      $('#expectedFinish').datepicker({container:'#datepicker-container-2', autoclose: true});
+      $('#finish').datepicker({container:'#datepicker-container-3', autoclose: true});
     });
 
     // helpers
@@ -41,6 +40,7 @@ import './jobUpdate.html';
       }
     });
 
+    // events
     Template.jobUpdate.events({
       'click #saveBtn': function(event) {
         event.preventDefault();
@@ -73,6 +73,5 @@ import './jobUpdate.html';
           }
         });
       },
-
     });
 })();

@@ -28,6 +28,7 @@ import './job/jobHistory.js';
 import './job/jobProcess.js';
 import './job/jobExtractionProcess.js';
 import './job/jobDistillationProcess.js';
+import './job/jobProcessDistillationPrint';
 
 // Admin
 import './admin/admin.js';

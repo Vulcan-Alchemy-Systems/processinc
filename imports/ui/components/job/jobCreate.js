@@ -15,9 +15,9 @@ import './jobCreate.html';
 
     Template.jobCreate.onRendered(function() {
       // dates
-      $('#start').datepicker({container:'#datepicker-container-1'});
+      $('#start').datepicker({container:'#datepicker-container-1', autoclose: true});
 
-      $('#expectedFinish').datepicker({container:'#datepicker-container-2'});
+      $('#expectedFinish').datepicker({container:'#datepicker-container-2', autoclose: true});
 
       // validation
       $('#new-job-form').validate({

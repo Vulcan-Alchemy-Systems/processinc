@@ -254,6 +254,19 @@ Router.map(function() {
     title: 'View Distillation Process',
     name: 'jobDistillationProcess'
   });
+  this.route('/job/:_id/process/distillation/print', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    layoutTemplate: 'print',
+    template: 'jobProcessDistillationPrint',
+    title: 'Print Job Process',
+    name: 'jobProcessDistillationPrint'
+  });
 });
 
 Router.route('/inventory', {

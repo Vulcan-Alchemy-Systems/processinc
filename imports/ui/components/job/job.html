@@ -31,7 +31,7 @@
 
                   {{#each jobs}}
                     <tr>
-                      <td><a href="/job/{{_id}}/view" title="View Job {{_id}}">{{_id}}</a></td>
+                      <td class="text-center"><a href="/job/{{_id}}/view" title="View Job {{_id}}"><span class="barcode">*{{_id}}*</span><br><span class="text-muted small">{{_id}}</span></a></td>
                       <td><a href="/user/{{userId}}/view" title="View User {{userEmail userId}}">{{userEmail userId}}</a></td>
                       <td>{{name}}</td>
                       <td>{{shortDate created}}</td>

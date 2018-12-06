@@ -128,6 +128,8 @@ import './jobDistillationProcess.html';
         });
         Session.set('machines', machines);
 
+        $('#distillationProcessDate').datepicker({container:'#distillationProcessDateContainer', autoclose: true});
+
         $('#distillationProcessId').val(this._id);
         $('#distillationProcessDate').val(moment(this.date).format(Meteor.settings.public.shortDate));
         $('#distillationProcessShift').val(this.shift);

@@ -123,6 +123,39 @@ import './jobView.html';
 
     // events
     Template.jobView.events({
+      // viewDistillationProcessBtn
+      'click .viewDistillationProcessBtn': function(event) {
+        event.preventDefault();
+
+        var result = Machine.findOne({_id:this.machine});
+        var machine = result.name;
+
+        var results = Meteor.users.findOne({_id: this.userId}, {fields: {emails: 1}});
+        if(results) {
+          var user = results.emails[0].address;
+        } else {
+          var user = 'Unknown';
+        }
+
+        $('#distillationProcessDateView').html(moment(this.date).format(Meteor.settings.public.shortDate));
+        $('#distillationProcessShiftView').html(this.shift);
+        $('#distillationProcessUserView').html(user);
+        $('#distillationProcessPassView').html(this.pass);
+        $('#distillationProcessMachineView').html(machine);
+        $('#distillationProcessStartTimeView').html(this.runStart);
+        $('#distillationProcessStartAmountView').html(this.amountStart + 'g');
+        $('#distillationProcessEndTimeView').html(this.runEnd);
+        $('#distillationProcessEndAmountView').html(this.amountEnd + 'g');
+        $('#distillationProcessNote').html(this.note);
+        $('#viewDistillationProcessModal').modal('toggle');
+      },
+
+      // viewExtractionProcessBtn
+      'click .viewExtractionProcessBtn' : function(event) {
+        event.preventDefault();
+        $('#viewExtractionProcessModal').modal('toggle');
+      },
+
       // createDistillationProcessBtn
       'click #createDistillationProcessBtn': function(event) {
         event.preventDefault();
@@ -204,7 +237,7 @@ import './jobView.html';
       // distillationProcessEditBtn
       'click #distillationProcessEditBtn': function(event) {
         event.preventDefault();
-        var machines =  Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
+        var machines = Machine.find({deleted: false, type: 'Lab Equipment'}).map(function(values) {
           return  {
             label: values.name,
             value: values._id

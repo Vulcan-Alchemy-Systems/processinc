@@ -1,15 +1,132 @@
 <template name="dashboard">
+  {{#if Template.subscriptionsReady}}
   <div class="content-heading bg-white">
     <div class="row">
       <div class="col-sm-9">
         <h4 class="m0 text-thin">Welcome to Your dashboard</h4><small>Process Inc LTD</small>
       </div>
-      <div class="col-sm-3 text-right hidden-xs">
-
-      </div>
     </div>
   </div>
   <div class="container-fluid">
+      <div class="col-md-7 col-lg-8">
+      <div class="card">
+        <div class="card-heading">
+          <div class="card-title">Crude Production</div>
+        </div>
+        <div class="card-body">
+          <div id="extraction-flotchart" class="flot-chart flot-chart-lg"></div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-heading">
+          <div class="card-title">First Pass</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Still One</p>
+              <div id="still-one-flotchart" class="flot-chart flot-chart-lg"></div>
+            </div>
+            <div class="col-md-6">
+              <p>Still Two</p>
+              <div id="still-two-pass-flotchart" class="flot-chart flot-chart-lg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-heading">
+          <div class="card-title">Second Pass</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Still Three</p>
+              <div id="still-three-pass-flotchart" class="flot-chart flot-chart-lg"></div>
+            </div>
+            <div class="col-md-6">
+              <p>Still Four</p>
+              <div id="still-four-pass-flotchart" class="flot-chart flot-chart-lg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-lg-4">
+      <div class="card">
+        <div class="card-heading">
+          <div class="card-title">Inventory</div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive bootgrid">
+            <table id="bootgrid-basic" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each deliverables}}
+                <tr>
+                  <td class="text-center">
+                    <span class="barcode">*{{_id}}*</span><br>
+                    <span class="text-muted small">{{_id}}</span>
+                  </td>
+                  <td>{{shortDate date}}</td>
+                  <td>{{weight}} <span class="small">grams</span></td>
+                </tr>
+              {{else}}
+                <tr>
+                  <td>No Inventory</td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body pv0 text-right"><a href="/inventory" class="btn btn-flat btn-info">View all</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-heading">
+          <div class="card-title">Jobs</div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive bootgrid">
+            <table id="bootgrid-basic" class="table table-striped">
+              <thead>
+                <tr>
+                  <th data-column-id="id">ID</th>
+                  <th data-column-id="user">User</th>
+                  <th data-column-id="description">Name</th>
+                  <th data-column-id="status">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each jobs}}
+                  <tr>
+                    <td class="text-center"><a href="/job/{{_id}}/view" title="View Job {{_id}}"><span class="barcode">*{{_id}}*</span><br>
+                      <span class="text-muted small">{{_id}}</span></a>
+                    </td>
+                    <td><a href="/user/{{userId}}/view" title="View User {{userEmail userId}}">{{userEmail userId}}</a></td>
+                    <td>{{name}}</td>
+                    <td>{{status}}</td>
+                  </tr>
+                {{else}}
+                <tr>
+                  <td colspan="6">No Jobs</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body pv0 text-right"><a href="/job" class="btn btn-flat btn-info">View all</a></div>
+        </div>
+      </div>
+    </div>
   </div>
+  {{/if}}
 </template>

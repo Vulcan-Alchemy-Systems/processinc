@@ -1,5 +1,5 @@
 <template name="jobView">
-  {{#if Template.subscriptionsReady}}
+
   <div class="container-overlap bg-blue-500">
     <div class="media m0 pv">
       <div class="media-left"></div>
@@ -8,6 +8,7 @@
       </div>
     </div>
   </div>
+  {{#if Template.subscriptionsReady}}
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-7 col-lg-8">
@@ -40,7 +41,7 @@
               <tbody>
                 <tr>
                   <td>ID:</td>
-                  <td>{{job._id}}</td>
+                  <td><span class="barcode">*{{job._id}}*</span><br><span class="text-muted small">{{job._id}}</span></td>
                 </tr>
                 <tr>
                   <td>User:</td>
@@ -186,7 +187,7 @@
                 <tbody>
                 {{#each extractionProcess}}
                   <tr>
-                    <td>{{shortDate date}}</td>
+                    <td><a href="#" title="View" class="viewExtractionProcessBtn">{{shortDate date}}</a></td>
                     <td>{{shift}}</td>
                     <td>{{userEmail userId}}</td>
                     <td>{{postBlast}}g</td>
@@ -230,7 +231,7 @@
                 <tbody>
                 {{#each distillationProcess}}
                   <tr>
-                    <td>{{shortDate date}}</td>
+                    <td><a href="#" title="View" class="viewDistillationProcessBtn">{{shortDate date}}</a></td>
                     <td>{{shift}}</td>
                     <td>{{userEmail userId}}</td>
                     <td>{{pass}}</td>
@@ -289,6 +290,7 @@
               </tbody>
               </table>
             </div>
+            <div class="card-body pv0 text-right"><a href="/job/{{job._id}}/deliverables" class="btn btn-flat btn-info">View all</a></div>
           </div>
         </div>
 
@@ -321,6 +323,82 @@
       </div>
     </div>
   </div>
+
+  <!-- viewDistillationProcessBtn -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="viewDistillationProcessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">View Distillation Process</h4>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive bootgrid">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td><b>Date</b></td>
+                  <td id="distillationProcessDateView"></td>
+                </tr>
+                <tr>
+                  <td><b>Shift</b></td>
+                  <td id="distillationProcessShiftView"></td>
+                </tr>
+                <tr>
+                  <td><b>User</b></td>
+                  <td id="distillationProcessUserView"></td>
+                </tr>
+                <tr>
+                  <td><b>Pass</b></td>
+                  <td id="distillationProcessPassView"></td>
+                </tr>
+                <tr>
+                  <td><b>Machine</b></td>
+                  <td id="distillationProcessMachineView"></td>
+                </tr>
+                <tr>
+                  <td><b>Start Time</b></td>
+                  <td id="distillationProcessStartTimeView"></td>
+                </tr>
+                <tr>
+                  <td><b>Start Amount</b></td>
+                  <td id="distillationProcessStartAmountView"></td>
+                </tr>
+                <tr>
+                  <td><b>End Time</b></td>
+                  <td id="distillationProcessEndTimeView"></td>
+                </tr>
+                <tr>
+                  <td><b>End Amount</b></td>
+                  <td id="distillationProcessEndAmountView"></td>
+                </tr>
+                <tr>
+                  <td><b>Note</b></td>
+                  <td id="distillationProcessNote"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- viewExtractionProcessModal -->
+  <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="viewExtractionProcessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">View Extraction Process</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- View Form -->
   <div tabindex="-1" role="dialog" class="modal fade modal-compose" id="jobFormModal">
     <div class="modal-dialog modal-lg">
@@ -440,7 +518,6 @@
               </div>
             </div>
           </div>
-
           <h4>Pre Processing</h4>
           <div class="row">
             <div class="col-lg-12">
@@ -458,7 +535,6 @@
               <p><b>Deliverables:</b> <span id="returnType"></span></p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -851,7 +927,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-md-12">
                 <div class="mda-form-group">
@@ -863,9 +938,6 @@
                 </div>
               </div>
             </div>
-
-
-
             <input type="hidden" id="processId" name="processId" value="" />
             <div class="text-center">
               <button type="button" class="btn btn-primary" id="saveProcessBtn">Save</button>
@@ -997,6 +1069,17 @@
       </div>
     </div>
   </div>
-
+  {{else}}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h5 class="card-heading pb0">
+            Loading
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
   {{/if}}
 </template>
