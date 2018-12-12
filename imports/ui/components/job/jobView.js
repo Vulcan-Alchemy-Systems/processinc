@@ -30,14 +30,64 @@ import './jobView.html';
     });
 
     // onRendered
-    Template.jobView.onRendered(function() {
-      var id = Router.current().params._id;
-      Meteor.call('createJobHistory', id, 'Job was viewed');
-      $('.clockpicker').clockpicker({
+    Template.jobView.onRendered(formXeditable);
 
-      });
+    function formXeditable() {
 
-    });
+        if( !$.fn.editableform ) return;
+
+        var id = Router.current().params._id;
+        var status = 'Not Selected';
+        var result = Job.findOne({_id: id});
+
+        if(result) {
+          status = result.status;
+        }
+        Meteor.call('createJobHistory', id, 'Job was viewed');
+        $('.clockpicker').clockpicker({});
+
+        // Font Awesome support
+        $.fn.editableform.buttons =
+            '<button type="submit" class="btn btn-primary btn-sm editable-submit">' +
+            '<i class="icon-fw ion-checkmark"></i>' +
+            '</button>' +
+            '<button type="button" class="btn btn-default btn-sm editable-cancel">' +
+            '<i class="icon-fw ion-close-round"></i>' +
+            '</button>';
+
+        //defaults
+        $.fn.editable.defaults.url = 'server/xeditable.res';
+
+        $('#jobStatusXedit').editable({
+          prepend: status,
+          source: [{
+              value: 'New',
+              text: 'New'
+          }, {
+              value: 'In Process',
+              text: 'In Process'
+          }, {
+              value: 'On Hold',
+              text: 'On Hold'
+          }, {
+              value: 'Completed',
+              text: 'Completed'
+          }, {
+              value: 'Canceled',
+              text: 'Canceled'
+          }]
+        });
+
+        // jobStatusXedit
+        $('#jobStatusXedit').on('save', function(e, params) {
+            Meteor.call('updateJobStatus', id, params.newValue, function(error, result) {
+              if(error) {
+                swal('Error', error, 'error');
+              }
+            });
+        });
+    }
+
 
     // helpers
     Template.jobView.helpers({
@@ -84,11 +134,10 @@ import './jobView.html';
       postblast: function() {
         var jobId = Router.current().params._id;
         var total = 0;
-
-        Process.find({deleted: false, jobId: jobId, name: 'Post Blast'}).map(function(doc) {
-          total += parseInt(doc.weight);
+        var results = ExtractionProcess.find({deleted: false, jobId: jobId}, {skip: 0, limit: 5, sort: {date: -1}}).fetch();
+        $.each(results, function(key, process) {
+          total = total + process.postBlast;
         });
-
         return total;
       },
       biomass: function() {
@@ -101,28 +150,65 @@ import './jobView.html';
 
         return total;
       },
+      crude: function() {
+        var jobId = Router.current().params._id;
+        var total = 0;
+        var results = ExtractionProcess.find({deleted: false, jobId: jobId}, {skip: 0, limit: 5, sort: {date: -1}}).fetch();
+        $.each(results, function(key, process) {
+          total = total + process.crude;
+        });
+        return total;
+      },
       distilate: function() {
         var jobId = Router.current().params._id;
         var total = 0;
-        Process.find({deleted: false, jobId: jobId, name: 'Distilate'}).map(function(doc) {
-          total += parseInt(doc.weight);
+        var results = DistillationProcess.find({deleted: false, jobId: jobId, pass: 'Second'}, {sort: {date: 1}}).fetch();
+        $.each(results, function(key, process) {
+          total = total + process.amountEnd;
         });
         return total;
       },
       distilateYield: function(crude, distilate) {
         var total = 0;
-        if(distilate) {
+        if(distilate && crude) {
           total = ((distilate/crude) * 100).toFixed(2);
+        }
+        return total;
+      },
+      crudeYield: function(postblast, crude) {
+        var total = 0;
+        if(postblast && crude) {
+          total = ((crude/postblast) * 100).toFixed(2);
         }
         return total;
       },
       selectMachines: function() {
         return Session.get('machines');
+      },
+      inventoryCheck: function() {
+        var id = Router.current().params._id;
+        var deliverables = Deliverable.find({deleted: false, jobId: id}, {sort: {date: 1}}).fetch();
+        var deliverableTotal = 0;
+        $.each(deliverables, function(key, deliverable) {
+          deliverableTotal = deliverableTotal + parseInt(deliverable.weight);
+        });
+
+        var distillations = DistillationProcess.find({deleted: false, jobId: id, pass: 'Second'}, {sort: {date: 1}}).fetch();
+        var distillationTotal = 0;
+        $.each(distillations, function(key, distillation) {
+          distillationTotal = distillationTotal + parseInt(distillation.amountEnd);
+        });
+
+        if(distillationTotal > deliverableTotal) {
+          $('#noMatch').html('<div class="alert alert-danger" role="alert" id="distNotMatch">Finished distillation amount does not match inventory!</div>');
+        }
       }
     });
 
     // events
     Template.jobView.events({
+
+
       // viewDistillationProcessBtn
       'click .viewDistillationProcessBtn': function(event) {
         event.preventDefault();
@@ -555,7 +641,7 @@ import './jobView.html';
       // createDeliverableBtn
       'click #createDeliverableBtn': function(event) {
         event.preventDefault();
-        $('#deliverableDate').datepicker({container:'#datepickerContainer2'});
+        $('#deliverableDate').datepicker({container:'#datepickerContainer2', autoclose: true});
         $('#createDeliverableModal').modal('toggle');
       },
 

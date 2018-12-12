@@ -11,6 +11,7 @@
         <th nowrap>Run End</th>
         <th nowrap>Amount Start</th>
         <th nowrap>Amount End</th>
+        <th>Yield</th>
       </tr>
     </thead>
     <tbody>
@@ -24,12 +25,69 @@
         <td>{{runEnd}}</td>
         <td>{{amountStart}}g</td>
         <td>{{amountEnd}}g</td>
+        <td>{{processYield amountStart amountEnd}}%</td>
       </tr>
     {{else}}
       <tr>
         <td colspan="7">No Distillation Process</td>
       </tr>
     {{/each}}
+    </tbody>
+  </table>
+  <hr />
+  <h4 class="media-heading">First Pass Totals</h4>
+  <table class="table table-striped table-vmiddle">
+    <thead>
+      <tr>
+        <th>Run Time</th>
+        <th>Start Weight</th>
+        <th>Finish Weight</th>
+        <th>Yield</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{totalRunTImeFirstPass}}h</td>
+        <td>{{totalStartFirstPass}}g</td>
+        <td>{{totalFinishFirstPass}}g</td>
+        <td>{{processYield totalStartFirstPass totalFinishFirstPass}}%</td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 class="media-heading">Second Pass Totals</h4>
+  <table class="table table-striped table-vmiddle">
+    <thead>
+      <tr>
+        <th>Run Time</th>
+        <th>Start Weight</th>
+        <th>Finish Weight</th>
+        <th>Yield</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{totalRunTImeSecondPass}}h</td>
+        <td>{{totalStartSecondPass}}g</td>
+        <td>{{totalFinishSecondPass}}g</td>
+        <td>{{processYield totalStartSecondPass totalFinishSecondPass}}%</td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 class="media-heading">Finish Totals</h4>
+  <table class="table table-striped table-vmiddle">
+    <thead>
+      <tr>
+        <th>Start Weight</th>
+        <th>End Weight</th>
+        <th>Yield</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{totalStartFirstPass}}g</td>
+        <td>{{totalFinishSecondPass}}g</td>
+        <td>{{processYield totalStartFirstPass totalFinishSecondPass}}%</td>
+      </tr>
     </tbody>
   </table>
 </template>

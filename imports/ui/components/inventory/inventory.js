@@ -83,6 +83,6 @@ import './inventory.html';
               }
             });
         });
-      }
+      },
     });
 })();

@@ -12,9 +12,7 @@
       <div class="col-md-12">
         <div class="card">
           <h5 class="card-heading pb0">
-            <div class="pull-right">
-              <a href="/job/{{job._id}}/process/distillation/print" title="print" target="_blank"><i class="ion-printer"></i></a>
-            </div>
+            <a href="/job/{{job._id}}/process/distillation/print" title="Print" target="_blank" class="btn btn-flat btn-lg btn-info"><i class="ion-printer"></i></a>
           </h5>
           <div class="card-body">
             <div class="table-responsive bootgrid">
@@ -29,6 +27,7 @@
                     <th nowrap>Run End</th>
                     <th nowrap>Amount Start</th>
                     <th nowrap>Amount End</th>
+                    <th>Yield</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -43,6 +42,7 @@
                     <td>{{runEnd}}</td>
                     <td>{{amountStart}}g</td>
                     <td>{{amountEnd}}g</td>
+                    <td>{{processYield amountStart amountEnd}}%</td>
                     <td class="text-right" nowrap>
                       <button type="button" class="btn btn-flat btn-sm btn-info" id="distillationProcessEditBtn" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
                       <button type="button" class="btn btn-flat btn-sm btn-danger" id="distillationProcessDeleteBtn" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
@@ -56,6 +56,85 @@
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h5 class="card-heading pb0">First Pass Totals</h5>
+          <div class="card-body">
+            <table class="table table-striped table-vmiddle">
+              <thead>
+                <tr>
+                  <th>Run Time</th>
+                  <th>Start Weight</th>
+                  <th>Finish Weight</th>
+                  <th>Yield</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{totalRunTImeFirstPass}}h</td>
+                  <td>{{totalStartFirstPass}}g</td>
+                  <td>{{totalFinishFirstPass}}g</td>
+                  <td>{{processYield totalStartFirstPass totalFinishFirstPass}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h5 class="card-heading pb0">Second Pass Totals</h5>
+          <div class="card-body">
+            <table class="table table-striped table-vmiddle">
+              <thead>
+                <tr>
+                  <th>Run Time</th>
+                  <th>Start Weight</th>
+                  <th>Finish Weight</th>
+                  <th>Yield</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{totalRunTImeSecondPass}}h</td>
+                  <td>{{totalStartSecondPass}}g</td>
+                  <td>{{totalFinishSecondPass}}g</td>
+                  <td>{{processYield totalStartSecondPass totalFinishSecondPass}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h5 class="card-heading pb0">Finish Totals</h5>
+          <div class="card-body">
+            <table class="table table-striped table-vmiddle">
+              <thead>
+                <tr>
+                  <th>Start Weight</th>
+                  <th>End Weight</th>
+                  <th>Yield</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{totalStartFirstPass}}g</td>
+                  <td>{{totalFinishSecondPass}}g</td>
+                  <td>{{processYield totalStartFirstPass totalFinishSecondPass}}%</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

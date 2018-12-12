@@ -29,6 +29,7 @@ import './job/jobProcess.js';
 import './job/jobExtractionProcess.js';
 import './job/jobDistillationProcess.js';
 import './job/jobProcessDistillationPrint';
+import './job/jobDeliverable.js';
 
 // Admin
 import './admin/admin.js';
@@ -51,6 +52,7 @@ import './machine/machineView.js';
 
 // inventory
 import './inventory/inventory.js';
+import './inventory/inventoryPrint.js';
 
 // dev
 import './charts/flot.js';

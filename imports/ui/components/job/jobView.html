@@ -8,7 +8,7 @@
       </div>
     </div>
   </div>
-  {{#if Template.subscriptionsReady}}
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-7 col-lg-8">
@@ -36,6 +36,8 @@
             Details
           </h5>
           <div class="card-body">
+            <div id="noMatch"></div>
+            {{inventoryCheck}}
             <p>{{job.description}}</p>
             <table class="table table-striped">
               <tbody>
@@ -53,7 +55,7 @@
                 </tr>
                 <tr>
                   <td>Status:</td>
-                  <td>{{job.status}}</td>
+                  <td><a id="jobStatusXedit" href="#" data-type="select" data-pk="1" data-value="{{job.status}}" data-title="Select Status"></a></td>
                 </tr>
                 <tr>
                   <td>Created:</td>
@@ -149,16 +151,18 @@
                     <th>Crude</th>
                     <th>Crude Yield</th>
                     <th>Distilate</th>
-                    <th>Distilate Yield</th>
+                    <th>Distilate To Crude Yield</th>
+                    <th>Distilate To Biomass Yield</th>
                   </tr>
                 </thead>
                 <tbody>
                   <td>{{biomass}}</td>
                   <td>{{postblast}}</td>
-                  <td></td>
-                  <td>%</td>
+                  <td>{{crude}}</td>
+                  <td>{{crudeYield postblast crude}}%</td>
                   <td>{{distilate}}</td>
                   <td>{{distilateYield crude distilate}}%</td>
+                  <td>{{distilateYield biomass distilate}}%</td>
                 </tbody>
               </table>
             </div>
@@ -280,6 +284,7 @@
                   <td class="text-right">
                     <button type="button" class="btn btn-flat btn-sm btn-info" id="deliverableEditBtn" data-row-id="{{_id}}"><em class="ion-edit"></em></button>
                     <button type="button" class="btn btn-flat btn-sm btn-danger" id="deliverableDeleteBtn" data-row-id="{{_id}}"><em class="ion-trash-a"></em></button>
+                    <a href="/inventory/{{_id}}/print" title="Print" target="_blank" class="btn btn-flat btn-sm btn-info"><em class="ion-printer"></em></a>
                   </td>
                 </tr>
               {{else}}
@@ -1069,17 +1074,6 @@
       </div>
     </div>
   </div>
-  {{else}}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <h5 class="card-heading pb0">
-            Loading
-          </h5>
-        </div>
-      </div>
-    </div>
-  </div>
-  {{/if}}
+
+
 </template>

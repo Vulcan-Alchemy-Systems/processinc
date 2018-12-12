@@ -127,6 +127,14 @@ Meteor.methods({
       throw new Meteor.Error('Failed to save Job');
     }
   },
+  // updateJobStatus
+  updateJobStatus: function(id, status) {
+    var result = Job.update(id, {$set: {
+      status: status,
+    }});
+
+    return result;
+  },
   // updateJob
   updateJob: function(id, userId, locationId, name, description, start, expectedFinish, finish, status) {
     var object = {

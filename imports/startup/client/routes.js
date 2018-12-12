@@ -267,20 +267,47 @@ Router.map(function() {
     title: 'Print Job Process',
     name: 'jobProcessDistillationPrint'
   });
+  this.route('/job/:_id/deliverables', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'jobDeliverable',
+    title: 'Job Deliverables',
+    name: 'jobDeliverable'
+  });
+});
+Router.map(function() {
+  this.route('/inventory', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    template: 'inventory',
+    title: 'Inventory',
+    name: 'inventory'
+  });
+  this.route('/inventory/:id/print', {
+    onBeforeAction: function() {
+      if(!Meteor.userId()) {
+        Router.go('login');
+      } else {
+        this.next();
+      }
+    },
+    layoutTemplate: 'print',
+    template: 'inventoryPrint',
+    title: 'Print Inventory',
+    name: 'inventoryPrint'
+  });
 });
 
-Router.route('/inventory', {
-  onBeforeAction: function() {
-    if(!Meteor.userId()) {
-      Router.go('login');
-    } else {
-      this.next();
-    }
-  },
-  template: 'inventory',
-  title: 'Inventory',
-  name: 'inventory'
-});
 
 // roles routes
 Router.route('/role', {
